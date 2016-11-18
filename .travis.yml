@@ -18,6 +18,13 @@ install:
   # add composer's global bin directory to the path
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
 
+install:
+  # install php packages required for running YAWIK phpunit tests
+  - sudo apt-get install -y --force-yes php5-intl php5-curl php5-xsl
+
+  # add composer's global bin directory to the path
+  - export PATH="$HOME/.composer/vendor/bin:$PATH"
+
 before_script:
   # install Mongo extension
   - sh -c "wget http://pecl.php.net/get/$PECLMONGO.tgz"
@@ -32,12 +39,14 @@ before_script:
   - phpenv config-add .travis/phpenv.ini
   - ./install.sh -b .travis/build.properties.travis
   - ./composer.phar self-update
-  - ./composer.phar install
-  - cd module/ && git clone https://github.com/cross-solution/YawikSolr.git Solr
+  - ./composer.phar create-project cross-solution/yawik
+  - cd yawik/module
+  - ln -s ../../ YawikSolr
+  - ls -l YawikSolr
 
 script:
   - ln -s ../test/build/logs build
-  - cd module/Solr/test
+  - cd test
   - phpunit --configuration $TRAVIS_BUILD_DIR/test/phpunit.xml.dist
 
 after_script:
