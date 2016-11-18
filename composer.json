@@ -1,0 +1,18 @@
+{
+    "type": "yawik-module",
+    "name": "cross-solution/solr",
+    "description": "This module enables solr search for job openings.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Carsten Bleek",
+            "email": "bleek@cross-solution.de"
+        }
+    ],
+    "keywords": [
+        "yawik"
+    ],
+    "require": {
+        "composer/installers": "*"
+    }
+}
