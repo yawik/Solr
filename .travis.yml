@@ -34,7 +34,10 @@ before_script:
   - curl -sS https://getcomposer.org/installer | php
   - ./composer.phar self-update
   - ./composer.phar create-project cross-solution/yawik ../yawik
-  - mv `basename $TRAVIS_BUILD_DIR` `dirname $TRAVIS_BUILD_DIR`
+  - echo $TRAVIS_BUILD_DIR
+  - ls $TRAVIS_BUILD_DIR
+  - ls `dirname $TRAVIS_BUILD_DIR`
+  - mv ../`basename $TRAVIS_BUILD_DIR` `dirname $TRAVIS_BUILD_DIR`/yawik
 
 script:
   - cd `dirname $TRAVIS_BUILD_DIR`/yawik/module/YawikSolr/test
