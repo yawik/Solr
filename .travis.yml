@@ -44,11 +44,11 @@ before_script:
   - cd yawik/module
   - ln -s ../../ YawikSolr
   - ls -l YawikSolr
+  - ls -l ../../
 
 script:
-  - ln -s ../test/build/logs build
-  - cd test
-  - phpunit --configuration $TRAVIS_BUILD_DIR/test/phpunit.xml.dist
+  - cd $TRAVIS_BUILD_DIR/yawik/module/SolrYawik/test
+  - phpunit --configuration $TRAVIS_BUILD_DIR/yawik/module/SolrYawik/test/phpunit.xml.dist
 
 after_script:
   - cd $TRAVIS_BUILD_DIR
