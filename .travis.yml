@@ -21,7 +21,7 @@ install:
 
 install:
   # install php packages required for running YAWIK phpunit tests
-  - sudo apt-get install -y --force-yes php5-intl php5-curl php5-xsl
+  - sudo apt-get install -y --force-yes php5-intl php5-curl php5-xsl php5-dev
 
   # add composer's global bin directory to the path
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
