@@ -34,15 +34,11 @@ before_script:
   - curl -sS https://getcomposer.org/installer | php
   - ./composer.phar self-update
   - ./composer.phar create-project cross-solution/yawik ../yawik
-  - echo $TRAVIS_BUILD_DIR
-  - ls $TRAVIS_BUILD_DIR
-  - ls `dirname $TRAVIS_BUILD_DIR`
   - mv ../`basename $TRAVIS_BUILD_DIR` `dirname $TRAVIS_BUILD_DIR`/yawik/module
 
 script:
-  - ls `dirname $TRAVIS_BUILD_DIR`/yawik
   - cd `dirname $TRAVIS_BUILD_DIR`/yawik/module/YawikSolr/test
-  - phpunit --configuration `dirname $TRAVIS_BUILD_DIR`/yawik/module/YawikSolr/test/phpunit.xml.dist
+  - phpunit
 
 after_script:
   - cd $TRAVIS_BUILD_DIR
