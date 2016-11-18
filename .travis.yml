@@ -38,7 +38,7 @@ before_script:
   - sh -c "cd $PECLSOLR && phpize && ./configure && make && sudo make install"
 
   - phpenv config-add .travis/phpenv.ini
-  - ./install.sh -b .travis/build.properties.travis
+  - curl -sS https://getcomposer.org/installer | php
   - ./composer.phar self-update
   - ./composer.phar create-project cross-solution/yawik
   - cd yawik/module
