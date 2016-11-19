@@ -39,7 +39,7 @@ before_script:
   - mv ../`basename $TRAVIS_BUILD_DIR` `dirname $TRAVIS_BUILD_DIR`/yawik/module
 
 script:
-  - cd `dirname $TRAVIS_BUILD_DIR`/yawik/module/YawikSolr/test
+  - cd `dirname $TRAVIS_BUILD_DIR`/yawik/module/Solr/test
   - phpunit
 
 after_script:
