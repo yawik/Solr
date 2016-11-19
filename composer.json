@@ -1,6 +1,6 @@
 {
     "type": "yawik-module",
-    "name": "cross-solution/yawik-solr",
+    "name": "yawik/solr",
     "description": "This module enables solr search for job openings.",
     "license": "MIT",
     "authors": [
