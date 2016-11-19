@@ -1,5 +1,5 @@
-YawikSolr
-=========
+Solr
+====
 
 This module makes job entities searchable with Solr. In addition it enables facet search.
 
