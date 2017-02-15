@@ -56,8 +56,8 @@ return array(
     ],
 
     'filters' => [
-        'invokables'=> [
-            'Solr/Jobs/PaginationQuery' => 'Solr\Filter\JobBoardPaginationQuery',
-        ],
+        'factories' => [
+            'Solr/Jobs/PaginationQuery' => 'Solr\Factory\Filter\JobBoardPaginationQueryFactory',
+        ]
     ],
 );

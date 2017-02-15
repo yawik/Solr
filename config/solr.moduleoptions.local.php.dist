@@ -21,6 +21,27 @@ $options = [
 
     // A path for solr jobs index
     'jobsPath' => '/solr/YawikJobs',
+
+    // List of Facet Fields. Fieldnames must exist in the solr index. Each facet field must have a 'name'.
+    // 'label' is optional. It can be used as a headline of the facet result.
+    'facetFields' => [
+        [
+            'name' => 'regionList',
+            'label' => 'Region'
+        ]
+    ],
+    //
+    'parameterNames' => [
+        'q' => [
+            'name' => 'q'
+        ],
+        'l' => [
+            'name' => 'q'
+        ],
+        'd' => [
+            'name' => 'q'
+        ]
+    ]
 ];
 
 /*

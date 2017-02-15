@@ -39,6 +39,22 @@ class Util
     }
 
     /**
+     * Converts a location String "c:<lon>,<lat>" in "<lon>,<lat>"
+     * @param Location $location
+     *
+     * @return string
+     */
+    static public function convertLocationString($location)
+    {
+        $coordinate = ltrim($location,'c:');
+        $coordinate = strtr($coordinate, [
+            ',' => '.',
+            ':' => ','
+        ]);
+        return $coordinate;
+    }
+
+    /**
      * Convert date time into acceptable solr document format
      *
      * @param DateTime $date

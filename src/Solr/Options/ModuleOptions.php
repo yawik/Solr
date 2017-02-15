@@ -10,6 +10,7 @@
 namespace Solr\Options;
 
 
+use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use Zend\Stdlib\AbstractOptions;
 
 /**
@@ -21,6 +22,13 @@ use Zend\Stdlib\AbstractOptions;
  */
 class ModuleOptions extends AbstractOptions
 {
+
+    const FIELD_QUERY = 'q';
+    const FIELD_LOCATION = 'l';
+    const FIELD_DISTANCE = 'd';
+
+    private $validFields = [self::FIELD_QUERY, self::FIELD_LOCATION, self::FIELD_DISTANCE ];
+
     /**
      * @var bool
      */
@@ -55,6 +63,31 @@ class ModuleOptions extends AbstractOptions
      * @var string
      */
     protected $jobsPath = '/solr/YawikJobs';
+
+    /**
+     * @var $facetFields array
+     */
+    protected $facetFields = [
+            [
+                'name' => 'regionList',
+                'label' => 'Region',
+            ]
+        ];
+
+    /**
+     * @var $parameterNames array
+     */
+    protected $parameterNames = [
+        self::FIELD_QUERY => [
+            'name' => 'q'
+        ],
+        self::FIELD_LOCATION => [
+            'name' => 'l'
+        ],
+        self::FIELD_DISTANCE => [
+            'name' => 'd'
+        ]
+    ];
 
     /**
      * @return boolean
@@ -187,5 +220,51 @@ class ModuleOptions extends AbstractOptions
         $this->jobsPath = $jobsPath;
 
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFacetFields() {
+        return $this->facetFields;
+    }
+
+    /**
+     * @param $facetFields
+     *
+     * @return $this
+     */
+    public function setFacetFields($facetFields) {
+        $this->facetFields=$facetFields;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getParameterNames() {
+        return $this->parameterNames;
+    }
+
+    /**
+     * @param $parameterNames
+     *
+     * @return $this
+     */
+    public function setParameterNames($parameterNames) {
+        $this->parameterNames=$parameterNames;
+        return $this;
+    }
+
+    /**
+     * @param $key
+     *
+     * @return mixed
+     */
+    public function getParameterName($key) {
+        if (!in_array($key, $this->validFields)) {
+            throw new \InvalidArgumentException('an invalid field name was passed. Valid fieldnames are: (' . implode('|', $this->validFields ).')');
+        }
+        return $this->parameterNames[$key]['name'];
     }
 }
