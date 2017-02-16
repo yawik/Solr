@@ -516,5 +516,21 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
         // TODO: Implement setTemplateValues() method.
     }
 
+    /**
+     * @param \Jobs\Entity\Classifications $classifications
+     *
+     * @return self
+     */
+    public function setClassifications($classifications)
+    {
+        return $this->job->setClassifications($classifications);
+    }
 
+    /**
+     * @return \Jobs\Entity\Classifications
+     */
+    public function getClassifications()
+    {
+        return $this->job->getClassifications();
+    }
 }
