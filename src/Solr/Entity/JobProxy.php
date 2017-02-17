@@ -517,6 +517,14 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
     }
 
     /**
+     * @return \Jobs\Entity\Classifications
+     */
+    public function getClassifications()
+    {
+        return $this->job->getClassifications();
+    }
+
+    /**
      * @param \Jobs\Entity\Classifications $classifications
      *
      * @return self
@@ -526,11 +534,4 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
         return $this->job->setClassifications($classifications);
     }
 
-    /**
-     * @return \Jobs\Entity\Classifications
-     */
-    public function getClassifications()
-    {
-        return $this->job->getClassifications();
-    }
 }
