@@ -9,7 +9,7 @@
 
 namespace Solr\Filter;
 
-
+use Solr\Options\ModuleOptions;
 use Jobs\Entity\Location;
 use Jobs\Entity\Job;
 use Solr\Bridge\Util;
@@ -31,11 +31,25 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
 {
 
     /**
+     * @var ModuleOptions $options
+     */
+    protected $options;
+
+    /**
+     * @param $options
+     */
+    public function __construct(ModuleOptions $options)
+    {
+        $this->options = $options;
+    }
+
+    /**
      * @inheritdoc
      */
     public function createQuery(array $params, SolrDisMaxQuery $query, Facets $facets)
     {
-        $search = isset($params['search']) ? trim($params['search']) : '';
+        $search = isset($params[$this->options->getParameterName(ModuleOptions::FIELD_QUERY)])
+            ? trim($params[$this->options->getParameterName(ModuleOptions::FIELD_QUERY)]) : '';
 
         if (!empty($search)) {
             $q = \SolrUtils::escapeQueryChars($search);
@@ -48,46 +62,53 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
         $query->addFilterQuery('entityName:job');
         $query->addFilterQuery('isActive:1');
         $query->addField('*');
-        
-        if(isset($params['location'])){
-            /* @var Location $location */
-            $location = $params['location'];
-            if(is_object($location->getCoordinates())){
-                $coordinate = Util::convertLocationCoordinates($location);
 
+        if (isset($params[$this->options->getParameterName(ModuleOptions::FIELD_LOCATION)])) {
+            /* @var Location $location */
+            $location = $params[$this->options->getParameterName(ModuleOptions::FIELD_LOCATION)];
+            if (is_object($location) and is_object($location->getCoordinates())) {
+                $coordinate = Util::convertLocationCoordinates($location);
+            } elseif (preg_match('/^c:[0-9]+,[0-9]+:[0-9]+,[0-9]+/', $location)) {
+                $coordinate = Util::convertLocationString($location);
+            }
+            if(isset($coordinate)) {
                 $query->addFilterQuery(
                     sprintf(
                         '{!parent which="entityName:job" childQuery="entityName:location"}{!geofilt pt=%s sfield=point d=%d score="kilometers"}',
                         $coordinate,
-                        $params['d']
-                    ));
+                        $params[$this->options->getParameterName(ModuleOptions::FIELD_DISTANCE)]
+                    )
+                );
                 $query->addParam(
                     'locations.q',
                     sprintf(
                         'entityName:location AND {!terms f=_root_ v=$row.id} AND {!geofilt pt=%s sfield=point d=%s}',
                         $coordinate,
-                        $params['d']
-                    )); // join
+                        $params[$this->options->getParameterName(ModuleOptions::FIELD_DISTANCE)]
+                    )
+                ); // join
 
                 $query->addField('locations:[subquery]')
-                      ->addField('distance:min(geodist(points,'.$coordinate.'))');
+                      ->addField('distance:min(geodist(points,' . $coordinate . '))');
 
+                $query->addField('score');
             }
-
-            $query->addField('score');
         }
-        
+
         // boost newest jobs
         $query->addParam('bf', 'recip(abs(ms(NOW/HOUR,datePublishStart)),3.16e-11,1,.1)');
 
         // adds an additional 'highlights' section into the result set
         $query->setHighlight(true);
         $query->addHighlightField('title');
-        
-        // facets
-        $facets->addDefinition('regionList', /*@translate*/ 'Regions')
-            ->setParams($params)
-            ->setupQuery($query);
+
+        foreach ($this->options->getFacetFields() as $facetField) // facets
+        {
+            $facets->addDefinition($facetField['name'], $facetField['label']);
+        }
+
+        $facets->setParams($params)
+               ->setupQuery($query);
 
         $query->setFacetMinCount(1);
     }

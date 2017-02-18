@@ -34,16 +34,20 @@ before_script:
   - curl -sS https://getcomposer.org/installer | php
   - ./composer.phar self-update
   - ./composer.phar create-project cross-solution/yawik ../yawik
+  # Solr directory still exists in 0.27.2
+  - rm -Rf `dirname $TRAVIS_BUILD_DIR`/yawik/module/Solr
   - mv ../`basename $TRAVIS_BUILD_DIR` `dirname $TRAVIS_BUILD_DIR`/yawik/module
 
 script:
-  - cd `dirname $TRAVIS_BUILD_DIR`/yawik/module/YawikSolr/test
+  - cd `dirname $TRAVIS_BUILD_DIR`/yawik/module/Solr/test
   - phpunit
 
 after_script:
-  - cd $TRAVIS_BUILD_DIR
-  - ls -l test/build/logs
-  - php vendor/bin/coveralls -vvv
+  - cd `dirname $TRAVIS_BUILD_DIR`/yawik/module/Solr/test
+  - ls -l
+  - ls -l build/logs
+  - php `dirname $TRAVIS_BUILD_DIR`/yawik/vendor/bin/coveralls -vvv
   - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover test/build/logs/clover.serialized
+  - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.serialized
+
 

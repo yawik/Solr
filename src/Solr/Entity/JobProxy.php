@@ -8,10 +8,13 @@
  */
 namespace Solr\Entity;
 
+use Core\Entity\EntityInterface;
+use Core\Entity\MetaDataProviderInterface;
 use Jobs\Entity\Job;
 use Jobs\Entity\JobInterface;
 use Core\Entity\AbstractIdentifiableModificationDateAwareEntity;
 use ArrayAccess;
+use Jobs\Entity\TemplateValues;
 use Solr\Bridge\Util;
 
 /**
@@ -451,4 +454,84 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
 	{
 	    return isset($this->solrResult[$key]) ? $this->solrResult[$key] : null;
 	}
+
+    /**
+     * Get meta data.
+     *
+     * Returns the whole meta data array, if no <i>$key</i> is provided.
+     * Returns <i>null</i>, if there is no meta data for the provided <i>$key</i>.
+     *
+     * @param null|string $key
+     *
+     * @return array|mixed|null
+     */
+    public function getMetaData($key = null)
+    {
+        return $this->job->getMetaData($key);
+    }
+
+    /**
+     * Set meta data.
+     *
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @return self
+     */
+    public function setMetaData($key, $value)
+    {
+        $this->job->setMetaData($key, $value);
+        return $this;
+    }
+
+    /**
+     * Check if a meta data with a specific key is available.
+     *
+     * @param string $key
+     *
+     * @return bool
+     */
+    public function hasMetaData($key)
+    {
+        return $this->job->hasMetaData($key);
+    }
+
+    /**
+     * Gets the Values of a job template
+     *
+     * @return TemplateValues
+     */
+    public function getTemplateValues()
+    {
+        return $this->job->templateValues;
+    }
+
+    /**
+     * @param EntityInterface $templateValues
+     *
+     * @return $this
+     */
+    public function setTemplateValues(EntityInterface $templateValues = null)
+    {
+        // TODO: Implement setTemplateValues() method.
+    }
+
+    /**
+     * @return \Jobs\Entity\Classifications
+     */
+    public function getClassifications()
+    {
+        return $this->job->getClassifications();
+    }
+
+    /**
+     * @param \Jobs\Entity\Classifications $classifications
+     *
+     * @return self
+     */
+    public function setClassifications($classifications)
+    {
+        return $this->job->setClassifications($classifications);
+    }
+
 }

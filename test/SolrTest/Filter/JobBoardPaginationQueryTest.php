@@ -14,6 +14,7 @@ use Jobs\Entity\JobInterface;
 use Jobs\Entity\Location;
 use Solr\Bridge\Manager;
 use Solr\Filter\JobBoardPaginationQuery;
+use Solr\Options\ModuleOptions;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Solr\Entity\JobProxy;
 use ArrayObject;
@@ -56,7 +57,7 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
         ;
         $sl->method('getServiceLocator')->willReturn($sl);
         $sl->method('get')->with('Solr/Manager')->willReturn($manager);
-        $this->target = new JobBoardPaginationQuery;
+        $this->target = new JobBoardPaginationQuery(new ModuleOptions());
         $this->manager = $manager;
     }
 
@@ -85,6 +86,7 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
         $facets = new Facets();
         
         $target = $this->getMockBuilder(JobBoardPaginationQuery::class)
+            ->disableOriginalConstructor()
             ->setMethods(['createQuery'])
             ->getMock();
         $target->expects($this->once())
@@ -138,8 +140,8 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
         $query->expects($this->exactly(2))->method('setHighlight')->with(true)->will($this->returnSelf());
         $query->expects($this->exactly(2))->method('addHighlightField')->with('title')->will($this->returnSelf());
 
-        $params1 = ['search' => '','sort'=>'title'];
-        $params2 = ['search' => 'some','sort'=>'-company','location'=>$location,'d'=>10];
+        $params1 = ['q' => '','sort'=>'title'];
+        $params2 = ['q' => 'some','sort'=>'-company','l'=>$location,'d'=>10];
         
         $facets = $this->getMockBuilder(Facets::class)
             ->getMock();
