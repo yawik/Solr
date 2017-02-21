@@ -49,6 +49,14 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
     }
 
     /**
+     * @see \Jobs\Entity\JobInterface::getId()
+     */
+    public function getId()
+    {
+        return $this->getSolrResultValue('applyId') ?:$this->job->getId();
+    }
+
+    /**
 	 * @see \Jobs\Entity\JobInterface::getApplications()
 	 */
 	public function getApplications()

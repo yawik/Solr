@@ -239,8 +239,8 @@ class FacetsTest extends \PHPUnit_Framework_TestCase
             'invalid name' => [['invalid' => []], 0],
             'invalid type' => [[static::DEFINITION_NAME => 'invalid'], 0],
             'empty value' => [[static::DEFINITION_NAME => []], 0],
-            'regular value' => [[static::DEFINITION_NAME => ['one' => '', 'two' => '']], 1, function ($value) {
-                return strpos($value, static::DEFINITION_NAME.':(one OR two)') !== false;
+            'regular value' => [[static::DEFINITION_NAME => ['one with spaces' => '', 'two' => '']], 1, function ($value) {
+                return strpos($value, static::DEFINITION_NAME.':("one with spaces" OR "two")') !== false;
             }],
         ];
     }
