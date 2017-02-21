@@ -157,7 +157,7 @@ class Facets implements IteratorAggregate, Countable
                 }, array_keys($this->params[$name])));
                 
                 if ($valueList) {
-                    $query->addFilterQuery(sprintf('{!tag=%s}%s:(%s)', $tag, $name, implode(' OR ', $valueList)));
+                    $query->addFilterQuery(sprintf('{!tag=%s}%s:("%s")', $tag, $name, implode('" OR "', $valueList)));
                 }
             }
         }
