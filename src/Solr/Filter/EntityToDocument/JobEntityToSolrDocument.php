@@ -75,11 +75,12 @@ class JobEntityToSolrDocument implements FilterInterface
         
         $document->addField('html', $description);
 
-        foreach($job->getClassifications()->getProfessions() as $profession) {
-            $document->addField('professionList', $profession);
+        foreach($job->getClassifications()->getProfessions()->getItems() as $profession) { /* @var  $profession \Jobs\Entity\Category */
+
+            $document->addField('professionList', $profession->getName());
         }
-        foreach($job->getClassifications()->getEmploymentTypes() as $employmentType) {
-            $document->addField('employmentTypeList', $employmentType);
+        foreach ($job->getClassifications()->getEmploymentTypes()->getItems() as $employmentType) { /* @var  $employmentType \Jobs\Entity\Category */
+            $document->addField('employmentTypeList', $employmentType->getName());
         }
 
         return $document;

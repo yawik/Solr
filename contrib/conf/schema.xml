@@ -449,6 +449,7 @@
     <field name="datePublishStart" type="date" indexed="true" stored="true"/>
     <field name="description" type="text_de_splitting" indexed="true" stored="true"/>
     <field name="docType" type="string" indexed="true" stored="true"/>
+    <field name="employmentTypeList" type="string" multiValued="true" indexed="true" stored="true"/>
     <field name="entityName" type="string" indexed="true" required="true" stored="false"/>
     <field name="exportId" type="long" indexed="false" stored="true"/>
     <field name="geoLocation" type="location_rpt" multiValued="true" indexed="true" stored="true"/>
