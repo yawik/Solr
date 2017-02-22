@@ -17,7 +17,7 @@ use Doctrine\ODM\MongoDB\Events;
 use Jobs\Entity\Job;
 use Jobs\Entity\StatusInterface;
 use Solr\Bridge\Manager;
-use Solr\Filter\EntityToDocument\Job as EntityToDocumentFilter;
+use Solr\Filter\EntityToDocument\JobEntityToSolrDocument as EntityToDocumentFilter;
 use Solr\Listener\JobEventSubscriber;
 use Zend\ServiceManager\ServiceLocatorInterface;;
 use SolrInputDocument;
@@ -79,6 +79,7 @@ class JobEventSubscriberTest extends \PHPUnit_Framework_TestCase
             ->willReturn($options);
         
         $this->entityToDocumentFilter = $this->getMockBuilder(EntityToDocumentFilter::class)
+            ->disableOriginalConstructor()
             ->getMock();
 
         $this->subscriber = new JobEventSubscriber($this->manager, $this->entityToDocumentFilter);
@@ -259,12 +260,14 @@ class JobEventSubscriberTest extends \PHPUnit_Framework_TestCase
      */
     public function testFactory()
     {
+        $options = new \Solr\Options\ModuleOptions();
         $serviceLocator = $this->getMockBuilder(ServiceLocatorInterface::class)
             ->getMock();
-        $serviceLocator->expects($this->once())
+        $serviceLocator->expects($this->exactly(2))
             ->method('get')
-            ->with($this->equalTo('Solr/Manager'))
-            ->willReturn($this->manager);
+            ->withConsecutive([$this->equalTo('Solr/Options/Module')],
+                              [$this->equalTo('Solr/Manager')])
+            ->will($this->onConsecutiveCalls($options,$this->manager));
         
         $this->assertInstanceOf(JobEventSubscriber::class, JobEventSubscriber::factory($serviceLocator));
     }
@@ -279,6 +282,7 @@ class JobEventSubscriberTest extends \PHPUnit_Framework_TestCase
             [StatusInterface::CREATED, false, false],
             [StatusInterface::EXPIRED, false, true],
             [StatusInterface::INACTIVE, false, true],
+            [StatusInterface::WAITING_FOR_APPROVAL, false, false],
             [StatusInterface::PUBLISH, false, false],
             [StatusInterface::REJECTED, false, false]
         ];

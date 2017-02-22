@@ -58,6 +58,7 @@ return array(
     'filters' => [
         'factories' => [
             'Solr/Jobs/PaginationQuery' => 'Solr\Factory\Filter\JobBoardPaginationQueryFactory',
+            //'Solr/Filter/JobEntityToSolrDocument' => 'Solr\Factory\Filter\EntityToDocument\JobEntityToSolrDocumentFactory',
         ]
     ],
 );

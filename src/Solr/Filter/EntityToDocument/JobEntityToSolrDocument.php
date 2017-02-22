@@ -10,6 +10,7 @@
  */
 namespace Solr\Filter\EntityToDocument;
 
+use Solr\Options\ModuleOptions;
 use Zend\Filter\FilterInterface;
 use Jobs\Entity\Job as JobEntity;
 use SolrInputDocument;
@@ -17,8 +18,16 @@ use InvalidArgumentException;
 use Solr\Bridge\Util;
 use Zend\Filter\StripTags;
 
-class Job implements FilterInterface
+class JobEntityToSolrDocument implements FilterInterface
 {
+    /**
+     * @var $options ModuleOptions
+     */
+    protected $options;
+
+    public function __construct($options){
+        $this->options=$options;
+    }
 
     /**
      * @see \Zend\Filter\FilterInterface::filter()
@@ -65,7 +74,14 @@ class Job implements FilterInterface
         $description = $stripTags->filter($description);
         
         $document->addField('html', $description);
-        
+
+        foreach($job->getClassifications()->getProfessions() as $profession) {
+            $document->addField('professionList', $profession);
+        }
+        foreach($job->getClassifications()->getEmploymentTypes() as $employmentType) {
+            $document->addField('employmentTypeList', $employmentType);
+        }
+
         return $document;
     }
     

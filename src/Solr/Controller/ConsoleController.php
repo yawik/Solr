@@ -23,7 +23,12 @@ use Zend\Mvc\Controller\AbstractActionController;
  */
 class ConsoleController extends AbstractActionController
 {
-    
+
+    /**
+     * @var \Solr\Options\ModuleOptions
+     */
+    protected $options;
+
     /**
      * @var SolrClient
      */
@@ -45,11 +50,12 @@ class ConsoleController extends AbstractActionController
      * @param callable $progressBarFactory
      * @since 0.27
      */
-    public function __construct(SolrClient $solrClient, JobRepository $jobRepository, callable $progressBarFactory)
+    public function __construct(SolrClient $solrClient, JobRepository $jobRepository, callable $progressBarFactory, $options)
     {
         $this->solrClient = $solrClient;
         $this->jobRepository = $jobRepository;
         $this->progressBarFactory = $progressBarFactory;
+        $this->options = $options;
     }
 
     public function activeJobIndexAction()
@@ -65,7 +71,7 @@ class ConsoleController extends AbstractActionController
         $i = 1;
         $progressBarFactory = $this->progressBarFactory;
         $progressBar = $progressBarFactory($count);
-        $entityToDocument = new \Solr\Filter\EntityToDocument\Job();
+        $entityToDocument = new \Solr\Filter\EntityToDocument\JobEntityToSolrDocument($this->options);
         
         // add jobs in the Solr index
         foreach ($jobs as $job) {
@@ -88,5 +94,4 @@ class ConsoleController extends AbstractActionController
 	{
 		return $this->progressBarFactory;
 	}
-
 }

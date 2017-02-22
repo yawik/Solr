@@ -41,7 +41,11 @@ class ConsoleControllerFactoryTest extends \PHPUnit_Framework_TestCase
         $manager->expects($this->once())
             ->method('getClient')
             ->willReturn($client);
-        
+
+        $options = $this->getMockBuilder(ModuleOptions::class)
+                       ->disableOriginalConstructor()
+                       ->getMock();
+
         $repository = $this->getMockBuilder(JobRepository::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -55,11 +59,12 @@ class ConsoleControllerFactoryTest extends \PHPUnit_Framework_TestCase
             
         $serviceLocator = $this->getMockBuilder(ServiceLocatorInterface::class)
             ->getMock();
-        $serviceLocator->expects($this->exactly(2))
+        $serviceLocator->expects($this->exactly(3))
             ->method('get')
             ->will($this->returnValueMap([
                 ['Solr/Manager', $manager],
-                ['repositories', $repositories]
+                ['repositories', $repositories],
+                ['Solr/Options/Module', $options]
             ]));
         
         $controllerManager = $this->getMockBuilder(ControllerManager::class)

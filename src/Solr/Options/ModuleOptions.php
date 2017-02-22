@@ -89,6 +89,11 @@ class ModuleOptions extends AbstractOptions
         ]
     ];
 
+    protected  $mappings = [
+        'profession' => 'professionList',
+        'employmentType' => 'employmentTypeList',
+    ];
+
     /**
      * @return boolean
      */
@@ -267,4 +272,15 @@ class ModuleOptions extends AbstractOptions
         }
         return $this->parameterNames[$key]['name'];
     }
+
+    public function getMappings() {
+        return $this->mappings;
+    }
+
+    public function setMappings($mappings) {
+        $this->mappings=$mappings;
+        return $this;
+    }
+
+
 }

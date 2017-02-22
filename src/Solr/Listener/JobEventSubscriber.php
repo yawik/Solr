@@ -18,7 +18,7 @@ use Doctrine\ODM\MongoDB\Events;
 use Jobs\Entity\Job;
 use Jobs\Entity\StatusInterface;
 use Solr\Bridge\Manager;
-use Solr\Filter\EntityToDocument\Job as EntityToDocumentFilter;
+use Solr\Filter\EntityToDocument\JobEntityToSolrDocument as EntityToDocumentFilter;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use SolrClient;
 
@@ -162,6 +162,7 @@ class JobEventSubscriber implements EventSubscriber
      */
     static public function factory(ServiceLocatorInterface $serviceLocator)
     {
-        return new static($serviceLocator->get('Solr/Manager'), new EntityToDocumentFilter());
+        $options = $serviceLocator->get('Solr/Options/Module');
+        return new static($serviceLocator->get('Solr/Manager'), new EntityToDocumentFilter($options));
     }
 }

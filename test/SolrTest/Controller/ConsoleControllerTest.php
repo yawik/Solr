@@ -11,6 +11,8 @@ namespace SolrTest\Controller;
 
 use Core\Console\ProgressBar;
 use Doctrine\MongoDB\CursorInterface;
+use Solr\Filter\EntityToDocument\JobEntityToSolrDocument;
+use Solr\Options\ModuleOptions;
 use SolrClient;
 use Jobs\Entity\Job;
 use Jobs\Repository\Job as JobRepository;
@@ -53,6 +55,11 @@ class ConsoleControllerTest extends \PHPUnit_Framework_TestCase
      * @var \PHPUnit_Framework_MockObject_MockObject
      */
     protected $progressBarFactory;
+
+    /**
+     * @var \Solr\Options\ModuleOptions
+     */
+    protected $options;
     
     /**
      * @see PHPUnit_Framework_TestCase::setUp()
@@ -76,7 +83,11 @@ class ConsoleControllerTest extends \PHPUnit_Framework_TestCase
         $this->progressBar = $this->getMockBuilder(ProgressBar::class)
             ->disableOriginalConstructor()
             ->getMock();
-        
+
+        $this->options = $this->getMockBuilder(ModuleOptions::class)
+                                  ->disableOriginalConstructor()
+                                  ->getMock();
+
         $this->progressBarFactory = $this->getMockBuilder(stdClass::class)
             ->setMethods(['__invoke'])
             ->getMock();
@@ -84,7 +95,7 @@ class ConsoleControllerTest extends \PHPUnit_Framework_TestCase
             ->method('__invoke')
             ->willReturn($this->progressBar);
 
-        $this->controller = new ConsoleController($this->client, $jobRepo, $this->progressBarFactory);
+        $this->controller = new ConsoleController($this->client, $jobRepo, $this->progressBarFactory, $this->options);
     }
     
     /**

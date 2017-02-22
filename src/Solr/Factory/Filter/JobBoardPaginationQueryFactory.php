@@ -2,7 +2,6 @@
 
 namespace Solr\Factory\Filter;
 
-use Auth\AuthenticationService;
 use Solr\Filter\JobBoardPaginationQuery;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;

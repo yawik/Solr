@@ -8,7 +8,7 @@
  */
 namespace SolrTest\Filter\EntityToDocument;
 
-use Solr\Filter\EntityToDocument\Job as JobFilter;
+use Solr\Filter\EntityToDocument\JobEntityToSolrDocument as JobFilter;
 use Jobs\Entity\Job;
 use Jobs\Entity\Location;
 use Jobs\Entity\CoordinatesInterface;
@@ -22,9 +22,9 @@ use Core\Entity\Collection\ArrayCollection;
 use stdClass;
 
 /**
- * @coversDefaultClass \Solr\Filter\EntityToDocument\Job
+ * @coversDefaultClass \Solr\Filter\EntityToDocument\JobEntityToSolrDocument
  */
-class JobTest extends \PHPUnit_Framework_TestCase
+class JobEntityToSolrDocumentTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var JobFilter
@@ -36,7 +36,7 @@ class JobTest extends \PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        $this->jobFilter = new JobFilter();
+        $this->jobFilter = new JobFilter(new \Solr\Options\ModuleOptions());
     }
 
     /**
@@ -98,6 +98,7 @@ class JobTest extends \PHPUnit_Framework_TestCase
         $job->setOrganization($organization);
         
         $jobFilter = $this->getMockBuilder(JobFilter::class)
+            ->disableOriginalConstructor()
             ->setMethods(['processOrganization'])
             ->getMock();
         $jobFilter->expects($this->once())

@@ -27,12 +27,13 @@ class ConsoleControllerFactory implements FactoryInterface
         /* @var $serviceLocator ServiceLocatorInterface */
         $serviceLocator = $serviceLocator->getServiceLocator();
         $manager = $serviceLocator->get('Solr/Manager');
+        $options = $serviceLocator->get('Solr/Options/Module');
         $client = $manager->getClient($manager->getOptions()->getJobsPath());
         $jobRepository = $serviceLocator->get('repositories')->get('Jobs/Job');
         $progressBarFactory = function ($count, $persistenceNamespace = null) {
             return new ProgressBar($count, $persistenceNamespace);
         };
         
-        return new \Solr\Controller\ConsoleController($client, $jobRepository, $progressBarFactory);
+        return new \Solr\Controller\ConsoleController($client, $jobRepository, $progressBarFactory, $options);
     }
 }
