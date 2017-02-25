@@ -43,9 +43,7 @@ script:
   - phpunit
 
 after_script:
-  - cd `dirname $TRAVIS_BUILD_DIR`/yawik/module/Solr/test
-  - ls -l
-  - ls -l build/logs
+  - cd `dirname $TRAVIS_BUILD_DIR`/yawik/module/Solr
   - php `dirname $TRAVIS_BUILD_DIR`/yawik/vendor/bin/coveralls -vvv
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.serialized
