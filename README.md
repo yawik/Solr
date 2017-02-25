@@ -6,6 +6,7 @@ This module makes job entities searchable with Solr. In addition it enables face
 Build status:
 
 [![Build Status](https://api.travis-ci.org/yawik/Solr.svg)](https://travis-ci.org/yawik/Solr)
+[![Coverage Status](https://coveralls.io/repos/github/yawik/Solr/badge.svg?branch=develop)](https://coveralls.io/github/yawik/Solr?branch=develop)
 
 Requirements
 ------------
