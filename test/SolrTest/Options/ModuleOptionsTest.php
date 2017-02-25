@@ -62,7 +62,52 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
             ['jobsPath', [
                 'default' => '/solr/YawikJobs',
                 'value' => '/some/Path',
-            ]]
+            ]],
+            ['facetFields', [
+                'default' => [[
+                    'name' => 'regionList',
+                    'label' => 'Region',
+                ]],
+                'value' => [[
+                    'name' => 'test',
+                    'label' => 'TEST',
+                ]],
+            ]],
+            ['parameterNames', [
+                'default' => [
+                    'q' => [
+                        'name' => 'q'
+                    ],
+                    'l' => [
+                        'name' => 'l'
+                    ],
+                    'd' => [
+                        'name' => 'd'
+                    ]
+                ],
+                'value' => [
+                    'q' => [
+                        'name' => 'MyQuery'
+                    ],
+                    'l' => [
+                        'name' => 'MyLocation'
+                    ],
+                    'd' => [
+                        'name' => 'MyDistance'
+                    ]
+                ],
+            ]],
+            ['mappings', [
+                'default' => [
+                    'profession' => 'professionList',
+                    'employmentType' => 'employmentTypeList',
+                ],
+                'value' => [
+                    'profession' => 'MyProfession',
+                    'employmentType' => 'MyEmploymentType',
+                ],
+            ]],
+
         ];
     }
 }
