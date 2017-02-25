@@ -53,7 +53,7 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
      */
     public function getId()
     {
-        return $this->getSolrResultValue('applyId') ?:$this->job->getId();
+        return $this->getSolrResultValue('id') ?:$this->job->getId();
     }
 
     /**
@@ -511,7 +511,7 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
      */
     public function getTemplateValues()
     {
-        return $this->job->templateValues;
+        return $this->job->getTemplateValues();
     }
 
     /**
@@ -539,7 +539,7 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
      */
     public function setClassifications($classifications)
     {
-        return $this->job->setClassifications($classifications);
+        // TODO: Implement setClassifications() method.
     }
 
 }

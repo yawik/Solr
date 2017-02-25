@@ -70,6 +70,14 @@ class JobProxyTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @covers ::getId()
+     */
+    public function testGetId()
+    {
+        $this->proxyGetCall('getId', 'id');
+    }
+
+    /**
      * @covers ::getAtsEnabled()
      */
     public function testGetAtsEnabled()
@@ -83,6 +91,13 @@ class JobProxyTest extends \PHPUnit_Framework_TestCase
     public function testGetAtsMode()
     {
         $this->proxyGetCall('getAtsMode');
+    }
+
+    /**
+     * @covers ::getClassifications()
+     */
+    public function testGetClassifications() {
+        $this->proxyGetCall('getClassifications');
     }
 
     /**
@@ -266,6 +281,13 @@ class JobProxyTest extends \PHPUnit_Framework_TestCase
     public function testGetUser()
     {
         $this->proxyGetCall('getUser');
+    }
+
+    /**
+     * @covers ::getTemplateValues()
+     */
+    public function testGetTemplateValues() {
+        $this->proxyGetCall('getTemplateValues');
     }
 
     /**

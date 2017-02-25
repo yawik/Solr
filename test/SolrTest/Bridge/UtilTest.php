@@ -56,6 +56,12 @@ class UtilTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('0.1,0.2',Util::convertLocationCoordinates($location));
     }
+
+    public function testConvertLocationString()
+    {
+        $location = "c:0.1:0.2";
+        $this->assertEquals('0.1,0.2',Util::convertLocationString($location));
+    }
     
     /**
      * @dataProvider convertSolrDateToPhpDateTimeProvider
