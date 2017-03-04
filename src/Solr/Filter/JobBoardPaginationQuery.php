@@ -71,7 +71,7 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
             } elseif (preg_match('/^c:[0-9]+,[0-9]+:[0-9]+,[0-9]+/', $location)) {
                 $coordinate = Util::convertLocationString($location);
             }
-            if(isset($coordinate)) {
+            if (isset($coordinate)) {
                 $query->addFilterQuery(
                     sprintf(
                         '{!parent which="entityName:job" childQuery="entityName:location"}{!geofilt pt=%s sfield=point d=%d score="kilometers"}',

@@ -31,11 +31,11 @@ class CreatePaginatorListener
         $params = $event->getPaginatorParams();
         $paginatorName = $event->getPaginatorName();
         $paginators = $event->getPaginators();
-        $serviceName = 'Solr/'.$paginatorName;
-        if($paginators->has($serviceName)){
+        $serviceName = 'Solr/' . $paginatorName;
+        if ($paginators->has($serviceName)) {
             /* @var \Zend\Paginator\Paginator $paginator */
             // yes, we have that solr paginator to replace $paginatorName
-            $paginator = $paginators->get($serviceName,$params);
+            $paginator = $paginators->get($serviceName, $params);
             $event->setPaginator($paginator);
         }
     }

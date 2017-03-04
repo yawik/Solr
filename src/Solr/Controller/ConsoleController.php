@@ -65,7 +65,7 @@ class ConsoleController extends AbstractActionController
         
         // check if there is any active job
         if (0 === $count) {
-            return 'There is no active job'.PHP_EOL;
+            return 'There is no active job' . PHP_EOL;
         }
         
         $i = 1;

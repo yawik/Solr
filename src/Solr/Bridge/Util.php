@@ -30,8 +30,8 @@ class Util
     static public function convertLocationCoordinates(Location $location)
     {
         $coordinates = $location->getCoordinates()->getCoordinates();
-        $coordinate = doubleval($coordinates[0]).'%'.doubleval($coordinates[1]);
-        $coordinate = strtr($coordinate,[
+        $coordinate = doubleval($coordinates[0]) . '%' . doubleval($coordinates[1]);
+        $coordinate = strtr($coordinate, [
             '%'=>',',
             ','=>'.'
         ]);
@@ -46,7 +46,7 @@ class Util
      */
     static public function convertLocationString($location)
     {
-        $coordinate = ltrim($location,'c:');
+        $coordinate = ltrim($location, 'c:');
         $coordinate = strtr($coordinate, [
             ',' => '.',
             ':' => ','

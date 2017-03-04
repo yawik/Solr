@@ -26,7 +26,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * @since 0.26
  * @package Solr\Paginator
  */
-abstract class PaginatorFactoryAbstract implements FactoryInterface,MutableCreationOptionsInterface
+abstract class PaginatorFactoryAbstract implements FactoryInterface, MutableCreationOptionsInterface
 {
     /**
      * @var array
