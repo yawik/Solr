@@ -2,6 +2,7 @@
 
 namespace Solr\Factory\Filter;
 
+use Interop\Container\ContainerInterface;
 use Solr\Filter\JobBoardPaginationQuery;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
@@ -13,18 +14,24 @@ use Solr\Options\ModuleOptions;
  */
 class JobBoardPaginationQueryFactory implements FactoryInterface
 {
-    /**
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return JobBoardPaginationQuery|mixed
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
+
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
         /* @var $services \Zend\ServiceManager\ServiceManager */
-        $services = $serviceLocator->getServiceLocator();
+        $services = $container->getServiceLocator();
         /* @var ModuleOptions $options */
         $options = $services->get('Solr/Options/Module');
 
         $filter = new JobBoardPaginationQuery($options);
         return $filter;
+    }
+
+    /**
+     * @param ServiceLocatorInterface $serviceLocator
+     * @return JobBoardPaginationQuery|mixed
+     */
+    public function createService(ServiceLocatorInterface $services)
+    {
+        return $this($services, JobBoardPaginationQuery::class);
     }
 }
