@@ -90,7 +90,7 @@ class SolrAdapter implements AdapterInterface, FacetsProviderInterface
     {
         return $this->resultConverter->convert(
             $this->filter,
-            $this->getResponse($offset,$itemCountPerPage)->getResponse()
+            $this->getResponse($offset, $itemCountPerPage)->getResponse()
         );
     }
 
@@ -106,12 +106,12 @@ class SolrAdapter implements AdapterInterface, FacetsProviderInterface
     }
     
     /**
-	 * @see \Solr\FacetsProviderInterface::getFacets()
-	 */
-	public function getFacets()
-	{
-		return $this->facets->setFacetResult($this->getResponse()->getResponse()->facet_counts);
-	}
+     * @see \Solr\FacetsProviderInterface::getFacets()
+     */
+    public function getFacets()
+    {
+        return $this->facets->setFacetResult($this->getResponse()->getResponse()->facet_counts);
+    }
 
     /**
      * Process query into server
@@ -121,9 +121,9 @@ class SolrAdapter implements AdapterInterface, FacetsProviderInterface
      * @return  \SolrQueryResponse
      * @throws  ServerException
      */
-    protected function getResponse($offset=0,$itemCountPerPage=0)
+    protected function getResponse($offset = 0, $itemCountPerPage = 0)
     {
-        $id = md5($offset.$itemCountPerPage);
+        $id = md5($offset . $itemCountPerPage);
         if (!isset($this->responses[$id])) {
             $query = new \SolrDisMaxQuery();
             $this->filter->filter($this->params, $query, $this->facets);

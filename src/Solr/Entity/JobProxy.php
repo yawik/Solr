@@ -9,8 +9,6 @@
 namespace Solr\Entity;
 
 use Core\Entity\EntityInterface;
-use Core\Entity\MetaDataProviderInterface;
-use Jobs\Entity\Job;
 use Jobs\Entity\JobInterface;
 use Core\Entity\AbstractIdentifiableModificationDateAwareEntity;
 use ArrayAccess;
@@ -53,7 +51,7 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
      */
     public function getId()
     {
-        return $this->getSolrResultValue('id') ?:$this->job->getId();
+        return $this->getSolrResultValue('id') ?: $this->job->getId();
     }
 
     /**
@@ -161,7 +159,7 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
         )
 	    {
 	        // get concatenated list of cities from the locations
-	        $locations = trim(implode(', ', array_unique(array_map(function (ArrayAccess $doc)
+	        $locations = trim(implode(', ', array_unique(array_map(function(ArrayAccess $doc)
 	        {
 	            return isset($doc->city) ? trim($doc->city) : '';
 	        }, $this->solrResult['locations']['docs']))));

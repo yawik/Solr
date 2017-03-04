@@ -23,7 +23,7 @@ use SolrClient;
  */
 class Manager
 {
-    const SOLR_DATE_FORMAT  = 'Y-m-d\TH:i:s\Z';
+    const SOLR_DATE_FORMAT = 'Y-m-d\TH:i:s\Z';
 
     /**
      * @var ModuleOptions
