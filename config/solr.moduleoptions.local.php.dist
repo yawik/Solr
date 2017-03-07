@@ -36,10 +36,10 @@ $options = [
             'name' => 'q'
         ],
         'l' => [
-            'name' => 'q'
+            'name' => 'l'
         ],
         'd' => [
-            'name' => 'q'
+            'name' => 'd'
         ]
     ]
 ];

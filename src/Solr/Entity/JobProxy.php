@@ -91,7 +91,7 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
 	 */
 	public function getCompany()
 	{
-		return $this->job->getCompany();
+		return $this->getSolrResultValue('organizationName') ?:$this->job->getCompany();
 	}
 
     /**
