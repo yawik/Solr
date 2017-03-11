@@ -8,7 +8,10 @@
  */
 namespace Solr\Entity;
 
+use Core\Entity\AttachableEntityInterface;
+use Core\Entity\AttachableEntityManager;
 use Core\Entity\EntityInterface;
+use Core\Entity\IdentifiableEntityInterface;
 use Jobs\Entity\JobInterface;
 use Core\Entity\AbstractIdentifiableModificationDateAwareEntity;
 use ArrayAccess;
@@ -539,5 +542,76 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
     {
         // TODO: Implement setClassifications() method.
     }
+
+    /**
+     * @param AttachableEntityManager $attachableEntityManager
+     *
+     * @throws \LogicException If attachable entity manager is already set
+     */
+    public function setAttachableEntityManager(AttachableEntityManager $attachableEntityManager)
+    {
+        // TODO: Implement setAttachableEntityManager() method.
+    }
+
+    /**
+     * Adds an $entity using an optional $key.
+     * If $key is not provided then $entity's FQCN will be used as a key
+     * Any existing $entity with the same $key will be replaced.
+     *
+     * @param IdentifiableEntityInterface $entity
+     * @param string                      $key
+     *
+     * @return AttachableEntityInterface
+     */
+    public function addAttachedEntity(IdentifiableEntityInterface $entity, $key = null)
+    {
+        // TODO: Implement addAttachedEntity() method.
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return IdentifiableEntityInterface|null
+     */
+    public function getAttachedEntity($key)
+    {
+        // TODO: Implement getAttachedEntity() method.
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return bool
+     */
+    public function removeAttachedEntity($key)
+    {
+        // TODO: Implement removeAttachedEntity() method.
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return bool
+     */
+    public function hasAttachedEntity($key)
+    {
+        // TODO: Implement hasAttachedEntity() method.
+    }
+
+    /**
+     * Creates an entity and adds it.
+     *
+     * @param string       $entityClass
+     * @param array|string $values
+     * @param null|string  $key
+     *
+     * @return \Core\Entity\EntityInterface
+     * @since 0.29
+     */
+    public function createAttachedEntity($entityClass, $values = [], $key = null)
+    {
+        // TODO: Implement createAttachedEntity() method.
+    }
+
 
 }
