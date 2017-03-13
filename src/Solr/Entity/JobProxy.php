@@ -12,6 +12,9 @@ use Core\Entity\AttachableEntityInterface;
 use Core\Entity\AttachableEntityManager;
 use Core\Entity\EntityInterface;
 use Core\Entity\IdentifiableEntityInterface;
+use CoreTestUtils\TestCase\TestInheritanceTrait;
+use CoreTestUtils\TestCase\TestSetterGetterTrait;
+use CoreTestUtils\TestCase\TestUsesTraitsTrait;
 use Jobs\Entity\JobInterface;
 use Core\Entity\AbstractIdentifiableModificationDateAwareEntity;
 use ArrayAccess;
@@ -28,6 +31,10 @@ use Solr\Bridge\Util;
  */
 class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implements JobInterface
 {
+
+    use TestInheritanceTrait, TestUsesTraitsTrait, TestSetterGetterTrait;
+
+
 
     /**
      * @var JobInterface
@@ -54,7 +61,7 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
      */
     public function getId()
     {
-        return $this->getSolrResultValue('id') ?: $this->job->getId();
+        return $this->getSolrValue('id') ?: $this->job->getId();
     }
 
     /**
@@ -70,7 +77,7 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
 	 */
 	public function getApplyId()
 	{
-		return $this->getSolrResultValue('applyId') ?: $this->job->getApplyId();
+		return $this->getSolrValue('applyId') ?: $this->job->getApplyId();
 	}
 
     /**
@@ -94,7 +101,7 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
 	 */
 	public function getCompany()
 	{
-		return $this->getSolrResultValue('organizationName') ?:$this->job->getCompany();
+		return $this->getSolrValue('organizationName') ?:$this->job->getCompany();
 	}
 
     /**
@@ -102,7 +109,7 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
 	 */
 	public function getContactEmail()
 	{
-		return $this->getSolrResultValue('applicationEmail') ?: $this->job->getContactEmail();
+		return $this->getSolrValue('applicationEmail') ?: $this->job->getContactEmail();
 	}
 
     /**
@@ -110,7 +117,7 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
 	 */
 	public function getDatePublishEnd()
 	{
-		$date = $this->getSolrResultValue('datePublishEnd');
+		$date = $this->getSolrValue('datePublishEnd');
 		
         return $date ? Util::convertSolrDateToPhpDateTime($date) : $this->job->getDatePublishEnd();
 	}
@@ -120,7 +127,7 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
 	 */
 	public function getDatePublishStart()
 	{
-		$date = $this->getSolrResultValue('datePublishStart');
+		$date = $this->getSolrValue('datePublishStart');
 		
         return $date ? Util::convertSolrDateToPhpDateTime($date) : $this->job->getDatePublishStart();
 	}
@@ -139,7 +146,7 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
 	 */
 	public function getLanguage()
 	{
-		return $this->getSolrResultValue('lang') ?: $this->job->getLanguage();
+		return $this->getSolrValue('lang') ?: $this->job->getLanguage();
 	}
 
     /**
@@ -147,7 +154,7 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
 	 */
 	public function getLink()
 	{
-		return $this->getSolrResultValue('link') ?: $this->job->getLink();
+		return $this->getSolrValue('link') ?: $this->job->getLink();
 	}
 
     /**
@@ -172,7 +179,7 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
             }
 	    }
 	    
-		return $this->getSolrResultValue('location') ?: $this->job->getLocation();
+		return $this->getSolrValue('location') ?: $this->job->getLocation();
 	}
 
     /**
@@ -228,7 +235,7 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
 	 */
 	public function getTitle()
 	{
-		return $this->getSolrResultValue('title') ?: $this->job->getTitle();
+		return $this->getSolrValue('title') ?: $this->job->getTitle();
 	}
 
     /**
@@ -459,7 +466,7 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
 	 * @param string $key
 	 * @return mixed
 	 */
-	protected function getSolrResultValue($key)
+	public function getSolrValue($key)
 	{
 	    return isset($this->solrResult[$key]) ? $this->solrResult[$key] : null;
 	}
@@ -522,7 +529,8 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
      */
     public function setTemplateValues(EntityInterface $templateValues = null)
     {
-        // TODO: Implement setTemplateValues() method.
+        $this->job->setTemplateValues($templateValues);
+        return $this;
     }
 
     /**
@@ -540,7 +548,8 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
      */
     public function setClassifications($classifications)
     {
-        // TODO: Implement setClassifications() method.
+        $this->job->setClassifications($classifications);
+        return $this;
     }
 
     /**
@@ -550,7 +559,8 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
      */
     public function setAttachableEntityManager(AttachableEntityManager $attachableEntityManager)
     {
-        // TODO: Implement setAttachableEntityManager() method.
+        $this->job->setAttachableEntityManager($attachableEntityManager);
+        return $this;
     }
 
     /**
@@ -565,7 +575,8 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
      */
     public function addAttachedEntity(IdentifiableEntityInterface $entity, $key = null)
     {
-        // TODO: Implement addAttachedEntity() method.
+        $this->job->addAttachedEntity($entity, $key);
+        return $this;
     }
 
     /**
@@ -575,7 +586,7 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
      */
     public function getAttachedEntity($key)
     {
-        // TODO: Implement getAttachedEntity() method.
+        $this->job->getAttachedEntity($key);
     }
 
     /**
@@ -585,7 +596,7 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
      */
     public function removeAttachedEntity($key)
     {
-        // TODO: Implement removeAttachedEntity() method.
+        return $this->job->removeAttachedEntity($key);
     }
 
     /**
@@ -595,7 +606,7 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
      */
     public function hasAttachedEntity($key)
     {
-        // TODO: Implement hasAttachedEntity() method.
+        $this->job->hasAttachedEntity($key);
     }
 
     /**
@@ -610,7 +621,8 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
      */
     public function createAttachedEntity($entityClass, $values = [], $key = null)
     {
-        // TODO: Implement createAttachedEntity() method.
+        $this->job->createAttachedEntity($entityClass, $values, $key);
+        return $this;
     }
 
 

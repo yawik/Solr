@@ -62,7 +62,7 @@ class JobProxyTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers ::getApplyId()
-     * @covers ::getSolrResultValue()
+     * @covers ::getSolrValue()
      */
     public function testGetApplyId()
     {
