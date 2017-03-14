@@ -75,6 +75,20 @@ class ModuleOptions extends AbstractOptions
         ];
 
     /**
+     * The maximum number of constraint counts
+     *
+     * @var int
+     */
+    protected $facetLimit = 10;
+
+    /**
+     * The minimum count
+     *
+     * @var int
+     */
+    protected $facetMinCount = 1;
+
+    /**
      * @var $parameterNames array
      */
     protected $parameterNames = [
@@ -258,6 +272,40 @@ class ModuleOptions extends AbstractOptions
      */
     public function setParameterNames($parameterNames) {
         $this->parameterNames=$parameterNames;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFacetLimit() {
+        return $this->facetLimit;
+    }
+
+    /**
+     * @param $facetLimit
+     *
+     * @return $this
+     */
+    public function setFacetLimit($facetLimit) {
+        $this->facetLimit=$facetLimit;
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFacetMinCount() {
+        return $this->facetMinCount;
+    }
+
+    /**
+     * @param $facetMinCount
+     *
+     * @return $this
+     */
+    public function setFacetMinCount($facetMinCount) {
+        $this->facetMinCount=$facetMinCount;
         return $this;
     }
 

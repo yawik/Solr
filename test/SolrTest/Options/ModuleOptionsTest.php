@@ -73,6 +73,14 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
                     'label' => 'TEST',
                 ]],
             ]],
+            ['facetLimit',[
+                'default' => 10,
+                'value' => 20,
+            ]],
+            ['facetMinCount',[
+                'default' => 1,
+                'value' => 10,
+            ]],
             ['parameterNames', [
                 'default' => [
                     'q' => [

@@ -30,6 +30,13 @@ $options = [
             'label' => 'Region'
         ]
     ],
+
+    // Maps to facet.limit. Sets the maximum number of constraint counts that should be returned for the facet fields.
+    'facetLimit' => 10,
+
+    // Sets the minimum counts for facet fields that should be included in the response
+    'facetMinCount' => 1,
+
     //
     'parameterNames' => [
         'q' => [

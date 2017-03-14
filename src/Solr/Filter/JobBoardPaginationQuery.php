@@ -102,6 +102,8 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
         $query->setHighlight(true);
         $query->addHighlightField('title');
 
+        $query->setFacetLimit($this->options->getFacetLimit());
+
         foreach ($this->options->getFacetFields() as $facetField) // facets
         {
             $facets->addDefinition($facetField['name'], $facetField['label']);
