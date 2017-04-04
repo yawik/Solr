@@ -18,6 +18,7 @@ use SolrDisMaxQuery;
 use SolrQuery;
 use ArrayAccess;
 use Solr\Facets;
+use DateTime;
 
 /**
  * Class JobBoardPaginationQuery
@@ -93,6 +94,16 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
 
                 $query->addField('score');
             }
+        }
+        
+        if (isset($params['publishedSince'])) {
+            $publishedSince = $params['publishedSince'];
+            
+            if (!$publishedSince instanceof DateTime) {
+                $publishedSince = new DateTime($publishedSince);
+            }
+            
+            $query->addFilterQuery(sprintf('datePublishStart:[%s TO NOW]', Util::convertDateTime($publishedSince)));
         }
 
         // boost newest jobs
