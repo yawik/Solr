@@ -77,7 +77,7 @@ class JobEntityToSolrDocument implements FilterInterface
         $requirements = $stripTags($templateValues->getRequirements());
         $benefits = $stripTags($templateValues->getBenefits());
 
-        $document->addField('html', "$description" . $job->getTitle() ." $requirements $qualification $benefits");
+        $document->addField('html', "$description " . $job->getTitle() ." $requirements $qualification $benefits");
 
         foreach($job->getClassifications()->getProfessions()->getItems() as $profession) { /* @var  $profession \Jobs\Entity\Category */
 
