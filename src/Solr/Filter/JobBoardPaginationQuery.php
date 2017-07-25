@@ -24,8 +24,7 @@ use Solr\Facets;
  *
  * @author Anthonius Munthi <me@itstoni.com>
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
- * @since 0.26
- * @package Solr\Filter
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  */
 class JobBoardPaginationQuery extends AbstractPaginationQuery
 {
@@ -113,6 +112,23 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
                ->setupQuery($query);
 
         $query->setFacetMinCount(1);
+
+        /*
+         * Add support for the 'publishedSince' parameter used by the JobsByMail-Module
+         * This parameter is used to provide the date when the last mail was send.
+         * So we want to only find jobs which are newer...
+         */
+        if (isset($params['publishedSince'])) {
+            $publishedSince = $params['publishedSince'];
+
+            if (!$publishedSince instanceof \DateTime) {
+                $publishedSince = new \DateTime($publishedSince);
+            }
+
+            $query->addFilterQuery('datePublishStart:[' . Util::convertDateTime($publishedSince) . ' TO * ]');
+        }
+
+
     }
 
     /**
