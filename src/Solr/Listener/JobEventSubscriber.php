@@ -92,20 +92,26 @@ class JobEventSubscriber implements EventSubscriber
             return;
         }
         
-        // check if the status has been changed
-        if (!$eventArgs->hasChangedField('status')) {
+        // check if the status or isDeleted flag has been changed
+        if (!$eventArgs->hasChangedField('status') && !$eventArgs->hasChangedField('isDeleted')) {
             return;
         }
             
         // check if the job is active
-        if ($document->isActive()) {
+        if ($document->isActive() && !$document->isDeleted()) {
             // mark it for commit
             $this->add[] = $document;
         } else {
             $status = $document->getStatus();
             
             // check if the status has been changed to inactive or expired
-            if (isset($status) && in_array($status->getName(), [StatusInterface::INACTIVE, StatusInterface::EXPIRED])) {
+            // or isDeleted Flag is set.
+            if ($document->isDeleted()
+                || (
+                    isset($status)
+                    && in_array($status->getName(), [StatusInterface::INACTIVE, StatusInterface::EXPIRED])
+                )
+            ) {
                 // mark it for delete
                 $this->delete[] = $document;
             }
