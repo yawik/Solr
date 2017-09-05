@@ -51,7 +51,12 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
             ? trim($params[$this->options->getParameterName(ModuleOptions::FIELD_QUERY)]) : '';
 
         if (!empty($search)) {
-            $q = \SolrUtils::escapeQueryChars($search);
+            $q = $search; //\SolrUtils::escapeQueryChars($search);
+            $query->addSortField('score', SolrQuery::ORDER_DESC);
+            $query->addSortField('title', SolrQuery::ORDER_ASC);
+            $query->addBoostQuery('title', '1');
+            $query->addBoostQuery('organizationName', '2');
+            $query->addBoostQuery('location', '0.2');
         } else {
             $q = '*:*';
             $query->addSortField('datePublishStart', SolrQuery::ORDER_DESC);
