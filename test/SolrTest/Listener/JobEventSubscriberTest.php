@@ -128,9 +128,12 @@ class JobEventSubscriberTest extends \PHPUnit_Framework_TestCase
         $event->expects($this->once())
             ->method('getDocument')
             ->willReturn($job);
-        $event->expects($this->once())
+        $event->expects($this->exactly(2))
             ->method('hasChangedField')
-            ->with($this->equalTo('status'))
+            ->withConsecutive(
+                [$this->equalTo('status')],
+                [$this->equalTo('isDeleted')]
+            )
             ->willReturn(false);
 
         $this->subscriber->preUpdate($event);
