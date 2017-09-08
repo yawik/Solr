@@ -11,7 +11,8 @@ Build status:
 Requirements
 ------------
 
-running [YAWIK](https://github.com/cross-solution/YAWIK)
+* running [YAWIK](https://github.com/cross-solution/YAWIK)
+* running Solr Server
 
 
 Installation

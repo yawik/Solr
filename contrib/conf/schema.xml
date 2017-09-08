@@ -449,7 +449,6 @@
     <field name="datePublishStart" type="date" indexed="true" stored="true"/>
     <field name="description" type="text_de_splitting" indexed="true" stored="true"/>
     <field name="docType" type="string" indexed="true" stored="true"/>
-    <field name="employmentTypeList" type="string" multiValued="true" indexed="true" stored="true"/>
     <field name="entityName" type="string" indexed="true" required="true" stored="false"/>
     <field name="exportId" type="long" indexed="false" stored="true"/>
     <field name="geoLocation" type="location_rpt" multiValued="true" indexed="true" stored="true"/>
@@ -472,13 +471,10 @@
     <field name="points" type="location" multiValued="true" indexed="true" stored="true"/>
     <field name="portalList" type="string" multiValued="true" indexed="true" stored="true"/>
     <field name="portals" type="string" docValues="true" multiValued="true" indexed="true" stored="true"/>
-    <field name="positionList" type="string" multiValued="true" indexed="true" stored="true"/>
     <field name="postalCode" type="string" indexed="true" stored="true"/>
-    <field name="professionList" type="string" multiValued="true" indexed="true" stored="true"/>
     <field name="professionPath" type="text_path" multiValued="true" indexed="true" stored="true"/>
     <field name="reference" type="string" indexed="false" stored="true"/>
     <field name="region" type="string" indexed="true" stored="true"/>
-    <field name="regionList" type="string" multiValued="true" indexed="true" stored="true"/>
     <field name="regionText" type="text_general" indexed="true" stored="true"/>
     <field name="subTitle" type="html" indexed="true" stored="true"/>
     <field name="text" type="text_de_splitting" multiValued="true" indexed="true" stored="false"/>
@@ -486,6 +482,7 @@
     <field name="timestamp" type="date" default="NOW" multiValued="false" indexed="true" stored="true"/>
     <field name="title" type="text_de_splitting" indexed="true" stored="true"/>
     <field name="zipCityCountryList" type="text_path" multiValued="true" indexed="false" stored="true"/>
+    <dynamicField name="*_MultiString" type="string" multiValued="true" indexed="true" stored="true"/>
     <dynamicField name="portalDatePublishStart*" type="date" multiValued="false" indexed="false" stored="true"/>
     <dynamicField name="portalDatePublishEnd*" type="date" multiValued="false" indexed="true" stored="true"/>
     <dynamicField name="*_coordinate" type="tdouble" indexed="true" stored="false"/>

@@ -18,6 +18,8 @@ use InvalidArgumentException;
 use Solr\Bridge\Util;
 use Zend\Filter\StripTags;
 
+
+
 class JobEntityToSolrDocument implements FilterInterface
 {
     /**
@@ -80,12 +82,15 @@ class JobEntityToSolrDocument implements FilterInterface
         $document->addField('html', "$description " . $job->getTitle() ." $requirements $qualification $benefits");
 
         foreach($job->getClassifications()->getProfessions()->getItems() as $profession) { /* @var  $profession \Jobs\Entity\Category */
-
-            $document->addField('professionList', $profession->getName());
+            $document->addField('profession_MultiString', $profession->getName());
         }
         foreach ($job->getClassifications()->getEmploymentTypes()->getItems() as $employmentType) { /* @var  $employmentType \Jobs\Entity\Category */
-            $document->addField('employmentTypeList', $employmentType->getName());
+            $document->addField('employmentType_MultiString', $employmentType->getName());
         }
+        foreach ($job->getClassifications()->getIndustries()->getItems() as $industry) { /* @var  $employmentType \Jobs\Entity\Category */
+            $document->addField('industry_MultiString', $industry->getName());
+        }
+
 
         return $document;
     }
@@ -146,7 +151,7 @@ class JobEntityToSolrDocument implements FilterInterface
                 $loc->addField('country', $location->getCountry());
                 $loc->addField('region', $region);
                 $loc->addField('postalCode', $location->getPostalCode());
-                $document->addField('regionList', $region);
+                $document->addField('region_MultiString', $region);
                 $document->addChildDocument($loc);
             }
         }
