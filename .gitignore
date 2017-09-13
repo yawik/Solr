@@ -3,3 +3,10 @@
 build.properties
 test/coverage
 test/build
+
+#
+# Eclipse project files
+#
+/.settings/
+/.buildpath
+/.project

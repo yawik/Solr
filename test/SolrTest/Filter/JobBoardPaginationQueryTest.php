@@ -20,6 +20,8 @@ use Solr\Entity\JobProxy;
 use ArrayObject;
 use SolrDisMaxQuery;
 use Solr\Facets;
+use DateTime;
+use Solr\Bridge\Util;
 
 /**
  * Class JobBoardPaginationQueryTest
@@ -120,6 +122,7 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
             ->method('getCoordinates')
             ->willReturn([1.2,2.1])
         ;
+        $publishedSince = new DateTime();
 
         // expect to setQuery
         $query
@@ -130,10 +133,16 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
 
         // expect to handle location
         $query
-            ->expects($this->exactly(5))
+            ->expects($this->exactly(6))
             ->method('addFilterQuery')
-            ->withConsecutive(['entityName:job'],['isActive:1'],['entityName:job'],['isActive:1'],[$this->stringContains('{!geofilt pt=1.2,2.1 sfield=point d=10 score="kilometers"}')])
-        ;
+            ->withConsecutive(
+                ['entityName:job'],
+                ['isActive:1'],
+                ['entityName:job'],
+                ['isActive:1'],
+                [$this->stringContains('{!geofilt pt=1.2,2.1 sfield=point d=10 score="kilometers"}')],
+                [$this->equalTo(sprintf('datePublishStart:[%s TO NOW]', Util::convertDateTime($publishedSince)))]
+           );
 
         $query->method('addField')->willReturn($query);
 
@@ -141,7 +150,7 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
         $query->expects($this->exactly(2))->method('addHighlightField')->with('title')->will($this->returnSelf());
 
         $params1 = ['q' => '','sort'=>'title'];
-        $params2 = ['q' => 'some','sort'=>'-company','l'=>$location,'d'=>10];
+        $params2 = ['q' => 'some','sort'=>'-company','l'=>$location,'d'=>10, 'publishedSince' => $publishedSince->format(DateTime::ISO8601)];
         
         $facets = $this->getMockBuilder(Facets::class)
             ->getMock();
