@@ -28,11 +28,13 @@ class CreatePaginatorListener
      */
     public function onCreatePaginator(CreatePaginatorEvent $event)
     {
-        $params = $event->getPaginatorParams();
-        $paginatorName = $event->getPaginatorName();
-        $paginators = $event->getPaginators();
+    	/* @TODO: [ZF3] get parameters from $event->getPaginators is not working anymore */
+    	$target = $event->getTarget();
+        $params = $target->getPaginatorParams();
+        $paginatorName = $target->getPaginatorName();
+        $paginators = $target->getPaginators();
         $serviceName = 'Solr/' . $paginatorName;
-        if ($paginators->has($serviceName)) {
+        if (is_object($paginators) && $paginators->has($serviceName)) {
             /* @var \Zend\Paginator\Paginator $paginator */
             // yes, we have that solr paginator to replace $paginatorName
             $paginator = $paginators->get($serviceName, $params);

@@ -13,7 +13,8 @@
         "yawik"
     ],
     "require": {
-	"ext-solr": ">=2.4",
+	    "ext-solr": ">=2.4",
+        "zendframework/zend-progressbar": "^2.5",
         "composer/installers": "*"
     }
 }

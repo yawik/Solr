@@ -42,9 +42,9 @@ return array(
             'Solr/Listener/CreatePaginator' => 'Solr\Listener\CreatePaginatorListener',
         ],
         'factories' => [
-            'Solr/Manager' => 'Solr\Bridge\Manager::factory',
-            'Solr/ResultConverter' => 'Solr\Bridge\ResultConverter::factory',
-            'Solr/Listener/JobEventSubscriber' => 'Solr\Listener\JobEventSubscriber::factory',
+            'Solr/Manager' => ['Solr\Bridge\Manager','factory'],
+            'Solr/ResultConverter' => ['Solr\Bridge\ResultConverter','factory'],
+            'Solr/Listener/JobEventSubscriber' => [\Solr\Listener\JobEventSubscriber::class,'factory'],
         ]
     ],
 
