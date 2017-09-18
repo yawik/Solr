@@ -14,7 +14,7 @@
     ],
     "require": {
 	    "ext-solr": ">=2.4",
-        "zendframework/progress-bar": "",
+        "zendframework/zend-progressbar": "^2.5",
         "composer/installers": "*"
     }
 }
