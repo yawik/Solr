@@ -36,9 +36,14 @@ class CreatePaginatorListenerTest extends \PHPUnit_Framework_TestCase
 
         $event = $this->getMockBuilder(CreatePaginatorEvent::class)
             ->disableOriginalConstructor()
-            ->setMethods(['getPaginators','getPaginatorParams','getPaginatorName'])
+            ->setMethods(['getPaginators','getPaginatorParams','getPaginatorName','getTarget'])
             ->getMock()
         ;
+        
+        $event->expects($this->exactly(2))
+	        ->method('getTarget')
+	        ->willReturn($event)
+	    ;
 
         $event->expects($this->exactly(2))
             ->method('getPaginatorParams')

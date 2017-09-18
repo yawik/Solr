@@ -8,32 +8,26 @@
  */
 namespace Solr\Factory\Controller;
 
-use Zend\ServiceManager\FactoryInterface;
+use Interop\Container\ContainerInterface;
+use Interop\Container\Exception\ContainerException;
+use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Zend\ServiceManager\Exception\ServiceNotFoundException;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Core\Console\ProgressBar;
 
 class ConsoleControllerFactory implements FactoryInterface
 {
-
-    /**
-     * Create service
-     *
-     * @param ServiceLocatorInterface $serviceLocator
-     *
-     * @return UsersController
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        /* @var $serviceLocator ServiceLocatorInterface */
-        $serviceLocator = $serviceLocator->getServiceLocator();
-        $manager = $serviceLocator->get('Solr/Manager');
-        $options = $serviceLocator->get('Solr/Options/Module');
-        $client = $manager->getClient($manager->getOptions()->getJobsPath());
-        $jobRepository = $serviceLocator->get('repositories')->get('Jobs/Job');
-        $progressBarFactory = function ($count, $persistenceNamespace = null) {
-            return new ProgressBar($count, $persistenceNamespace);
-        };
-        
-        return new \Solr\Controller\ConsoleController($client, $jobRepository, $progressBarFactory, $options);
-    }
+	public function __invoke( ContainerInterface $container, $requestedName, array $options = null )
+	{
+		$manager = $container->get('Solr/Manager');
+		$options = $container->get('Solr/Options/Module');
+		$client = $manager->getClient($manager->getOptions()->getJobsPath());
+		$jobRepository = $container->get('repositories')->get('Jobs/Job');
+		$progressBarFactory = function ($count, $persistenceNamespace = null) {
+			return new ProgressBar($count, $persistenceNamespace);
+		};
+		
+		return new \Solr\Controller\ConsoleController($client, $jobRepository, $progressBarFactory, $options);
+	}
 }

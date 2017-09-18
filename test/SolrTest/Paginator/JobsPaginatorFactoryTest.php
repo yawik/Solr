@@ -9,6 +9,7 @@
 
 namespace SolrTest\Paginator;
 
+use Interop\Container\ContainerInterface;
 use Solr\Bridge\Manager;
 use Solr\Bridge\ResultConverter;
 use Solr\Filter\JobBoardPaginationQuery;
@@ -34,7 +35,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 class JobsPaginatorFactoryTest extends \PHPUnit_Framework_TestCase
 {
 
-    public function testCreateService()
+    public function testInvokation()
     {
         $filterManager = $this->getMockBuilder(FilterPluginManager::class)
             ->disableOriginalConstructor()
@@ -70,15 +71,14 @@ class JobsPaginatorFactoryTest extends \PHPUnit_Framework_TestCase
             ->method('getJobsPath')
             ->willReturn('/some/path')
         ;
-        $sl = $this->getMockBuilder(ServiceLocatorInterface::class)
-            ->setMethods(['getServiceLocator','get','has'])
+        $sl = $this->getMockBuilder(ContainerInterface::class)
+            ->setMethods(['get','has'])
             ->getMock()
         ;
-        $sl->method('getServiceLocator')->willReturn($sl);
         $sl->expects($this->exactly(4))
             ->method('get')
             ->withConsecutive(
-                ['filterManager'],
+                ['FilterManager'],
                 ['Solr/Options/Module'],
                 ['Solr/Manager'],
                 ['Solr/ResultConverter']
@@ -89,7 +89,7 @@ class JobsPaginatorFactoryTest extends \PHPUnit_Framework_TestCase
         $target = new JobsBoardPaginatorFactory();
         $target->setCreationOptions(['name'=>'value']);
 
-        $retVal = $target->createService($sl);
+        $retVal = $target($sl,'SomeName');
         $this->assertInstanceOf(
             Paginator::class,
             $retVal,

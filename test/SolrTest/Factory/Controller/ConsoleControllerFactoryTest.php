@@ -9,8 +9,7 @@
 
 namespace SolrTest\Factory\Controller;
 
-use Zend\ServiceManager\ServiceLocatorInterface;
-use Zend\Mvc\Controller\ControllerManager;
+use Interop\Container\ContainerInterface;
 use Solr\Factory\Controller\ConsoleControllerFactory;
 use Solr\Bridge\Manager;
 use Solr\Options\ModuleOptions;
@@ -26,9 +25,9 @@ class ConsoleControllerFactoryTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @covers ::createService
+     * @covers ::__invoke
      */
-    public function testCreateService()
+    public function testInvokation()
     {
         $client = $this->getMockBuilder(SolrClient::class)
             ->disableOriginalConstructor()
@@ -50,16 +49,16 @@ class ConsoleControllerFactoryTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
         
-        $repositories = $this->getMockBuilder(ServiceLocatorInterface::class)
+        $repositories = $this->getMockBuilder(ContainerInterface::class)
             ->getMock();
         $repositories->expects($this->once())
             ->method('get')
             ->with($this->equalTo('Jobs/Job'))
             ->willReturn($repository);
             
-        $serviceLocator = $this->getMockBuilder(ServiceLocatorInterface::class)
+        $container = $this->getMockBuilder(ContainerInterface::class)
             ->getMock();
-        $serviceLocator->expects($this->exactly(3))
+        $container->expects($this->exactly(3))
             ->method('get')
             ->will($this->returnValueMap([
                 ['Solr/Manager', $manager],
@@ -67,15 +66,8 @@ class ConsoleControllerFactoryTest extends \PHPUnit_Framework_TestCase
                 ['Solr/Options/Module', $options]
             ]));
         
-        $controllerManager = $this->getMockBuilder(ControllerManager::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-        $controllerManager->expects($this->once())
-            ->method('getServiceLocator')
-            ->willReturn($serviceLocator);
-        
         $controllerFactory = new ConsoleControllerFactory();
-        $controller = $controllerFactory->createService($controllerManager);
+        $controller = $controllerFactory($container,'SomeName');
         $this->assertInstanceOf(ConsoleController::class, $controller);
         $this->assertInstanceOf(ProgressBar::class, $controller->getProgressBarFactory()->__invoke(0, 'preventOutput'));
     }

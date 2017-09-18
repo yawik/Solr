@@ -10,12 +10,15 @@
 namespace Solr\Paginator;
 
 use Core\Paginator\PaginatorService;
+use Interop\Container\ContainerInterface;
+use Interop\Container\Exception\ContainerException;
 use Solr\Bridge\ResultConverter;
 use Solr\Options\ModuleOptions;
 use Solr\Paginator\Adapter\SolrAdapter;
 use Solr\Facets;
-use Zend\ServiceManager\FactoryInterface;
-use Zend\ServiceManager\MutableCreationOptionsInterface;
+use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Zend\ServiceManager\Exception\ServiceNotFoundException;
+use Zend\ServiceManager\Factory\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
@@ -26,7 +29,7 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * @since 0.26
  * @package Solr\Paginator
  */
-abstract class PaginatorFactoryAbstract implements FactoryInterface, MutableCreationOptionsInterface
+abstract class PaginatorFactoryAbstract implements FactoryInterface
 {
     /**
      * @var array
@@ -52,28 +55,23 @@ abstract class PaginatorFactoryAbstract implements FactoryInterface, MutableCrea
     {
         return $this->options;
     }
-
-    /**
-     * @param ServiceLocatorInterface $serviceLocator
-     * @return Paginator
-     */
-    public function createService(ServiceLocatorInterface $serviceLocator)
-    {
-        /* @var PaginatorService $serviceLocator */
-        /* @var ResultConverter $resultConverter */
-        $serviceManager     = $serviceLocator->getServiceLocator();
-        $filter             = $serviceManager->get('filterManager')->get($this->getFilter());
-        $options            = $serviceManager->get('Solr/Options/Module');
-        $connectPath        = $this->getConnectPath($options);
-        $solrClient         = $serviceManager->get('Solr/Manager')->getClient($connectPath);
-        $resultConverter    = $serviceManager->get('Solr/ResultConverter');
-        $adapter            = new SolrAdapter($solrClient, $filter, $resultConverter, new Facets(), $this->options);
-        $service            = new Paginator($adapter);
-
-        $this->setCreationOptions([]);
-        return $service;
-    }
-
+	
+	public function __invoke( ContainerInterface $container, $requestedName, array $options = null )
+	{
+		/* @var PaginatorService $serviceLocator */
+		/* @var ResultConverter $resultConverter */
+		$filter             = $container->get('FilterManager')->get($this->getFilter());
+		$options            = $container->get('Solr/Options/Module');
+		$connectPath        = $this->getConnectPath($options);
+		$solrClient         = $container->get('Solr/Manager')->getClient($connectPath);
+		$resultConverter    = $container->get('Solr/ResultConverter');
+		$adapter            = new SolrAdapter($solrClient, $filter, $resultConverter, new Facets(), $this->options);
+		$service            = new Paginator($adapter);
+		
+		$this->setCreationOptions([]);
+		return $service;
+	}
+	
     /**
      * pagination service name
      *

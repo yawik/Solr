@@ -9,13 +9,13 @@
 
 namespace SolrTest\Filter;
 
+use Interop\Container\ContainerInterface;
 use Jobs\Entity\CoordinatesInterface;
 use Jobs\Entity\JobInterface;
 use Jobs\Entity\Location;
 use Solr\Bridge\Manager;
 use Solr\Filter\JobBoardPaginationQuery;
 use Solr\Options\ModuleOptions;
-use Zend\ServiceManager\ServiceLocatorInterface;
 use Solr\Entity\JobProxy;
 use ArrayObject;
 use SolrDisMaxQuery;
@@ -31,8 +31,8 @@ use Solr\Bridge\Util;
  * @author  Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since   0.26
  * @package SolrTest\Filter
- * @covers  Solr\Filter\JobBoardPaginationQuery
- * @covers  Solr\Filter\AbstractPaginationQuery
+ * @covers  \Solr\Filter\JobBoardPaginationQuery
+ * @covers  \Solr\Filter\AbstractPaginationQuery
  * @requires extension solr
  */
 class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
@@ -53,11 +53,11 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock()
         ;
-        $sl = $this->getMockBuilder(ServiceLocatorInterface::class)
-            ->setMethods(['get','has','getServiceLocator'])
+        $sl = $this->getMockBuilder(ContainerInterface::class)
+	        ->disableOriginalConstructor()
+            ->setMethods(['get','has'])
             ->getMock()
         ;
-        $sl->method('getServiceLocator')->willReturn($sl);
         $sl->method('get')->with('Solr/Manager')->willReturn($manager);
         $this->target = new JobBoardPaginationQuery(new ModuleOptions());
         $this->manager = $manager;
@@ -133,7 +133,7 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
 
         // expect to handle location
         $query
-            ->expects($this->exactly(6))
+            ->expects($this->exactly(7))
             ->method('addFilterQuery')
             ->withConsecutive(
                 ['entityName:job'],

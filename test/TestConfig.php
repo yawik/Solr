@@ -1,13 +1,14 @@
 <?php
+
 return array(
     'modules' => array(
-        'Core',
+	    'Zend\Router',
+	    'Core',
         'Auth',
         'Jobs',
         'Cv',
         'Organizations',
         'Solr',
-        
     ),
     'module_listener_options' => array(
         'module_paths' => array(
