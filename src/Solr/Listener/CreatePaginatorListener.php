@@ -38,7 +38,7 @@ class CreatePaginatorListener
             /* @var \Zend\Paginator\Paginator $paginator */
             // yes, we have that solr paginator to replace $paginatorName
             $paginator = $paginators->get($serviceName, $params);
-            $event->setPaginator($paginator);
+            $target->setPaginator($paginator);
         }
     }
 }
