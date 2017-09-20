@@ -17,9 +17,7 @@ use Solr\Options\ModuleOptions;
 use Solr\Paginator\Adapter\SolrAdapter;
 use Solr\Paginator\JobsBoardPaginatorFactory;
 use Zend\Filter\FilterPluginManager;
-use Zend\Paginator\Adapter\AdapterInterface;
 use Zend\Paginator\Paginator;
-use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Class JobsPaginatorFactoryTest
@@ -28,8 +26,8 @@ use Zend\ServiceManager\ServiceLocatorInterface;
  * @author  Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since   0.26
  * @package SolrTest\Paginator
- * @covers  Solr\Paginator\JobsBoardPaginatorFactory
- * @covers  Solr\Paginator\PaginatorFactoryAbstract
+ * @covers  \Solr\Paginator\JobsBoardPaginatorFactory
+ * @covers  \Solr\Paginator\PaginatorFactoryAbstract
  * @requires extension solr
  */
 class JobsPaginatorFactoryTest extends \PHPUnit_Framework_TestCase

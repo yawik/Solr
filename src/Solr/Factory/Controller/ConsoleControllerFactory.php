@@ -9,11 +9,8 @@
 namespace Solr\Factory\Controller;
 
 use Interop\Container\ContainerInterface;
-use Interop\Container\Exception\ContainerException;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
+use Solr\Controller\ConsoleController;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 use Core\Console\ProgressBar;
 
 class ConsoleControllerFactory implements FactoryInterface
@@ -28,6 +25,6 @@ class ConsoleControllerFactory implements FactoryInterface
 			return new ProgressBar($count, $persistenceNamespace);
 		};
 		
-		return new \Solr\Controller\ConsoleController($client, $jobRepository, $progressBarFactory, $options);
+		return new ConsoleController($client, $jobRepository, $progressBarFactory, $options);
 	}
 }
