@@ -8,8 +8,8 @@
 
 namespace SolrTest\Bridge;
 
+use Interop\Container\ContainerInterface;
 use Solr\Bridge\ResultConverter;
-use Zend\ServiceManager\ServiceLocatorInterface;
 use Core\Repository\RepositoryService;
 use Core\Repository\AbstractRepository;
 use Solr\Filter\AbstractPaginationQuery;
@@ -39,14 +39,14 @@ class ResultConverterTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
         
-        $serviceLocator = $this->getMockBuilder(ServiceLocatorInterface::class)
+        $container = $this->getMockBuilder(ContainerInterface::class)
             ->getMock();
-        $serviceLocator->expects($this->once())
+        $container->expects($this->once())
             ->method('get')
             ->with($this->equalTo('repositories'))
             ->willReturn($repositories);
         
-        $resultConverter = ResultConverter::factory($serviceLocator);
+        $resultConverter = ResultConverter::factory($container);
         $this->assertInstanceOf(ResultConverter::class, $resultConverter);
         
         return [$resultConverter, $repositories];

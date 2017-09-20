@@ -11,15 +11,11 @@ namespace Solr\Paginator;
 
 use Core\Paginator\PaginatorService;
 use Interop\Container\ContainerInterface;
-use Interop\Container\Exception\ContainerException;
 use Solr\Bridge\ResultConverter;
 use Solr\Options\ModuleOptions;
 use Solr\Paginator\Adapter\SolrAdapter;
 use Solr\Facets;
-use Zend\ServiceManager\Exception\ServiceNotCreatedException;
-use Zend\ServiceManager\Exception\ServiceNotFoundException;
 use Zend\ServiceManager\Factory\FactoryInterface;
-use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Abstract class for Solr paginator factory

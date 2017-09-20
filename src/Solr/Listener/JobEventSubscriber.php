@@ -15,11 +15,11 @@ use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Event\PostFlushEventArgs;
 use Doctrine\ODM\MongoDB\Event\PreUpdateEventArgs;
 use Doctrine\ODM\MongoDB\Events;
+use Interop\Container\ContainerInterface;
 use Jobs\Entity\Job;
 use Jobs\Entity\StatusInterface;
 use Solr\Bridge\Manager;
 use Solr\Filter\EntityToDocument\JobEntityToSolrDocument as EntityToDocumentFilter;
-use Zend\ServiceManager\ServiceLocatorInterface;
 use SolrClient;
 
 /**
@@ -163,12 +163,12 @@ class JobEventSubscriber implements EventSubscriber
     }
 
     /**
-     * @param ServiceLocatorInterface $serviceLocator
+     * @param ContainerInterface $container
      * @return JobEventSubscriber
      */
-    static public function factory(ServiceLocatorInterface $serviceLocator)
+    static public function factory(ContainerInterface $container)
     {
-        $options = $serviceLocator->get('Solr/Options/Module');
-        return new static($serviceLocator->get('Solr/Manager'), new EntityToDocumentFilter($options));
+        $options = $container->get('Solr/Options/Module');
+        return new static($container->get('Solr/Manager'), new EntityToDocumentFilter($options));
     }
 }

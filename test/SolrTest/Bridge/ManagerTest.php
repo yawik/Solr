@@ -10,9 +10,9 @@
 namespace SolrTest\Bridge;
 
 
+use Interop\Container\ContainerInterface;
 use Solr\Bridge\Manager;
 use Solr\Options\ModuleOptions as ConnectOption;
-use Zend\ServiceManager\ServiceLocatorInterface;
 
 /**
  * Test for SolrTest\Bridge\Manager
@@ -54,7 +54,7 @@ class ManagerTest extends \PHPUnit_Framework_TestCase
     }
     public function testFactory()
     {
-        $mock = $this->getMockBuilder(ServiceLocatorInterface::class)
+        $mock = $this->getMockBuilder(ContainerInterface::class)
             ->getMock()
         ;
         $mock

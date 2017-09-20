@@ -10,8 +10,8 @@
 namespace Solr\Bridge;
 
 use Core\Repository\RepositoryService;
+use Interop\Container\ContainerInterface;
 use Solr\Filter\AbstractPaginationQuery;
-use Zend\ServiceManager\ServiceLocatorInterface;
 use ArrayAccess;
 use InvalidArgumentException;
 
@@ -88,11 +88,11 @@ class ResultConverter
 
     /**
      * Create a new instance of ResultConverter
-     * @param   ServiceLocatorInterface $sl
+     * @param   ContainerInterface $container
      * @return  ResultConverter
      */
-    static public function factory(ServiceLocatorInterface $sl)
+    static public function factory(ContainerInterface $container)
     {
-        return new static($sl->get('repositories'));
+        return new static($container->get('repositories'));
     }
 }

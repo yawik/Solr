@@ -14,12 +14,12 @@ use Core\Options\ModuleOptions;
 use Doctrine\ODM\MongoDB\Event\PostFlushEventArgs;
 use Doctrine\ODM\MongoDB\Event\PreUpdateEventArgs;
 use Doctrine\ODM\MongoDB\Events;
+use Interop\Container\ContainerInterface;
 use Jobs\Entity\Job;
 use Jobs\Entity\StatusInterface;
 use Solr\Bridge\Manager;
 use Solr\Filter\EntityToDocument\JobEntityToSolrDocument as EntityToDocumentFilter;
 use Solr\Listener\JobEventSubscriber;
-use Zend\ServiceManager\ServiceLocatorInterface;;
 use SolrInputDocument;
 
 /**
@@ -264,15 +264,15 @@ class JobEventSubscriberTest extends \PHPUnit_Framework_TestCase
     public function testFactory()
     {
         $options = new \Solr\Options\ModuleOptions();
-        $serviceLocator = $this->getMockBuilder(ServiceLocatorInterface::class)
+        $container = $this->getMockBuilder(ContainerInterface::class)
             ->getMock();
-        $serviceLocator->expects($this->exactly(2))
+        $container->expects($this->exactly(2))
             ->method('get')
             ->withConsecutive([$this->equalTo('Solr/Options/Module')],
                               [$this->equalTo('Solr/Manager')])
             ->will($this->onConsecutiveCalls($options,$this->manager));
         
-        $this->assertInstanceOf(JobEventSubscriber::class, JobEventSubscriber::factory($serviceLocator));
+        $this->assertInstanceOf(JobEventSubscriber::class, JobEventSubscriber::factory($container));
     }
     
     /**

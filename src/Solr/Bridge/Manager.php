@@ -10,7 +10,7 @@
 namespace Solr\Bridge;
 
 use Solr\Options\ModuleOptions;
-use Zend\ServiceManager\ServiceLocatorInterface;
+use Interop\Container\ContainerInterface;
 use SolrClient;
 
 /**
@@ -81,11 +81,13 @@ class Manager
 
     /**
      * Create new instance for Solr\Manager
-     * @param ServiceLocatorInterface $sl
+     *
+     * @param ContainerInterface $container
+     *
      * @return Manager
      */
-    static public function factory(ServiceLocatorInterface $sl)
+    static public function factory(ContainerInterface $container)
     {
-        return new static($sl->get('Solr/Options/Module'));
+        return new static($container->get('Solr/Options/Module'));
     }
 }
