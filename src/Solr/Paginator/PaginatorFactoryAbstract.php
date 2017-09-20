@@ -22,49 +22,25 @@ use Zend\ServiceManager\Factory\FactoryInterface;
  *
  * @author Anthonius Munthi <me@itstoni.com>
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
+ * @author Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since 0.26
- * @package Solr\Paginator
+ * @since 0.30 Made factory ZF3 compatible
  */
 abstract class PaginatorFactoryAbstract implements FactoryInterface
 {
-    /**
-     * @var array
-     */
-    protected $options = [];
 
-    /**
-     * Set creation options
-     *
-     * @param  array $options
-     *
-     * @return void
-     */
-    public function setCreationOptions(array $options)
-    {
-        $this->options = $options;
-    }
-
-    /**
-     * @return array
-     */
-    public function getCreationOptions()
-    {
-        return $this->options;
-    }
-	
 	public function __invoke( ContainerInterface $container, $requestedName, array $options = null )
 	{
 		/* @var PaginatorService $serviceLocator */
 		/* @var ResultConverter $resultConverter */
 		$filter             = $container->get('FilterManager')->get($this->getFilter());
-		$options            = $container->get('Solr/Options/Module');
-		$connectPath        = $this->getConnectPath($options);
+		$moduleOptions      = $container->get('Solr/Options/Module');
+		$connectPath        = $this->getConnectPath($moduleOptions);
 		$solrClient         = $container->get('Solr/Manager')->getClient($connectPath);
 		$resultConverter    = $container->get('Solr/ResultConverter');
-		$adapter            = new SolrAdapter($solrClient, $filter, $resultConverter, new Facets(), $this->options);
+		$adapter            = new SolrAdapter($solrClient, $filter, $resultConverter, new Facets(), $options);
 		$service            = new Paginator($adapter);
 		
-		$this->setCreationOptions([]);
 		return $service;
 	}
 	
