@@ -33,7 +33,7 @@ before_script:
   - phpenv config-add .travis/phpenv.ini
   - curl -sS https://getcomposer.org/installer | php
   - ./composer.phar self-update
-  - ./composer.phar create-project --stability dev cross-solution/yawik=dev-feature/ZF3 ../yawik
+  - ./composer.phar create-project --stability dev cross-solution/yawik=dev-develop ../yawik
   - ./composer.phar require zendframework/zend-progressbar
   # Solr directory still exists in 0.27.2
   - rm -Rf `dirname $TRAVIS_BUILD_DIR`/yawik/module/Solr
