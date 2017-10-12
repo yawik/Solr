@@ -66,7 +66,12 @@ class JobEntityToSolrDocument implements FilterInterface
         $document->addField('isActive', $job->isActive());
         $document->addField('lang', $job->getLanguage());
         $this->processLocation($job, $document);
-        if (!is_null($job->getOrganization())) {
+        if ($job->getCompany(false)){
+            $document->addField('organizationName', $job->getCompany(false));
+            if ($job->getLogoRef()){
+                $document->addField('companyLogo', $job->getLogoRef());
+            }
+        } else if (!is_null($job->getOrganization())) {
             $this->processOrganization($job, $document);
         }
         $templateValues = $job->getTemplateValues();
