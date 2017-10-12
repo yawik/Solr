@@ -85,9 +85,8 @@ class JobsPaginatorFactoryTest extends \PHPUnit_Framework_TestCase
         ;
 
         $target = new JobsBoardPaginatorFactory();
-        $target->setCreationOptions(['name'=>'value']);
 
-        $retVal = $target($sl,'SomeName');
+        $retVal = $target($sl,'SomeName', ['name' => 'value']);
         $this->assertInstanceOf(
             Paginator::class,
             $retVal,
@@ -100,10 +99,5 @@ class JobsPaginatorFactoryTest extends \PHPUnit_Framework_TestCase
             '::createService should create paginator with SolrAdapter as adapter'
         );
 
-        $this->assertEquals(
-            [],
-            $target->getCreationOptions(),
-            '::createService should empty creationOptions when the service created'
-        );
     }
 }

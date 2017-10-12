@@ -21,7 +21,7 @@ use Zend\Paginator\Paginator;
  * @author Anthonius Munthi <me@itstoni.com>
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since 0.26
- * @covers Solr\Listener\CreatePaginatorListener
+ * @covers \Solr\Listener\CreatePaginatorListener
  * @package SolrTest\Event\Listener
  */
 class CreatePaginatorListenerTest extends \PHPUnit_Framework_TestCase
@@ -36,15 +36,10 @@ class CreatePaginatorListenerTest extends \PHPUnit_Framework_TestCase
 
         $event = $this->getMockBuilder(CreatePaginatorEvent::class)
             ->disableOriginalConstructor()
-            ->setMethods(['getPaginators','getPaginatorParams','getPaginatorName','getTarget'])
+            ->setMethods(['getPaginators','getPaginatorParams','getPaginatorName'])
             ->getMock()
         ;
         
-        $event->expects($this->exactly(2))
-	        ->method('getTarget')
-	        ->willReturn($event)
-	    ;
-
         $event->expects($this->exactly(2))
             ->method('getPaginatorParams')
             ->willReturn(['name'=>'value'])
