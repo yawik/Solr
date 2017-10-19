@@ -3,6 +3,7 @@
 build.properties
 test/coverage
 test/build
+/test/phpunit.xml
 
 #
 # Eclipse project files

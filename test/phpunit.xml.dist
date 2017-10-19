@@ -2,8 +2,8 @@
 
 <phpunit bootstrap="Bootstrap.php" colors="true">
     <logging>
-        <log type="coverage-html" target="/home/fedys/temp/coverage"/>
-        <log type="coverage-text" target="php://stdout" showUncoveredFiles="true"/>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+        <log type="coverage-php" target="build/logs/clover.serialized"/>
     </logging>
     <filter>
         <whitelist>

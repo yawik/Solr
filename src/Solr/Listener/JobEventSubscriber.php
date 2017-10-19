@@ -94,7 +94,7 @@ class JobEventSubscriber implements EventSubscriber
         }
         
         // check if the job is active
-        if ($document->isActive() && !$document->isDeleted()) {
+        if ($document->isActive()) {
             // mark it for commit
             $this->add[] = $document;
         }
