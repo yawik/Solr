@@ -13,6 +13,7 @@ namespace SolrTest\Listener;
 use Core\Options\ModuleOptions;
 use Doctrine\ODM\MongoDB\Event\PostFlushEventArgs;
 use Doctrine\ODM\MongoDB\Event\PreUpdateEventArgs;
+use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Events;
 use Interop\Container\ContainerInterface;
 use Jobs\Entity\Job;
@@ -21,6 +22,7 @@ use Solr\Bridge\Manager;
 use Solr\Filter\EntityToDocument\JobEntityToSolrDocument as EntityToDocumentFilter;
 use Solr\Listener\JobEventSubscriber;
 use SolrInputDocument;
+use stdClass;
 
 /**
  * Test for Solr\Listener\JobEventSubscriber
@@ -93,8 +95,56 @@ class JobEventSubscriberTest extends \PHPUnit_Framework_TestCase
     {
         $subscribedEvents = $this->subscriber->getSubscribedEvents();
 
+        $this->assertContains(Events::prePersist, $subscribedEvents);
         $this->assertContains(Events::preUpdate, $subscribedEvents);
         $this->assertContains(Events::postFlush, $subscribedEvents);
+    }
+
+    /**
+     * @covers ::prePersist()
+     */
+    public function testPrePersistShouldNotProcessNonJobDocument()
+    {
+        $job = $this->getMockBuilder(stdClass::class)
+            ->setMethods(['isActive'])
+            ->getMock();
+        $job->expects($this->never())
+            ->method('isActive');
+        
+        $event = $this->getMockBuilder(PreUpdateEventArgs::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $event->expects($this->once())
+            ->method('getDocument')
+            ->willReturn($job);
+        
+        $this->subscriber->prePersist($event);
+    }
+    
+    /**
+     * @param string $status
+     * @param bool $shouldBeAdded
+     * @covers ::prePersist()
+     * @dataProvider jobStateData()
+     */
+    public function testPrePersistWithJobDocument($status, $shouldBeAdded)
+    {
+        $job = new Job();
+        $job->setStatus($status);
+        $event = $this->getMockBuilder(LifecycleEventArgs::class)
+            ->disableOriginalConstructor()
+            ->getMock();
+        $event->expects($this->once())
+            ->method('getDocument')
+            ->willReturn($job);
+
+        $this->subscriber->prePersist($event);
+        
+        if ($shouldBeAdded) {
+            $this->assertAttributeContains($job, 'add', $this->subscriber);
+        } else {
+            $this->assertAttributeNotContains($job, 'add', $this->subscriber);
+        }
     }
 
     /**

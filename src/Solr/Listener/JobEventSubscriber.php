@@ -74,6 +74,7 @@ class JobEventSubscriber implements EventSubscriber
     public function getSubscribedEvents()
     {
         return [
+            Events::prePersist,
             Events::preUpdate,
             Events::postFlush
         ];
@@ -81,6 +82,26 @@ class JobEventSubscriber implements EventSubscriber
     
     /**
      * @param LifecycleEventArgs $eventArgs
+     * @since 0.30
+     */
+    public function prePersist(LifecycleEventArgs $eventArgs)
+    {
+        $document = $eventArgs->getDocument();
+        
+        // check for a job instance
+        if (!$document instanceof Job) {
+            return;
+        }
+        
+        // check if the job is active
+        if ($document->isActive()) {
+            // mark it for commit
+            $this->add[] = $document;
+        }
+    }
+    
+    /**
+     * @param PreUpdateEventArgs $eventArgs
      * @since 0.27
      */
     public function preUpdate(PreUpdateEventArgs $eventArgs)
@@ -119,7 +140,7 @@ class JobEventSubscriber implements EventSubscriber
     }
     
     /**
-     * @param LifecycleEventArgs $eventArgs
+     * @param PostFlushEventArgs $eventArgs
      * @since 0.27
      */
     public function postFlush(PostFlushEventArgs $eventArgs)
