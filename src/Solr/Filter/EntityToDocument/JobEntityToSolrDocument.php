@@ -74,17 +74,25 @@ class JobEntityToSolrDocument implements FilterInterface
         } else if (!is_null($job->getOrganization())) {
             $this->processOrganization($job, $document);
         }
-        $templateValues = $job->getTemplateValues();
-        $description = $templateValues->getDescription();
-        $stripTags = new StripTags();
-        $stripTags->setAttributesAllowed([])->setTagsAllowed([]);
-        $description = $stripTags->filter($description);
-
-        $qualification = $stripTags($templateValues->getQualifications());
-        $requirements = $stripTags($templateValues->getRequirements());
-        $benefits = $stripTags($templateValues->getBenefits());
-
-        $document->addField('html', "$description " . $job->getTitle() ." $requirements $qualification $benefits");
+        
+        $plainText = $job->getMetaData('plainText');
+        
+        if ($plainText) {
+            $html = $plainText;
+        } else {
+            $templateValues = $job->getTemplateValues();
+            $description = $templateValues->getDescription();
+            $stripTags = new StripTags();
+            $stripTags->setAttributesAllowed([])->setTagsAllowed([]);
+            $description = $stripTags->filter($description);
+    
+            $qualification = $stripTags($templateValues->getQualifications());
+            $requirements = $stripTags($templateValues->getRequirements());
+            $benefits = $stripTags($templateValues->getBenefits());
+            $html = "$description " . $job->getTitle() ." $requirements $qualification $benefits";
+        }
+        
+        $document->addField('html', $html);
 
         foreach($job->getClassifications()->getProfessions()->getItems() as $profession) { /* @var  $profession \Jobs\Entity\Category */
             $document->addField('profession_MultiString', $profession->getName());
