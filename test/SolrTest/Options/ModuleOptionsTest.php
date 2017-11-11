@@ -64,10 +64,16 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
                 'value' => '/some/Path',
             ]],
             ['facetFields', [
-                'default' => [[
-                    'name' => 'regionList',
-                    'label' => 'Region',
-                ]],
+                'default' => [
+                    [
+                        'name' => 'region_MultiString',
+                        'label' => 'Region',
+                    ],
+                    [
+                        'name' => 'city_MultiString',
+                        'label' => 'City'
+                    ]
+                ],
                 'value' => [[
                     'name' => 'test',
                     'label' => 'TEST',
@@ -107,8 +113,8 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
             ]],
             ['mappings', [
                 'default' => [
-                    'profession' => 'professionList',
-                    'employmentType' => 'employmentTypeList',
+                    'profession' => 'profession_MultiString',
+                    'employmentType' => 'employmentType_MultiString',
                 ],
                 'value' => [
                     'profession' => 'MyProfession',

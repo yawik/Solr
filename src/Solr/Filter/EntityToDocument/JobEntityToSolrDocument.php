@@ -155,16 +155,18 @@ class JobEntityToSolrDocument implements FilterInterface
             if (is_object($location->getCoordinates())) {
                 $coordinate = Util::convertLocationCoordinates($location);
                 $region = $location->getRegion();
+                $city = $location->getCity();
                 $loc->addField('point', $coordinate);
                 $loc->addField('latLon', $coordinate);
                 $document->addField('locations', $coordinate);
                 $document->addField('points', $coordinate);
                 $loc->addField('id', $this->getLocationDocumentId($job, $coordinate));
-                $loc->addField('city', $location->getCity());
+                $loc->addField('city', $city);
                 $loc->addField('country', $location->getCountry());
                 $loc->addField('region', $region);
                 $loc->addField('postalCode', $location->getPostalCode());
                 $document->addField('region_MultiString', $region);
+                $document->addField('city_MultiString', $city);
                 $document->addChildDocument($loc);
             }
         }

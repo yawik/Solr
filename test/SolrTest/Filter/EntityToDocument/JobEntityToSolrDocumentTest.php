@@ -229,6 +229,7 @@ class JobEntityToSolrDocumentTest extends \PHPUnit_Framework_TestCase
         $this->jobFilter->processLocation($job, $document);
         $this->assertSame($job->getLocation(), $this->getDocumentValue($document, 'location'));
         $this->assertSame($region, $this->getDocumentValue($document, 'region_MultiString'));
+        $this->assertSame($city, $this->getDocumentValue($document, 'city_MultiString'));
         $childDocuments = $document->getChildDocuments();
         $this->assertCount(count($locations), $childDocuments);
         $childDocument = reset($childDocuments);

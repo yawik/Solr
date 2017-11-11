@@ -69,8 +69,12 @@ class ModuleOptions extends AbstractOptions
      */
     protected $facetFields = [
             [
-                'name' => 'regionList',
+                'name' => 'region_MultiString',
                 'label' => 'Region',
+            ],
+            [
+                'name' => 'city_MultiString',
+                'label' => 'City'
             ]
         ];
 
@@ -104,8 +108,8 @@ class ModuleOptions extends AbstractOptions
     ];
 
     protected  $mappings = [
-        'profession' => 'professionList',
-        'employmentType' => 'employmentTypeList',
+        'profession' => 'profession_MultiString',
+        'employmentType' => 'employmentType_MultiString',
     ];
 
     /**
