@@ -81,8 +81,8 @@ class ConsoleController extends AbstractActionController
             $i++;
         }
         
-        $this->solrClient->commit();
-        $this->solrClient->optimize();
+        $this->solrClient->commit(true,false);
+        $this->solrClient->optimize(1,true,false);
 
         return PHP_EOL;
     }

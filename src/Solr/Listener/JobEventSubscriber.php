@@ -165,8 +165,9 @@ class JobEventSubscriber implements EventSubscriber
         
         // commit to index & optimize it
         $client = $this->getSolrClient();
-        $client->commit();
-        $client->optimize();
+        $client->commit(true,false);
+        $client->optimize(1,true,false);
+
     }
     
     /**
