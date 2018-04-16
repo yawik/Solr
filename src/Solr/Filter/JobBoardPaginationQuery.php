@@ -59,6 +59,7 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
             $query->addQueryField('text', '1');
             $query->addQueryField('organizationName', '2');
             $query->addQueryField('location', '0.2');
+            $query->setMinimumMatch(2);
         } else {
             $q = '*:*';
             $query->addSortField('datePublishStart', SolrQuery::ORDER_DESC);
