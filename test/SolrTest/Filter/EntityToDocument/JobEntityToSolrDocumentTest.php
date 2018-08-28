@@ -134,7 +134,7 @@ class JobEntityToSolrDocumentTest extends \PHPUnit_Framework_TestCase
         $locations = new ArrayCollection([$location]);
         $job->setLocations($locations);
         
-        $this->assertSame([$id, "{$id}-{$coordinate1},{$coordinate2}"], $this->jobFilter->getDocumentIds($job));
+        $this->assertSame([$id, "{$id}-{$coordinate2},{$coordinate1}"], $this->jobFilter->getDocumentIds($job));
     }
 
     /**
@@ -189,7 +189,7 @@ class JobEntityToSolrDocumentTest extends \PHPUnit_Framework_TestCase
     {
         $locationText = 'some location';
         $coordinatesArray = [1.2,2.1];
-        $coordinatesConverted = '1.2,2.1';
+        $coordinatesConverted = '2.1,1.2';
         $city = 'some city';
         $country = 'some country';
         $postalCode = 'some postal code';

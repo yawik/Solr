@@ -51,7 +51,7 @@ class UtilTest extends \PHPUnit_Framework_TestCase
 
         $coordinates->expects($this->once())
             ->method('getCoordinates')
-            ->willReturn([0.1,0.2])
+            ->willReturn([0.2,0.1])
         ;
 
         $this->assertEquals('0.1,0.2',Util::convertLocationCoordinates($location));

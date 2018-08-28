@@ -120,7 +120,7 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
         $location->method('getCoordinates')->willReturn($coordinates);
         $coordinates->expects($this->once())
             ->method('getCoordinates')
-            ->willReturn([1.2,2.1])
+            ->willReturn([2.1,1.2])
         ;
         $publishedSince = new DateTime();
 
