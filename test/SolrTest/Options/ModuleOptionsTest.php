@@ -97,6 +97,9 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
                     ],
                     'd' => [
                         'name' => 'd'
+                    ],
+                    'o' => [
+                      'name' => 'o'
                     ]
                 ],
                 'value' => [
@@ -108,6 +111,9 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
                     ],
                     'd' => [
                         'name' => 'MyDistance'
+                    ],
+                    'o' => [
+                      'name' => 'MyOrganization'
                     ]
                 ],
             ]],

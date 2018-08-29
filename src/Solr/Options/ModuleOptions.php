@@ -26,8 +26,14 @@ class ModuleOptions extends AbstractOptions
     const FIELD_QUERY = 'q';
     const FIELD_LOCATION = 'l';
     const FIELD_DISTANCE = 'd';
+    const FIELD_ORGANIZATION = 'o';
 
-    private $validFields = [self::FIELD_QUERY, self::FIELD_LOCATION, self::FIELD_DISTANCE ];
+    private $validFields = [
+      self::FIELD_QUERY,
+      self::FIELD_LOCATION,
+      self::FIELD_DISTANCE,
+      self::FIELD_ORGANIZATION
+    ];
 
     /**
      * @var bool
@@ -104,6 +110,9 @@ class ModuleOptions extends AbstractOptions
         ],
         self::FIELD_DISTANCE => [
             'name' => 'd'
+        ],
+        self::FIELD_ORGANIZATION => [
+          'name' => 'o'
         ]
     ];
 

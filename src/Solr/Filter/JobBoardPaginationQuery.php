@@ -101,6 +101,17 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
                 $query->addField('score');
             }
         }
+
+        if (isset($params[$this->options->getParameterName(ModuleOptions::FIELD_ORGANIZATION)])) {
+           $query->addFilterQuery(
+             sprintf(
+               "organizationName:'%s'",
+               \SolrUtils::escapeQueryChars(
+                 $params[
+                 $this->options->getParameterName(ModuleOptions::FIELD_ORGANIZATION)
+                 ]
+               )));
+        }
         
         if (isset($params['publishedSince'])) {
             $publishedSince = $params['publishedSince'];
