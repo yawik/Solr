@@ -28,22 +28,21 @@ use Zend\ServiceManager\Factory\FactoryInterface;
  */
 abstract class PaginatorFactoryAbstract implements FactoryInterface
 {
-
-	public function __invoke( ContainerInterface $container, $requestedName, array $options = null )
-	{
-		/* @var PaginatorService $serviceLocator */
-		/* @var ResultConverter $resultConverter */
-		$filter             = $container->get('FilterManager')->get($this->getFilter());
-		$moduleOptions      = $container->get('Solr/Options/Module');
-		$connectPath        = $this->getConnectPath($moduleOptions);
-		$solrClient         = $container->get('Solr/Manager')->getClient($connectPath);
-		$resultConverter    = $container->get('Solr/ResultConverter');
-		$adapter            = new SolrAdapter($solrClient, $filter, $resultConverter, new Facets(), $options);
-		$service            = new Paginator($adapter);
-		
-		return $service;
-	}
-	
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        /* @var PaginatorService $serviceLocator */
+        /* @var ResultConverter $resultConverter */
+        $filter             = $container->get('FilterManager')->get($this->getFilter());
+        $moduleOptions      = $container->get('Solr/Options/Module');
+        $connectPath        = $this->getConnectPath($moduleOptions);
+        $solrClient         = $container->get('Solr/Manager')->getClient($connectPath);
+        $resultConverter    = $container->get('Solr/ResultConverter');
+        $adapter            = new SolrAdapter($solrClient, $filter, $resultConverter, new Facets(), $options);
+        $service            = new Paginator($adapter);
+        
+        return $service;
+    }
+    
     /**
      * pagination service name
      *

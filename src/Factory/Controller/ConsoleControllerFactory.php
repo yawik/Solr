@@ -15,16 +15,16 @@ use Core\Console\ProgressBar;
 
 class ConsoleControllerFactory implements FactoryInterface
 {
-	public function __invoke( ContainerInterface $container, $requestedName, array $options = null )
-	{
-		$manager = $container->get('Solr/Manager');
-		$options = $container->get('Solr/Options/Module');
-		$client = $manager->getClient($manager->getOptions()->getJobsPath());
-		$jobRepository = $container->get('repositories')->get('Jobs/Job');
-		$progressBarFactory = function ($count, $persistenceNamespace = null) {
-			return new ProgressBar($count, $persistenceNamespace);
-		};
-		
-		return new ConsoleController($client, $jobRepository, $progressBarFactory, $options);
-	}
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
+    {
+        $manager = $container->get('Solr/Manager');
+        $options = $container->get('Solr/Options/Module');
+        $client = $manager->getClient($manager->getOptions()->getJobsPath());
+        $jobRepository = $container->get('repositories')->get('Jobs/Job');
+        $progressBarFactory = function ($count, $persistenceNamespace = null) {
+            return new ProgressBar($count, $persistenceNamespace);
+        };
+        
+        return new ConsoleController($client, $jobRepository, $progressBarFactory, $options);
+    }
 }

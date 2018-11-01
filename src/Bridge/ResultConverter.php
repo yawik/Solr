@@ -57,8 +57,7 @@ class ResultConverter
 
         if (!isset($response['response'])
             || !isset($response['response']['docs'])
-            || !is_array($response['response']['docs']))
-        {
+            || !is_array($response['response']['docs'])) {
             throw new InvalidArgumentException('invalid response');
         }
         
@@ -91,7 +90,7 @@ class ResultConverter
      * @param   ContainerInterface $container
      * @return  ResultConverter
      */
-    static public function factory(ContainerInterface $container)
+    public static function factory(ContainerInterface $container)
     {
         return new static($container->get('repositories'));
     }

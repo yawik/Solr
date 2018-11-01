@@ -34,23 +34,14 @@ before_script:
   - sh -c "tar xfz $PECLSOLR.tgz"
   - sh -c "cd $PECLSOLR && phpize && ./configure && make && sudo make install"
 
-  - phpenv config-add .travis/phpenv.ini
-  - curl -sS https://getcomposer.org/installer | php
-  - ./composer.phar self-update
-  - ./composer.phar create-project --stability dev cross-solution/yawik=dev-develop ../yawik
-  - ./composer.phar require zendframework/zend-progressbar
-  # Solr directory still exists in 0.27.2
-  - rm -Rf `dirname $TRAVIS_BUILD_DIR`/yawik/module/Solr
-  - mv ../`basename $TRAVIS_BUILD_DIR` `dirname $TRAVIS_BUILD_DIR`/yawik/module
+  - phpenv config-add etc/travis/phpenv.ini
+  - composer install
 
 script:
-  - cd `dirname $TRAVIS_BUILD_DIR`/yawik/module/Solr/test
-  - phpunit
+  - ./vendor/bin/phpunit
 
 after_script:
   - cd `dirname $TRAVIS_BUILD_DIR`/yawik/module/Solr
   - php `dirname $TRAVIS_BUILD_DIR`/yawik/vendor/bin/coveralls -vvv
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover test/build/logs/clover.serialized
-
-

@@ -1,9 +1,8 @@
+.env
 vendor
 node_modules
 build.properties
-test/coverage
-test/build
-/test/phpunit.xml
+build
 
 #
 # Eclipse project files

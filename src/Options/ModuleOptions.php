@@ -9,7 +9,6 @@
 
 namespace Solr\Options;
 
-
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
 use Zend\Stdlib\AbstractOptions;
 
@@ -22,7 +21,6 @@ use Zend\Stdlib\AbstractOptions;
  */
 class ModuleOptions extends AbstractOptions
 {
-
     const FIELD_QUERY = 'q';
     const FIELD_LOCATION = 'l';
     const FIELD_DISTANCE = 'd';
@@ -116,7 +114,7 @@ class ModuleOptions extends AbstractOptions
         ]
     ];
 
-    protected  $mappings = [
+    protected $mappings = [
         'profession' => 'profession_MultiString',
         'employmentType' => 'employmentType_MultiString',
     ];
@@ -257,7 +255,8 @@ class ModuleOptions extends AbstractOptions
     /**
      * @return array
      */
-    public function getFacetFields() {
+    public function getFacetFields()
+    {
         return $this->facetFields;
     }
 
@@ -266,7 +265,8 @@ class ModuleOptions extends AbstractOptions
      *
      * @return $this
      */
-    public function setFacetFields($facetFields) {
+    public function setFacetFields($facetFields)
+    {
         $this->facetFields=$facetFields;
         return $this;
     }
@@ -274,7 +274,8 @@ class ModuleOptions extends AbstractOptions
     /**
      * @return array
      */
-    public function getParameterNames() {
+    public function getParameterNames()
+    {
         return $this->parameterNames;
     }
 
@@ -283,7 +284,8 @@ class ModuleOptions extends AbstractOptions
      *
      * @return $this
      */
-    public function setParameterNames($parameterNames) {
+    public function setParameterNames($parameterNames)
+    {
         $this->parameterNames=$parameterNames;
         return $this;
     }
@@ -291,7 +293,8 @@ class ModuleOptions extends AbstractOptions
     /**
      * @return array
      */
-    public function getFacetLimit() {
+    public function getFacetLimit()
+    {
         return $this->facetLimit;
     }
 
@@ -300,7 +303,8 @@ class ModuleOptions extends AbstractOptions
      *
      * @return $this
      */
-    public function setFacetLimit($facetLimit) {
+    public function setFacetLimit($facetLimit)
+    {
         $this->facetLimit=$facetLimit;
         return $this;
     }
@@ -308,7 +312,8 @@ class ModuleOptions extends AbstractOptions
     /**
      * @return array
      */
-    public function getFacetMinCount() {
+    public function getFacetMinCount()
+    {
         return $this->facetMinCount;
     }
 
@@ -317,7 +322,8 @@ class ModuleOptions extends AbstractOptions
      *
      * @return $this
      */
-    public function setFacetMinCount($facetMinCount) {
+    public function setFacetMinCount($facetMinCount)
+    {
         $this->facetMinCount=$facetMinCount;
         return $this;
     }
@@ -327,21 +333,22 @@ class ModuleOptions extends AbstractOptions
      *
      * @return mixed
      */
-    public function getParameterName($key) {
+    public function getParameterName($key)
+    {
         if (!in_array($key, $this->validFields)) {
-            throw new \InvalidArgumentException('an invalid field name was passed. Valid fieldnames are: (' . implode('|', $this->validFields ).')');
+            throw new \InvalidArgumentException('an invalid field name was passed. Valid fieldnames are: (' . implode('|', $this->validFields).')');
         }
         return $this->parameterNames[$key]['name'];
     }
 
-    public function getMappings() {
+    public function getMappings()
+    {
         return $this->mappings;
     }
 
-    public function setMappings($mappings) {
+    public function setMappings($mappings)
+    {
         $this->mappings=$mappings;
         return $this;
     }
-
-
 }

@@ -86,7 +86,7 @@ class Manager
      *
      * @return Manager
      */
-    static public function factory(ContainerInterface $container)
+    public static function factory(ContainerInterface $container)
     {
         return new static($container->get('Solr/Options/Module'));
     }

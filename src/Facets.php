@@ -21,7 +21,6 @@ use SolrUtils;
 
 class Facets implements IteratorAggregate, Countable
 {
-    
     const TYPE_FIELD = 'facet_fields';
     
     /**
@@ -72,21 +71,20 @@ class Facets implements IteratorAggregate, Countable
     }
 
     /**
-	 * @see IteratorAggregate::getIterator()
-	 */
-	public function getIterator()
-	{
-		return new ArrayIterator($this->toArray());
-		
-	}
+     * @see IteratorAggregate::getIterator()
+     */
+    public function getIterator()
+    {
+        return new ArrayIterator($this->toArray());
+    }
 
     /**
-	 * @see Countable::count()
-	 */
-	public function count()
-	{
-		return count($this->toArray());
-	}
+     * @see Countable::count()
+     */
+    public function count()
+    {
+        return count($this->toArray());
+    }
 
     /**
      * @return array
@@ -128,15 +126,15 @@ class Facets implements IteratorAggregate, Countable
         return $this;
     }
     /**
-	 * @param array $params
-	 * @return Facets
-	 */
-	public function setParams(array $params)
-	{
-		$this->params = $params;
-		
-		return $this;
-	}
+     * @param array $params
+     * @return Facets
+     */
+    public function setParams(array $params)
+    {
+        $this->params = $params;
+        
+        return $this;
+    }
 
     /**
      * @param SolrDisMaxQuery $query

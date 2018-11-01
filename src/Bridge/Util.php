@@ -27,7 +27,7 @@ class Util
      * @param Location $location
      * @return string
      */
-    static public function convertLocationCoordinates(Location $location)
+    public static function convertLocationCoordinates(Location $location)
     {
         $coordinates = $location->getCoordinates()->getCoordinates();
         $coordinate = doubleval($coordinates[1]) . '%' . doubleval($coordinates[0]);
@@ -44,7 +44,7 @@ class Util
      *
      * @return string
      */
-    static public function convertLocationString($location)
+    public static function convertLocationString($location)
     {
         $coordinate = ltrim($location, 'c:');
         $coordinate = strtr($coordinate, [
@@ -60,7 +60,7 @@ class Util
      * @param DateTime $date
      * @return string
      */
-    static public function convertDateTime(DateTime $date)
+    public static function convertDateTime(DateTime $date)
     {
         return $date->setTimezone(new \DateTimeZone('UTC'))->format(Manager::SOLR_DATE_FORMAT);
     }
@@ -71,7 +71,7 @@ class Util
      * @param string $solrDate
      * @return DateTime
      */
-    static public function convertSolrDateToPhpDateTime($solrDate)
+    public static function convertSolrDateToPhpDateTime($solrDate)
     {
         $solrDate = trim($solrDate);
         $dateTime = DateTime::createFromFormat(Manager::SOLR_DATE_FORMAT, $solrDate);

@@ -31,7 +31,6 @@ use Solr\Bridge\Util;
  */
 class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implements JobInterface
 {
-
     use TestInheritanceTrait, TestUsesTraitsTrait, TestSetterGetterTrait;
 
 
@@ -138,7 +137,6 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
     public function getHistory()
     {
         return $this->job->getHistory();
-        
     }
 
     /**
@@ -173,11 +171,9 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
         if (isset($this->solrResult['locations'])
             && $this->solrResult['locations'] instanceof ArrayAccess
             && isset($this->solrResult['locations']['docs'])
-        )
-        {
+        ) {
             // get concatenated list of cities from the locations
-            $locations = trim(implode(', ', array_unique(array_map(function(ArrayAccess $doc)
-            {
+            $locations = trim(implode(', ', array_unique(array_map(function (ArrayAccess $doc) {
                 return isset($doc->city) ? trim($doc->city) : '';
             }, $this->solrResult['locations']['docs']))));
             
@@ -631,6 +627,4 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
         $this->job->createAttachedEntity($entityClass, $values, $key);
         return $this;
     }
-
-
 }

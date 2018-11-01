@@ -9,7 +9,6 @@
 
 namespace Solr\Listener;
 
-
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ODM\MongoDB\Event\LifecycleEventArgs;
 use Doctrine\ODM\MongoDB\Event\PostFlushEventArgs;
@@ -165,16 +164,15 @@ class JobEventSubscriber implements EventSubscriber
         
         // commit to index & optimize it
         $client = $this->getSolrClient();
-        $client->commit(true,false);
-        $client->optimize(1,true,false);
-
+        $client->commit(true, false);
+        $client->optimize(1, true, false);
     }
     
     /**
-	 * @return SolrClient
-	 * @since 0.27
-	 */
-	protected function getSolrClient()
+     * @return SolrClient
+     * @since 0.27
+     */
+    protected function getSolrClient()
     {
         if (!isset($this->solrClient)) {
             $path = $this->solrManager->getOptions()->getJobsPath();
@@ -188,7 +186,7 @@ class JobEventSubscriber implements EventSubscriber
      * @param ContainerInterface $container
      * @return JobEventSubscriber
      */
-    static public function factory(ContainerInterface $container)
+    public static function factory(ContainerInterface $container)
     {
         $options = $container->get('Solr/Options/Module');
         return new static($container->get('Solr/Manager'), new EntityToDocumentFilter($options));

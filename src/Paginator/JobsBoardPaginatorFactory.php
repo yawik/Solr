@@ -8,6 +8,7 @@
  */
 
 namespace Solr\Paginator;
+
 use Solr\Options\ModuleOptions;
 
 /**

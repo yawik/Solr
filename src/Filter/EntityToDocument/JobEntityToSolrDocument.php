@@ -18,8 +18,6 @@ use InvalidArgumentException;
 use Solr\Bridge\Util;
 use Zend\Filter\StripTags;
 
-
-
 class JobEntityToSolrDocument implements FilterInterface
 {
     /**
@@ -27,7 +25,8 @@ class JobEntityToSolrDocument implements FilterInterface
      */
     protected $options;
 
-    public function __construct($options){
+    public function __construct($options)
+    {
         $this->options=$options;
     }
 
@@ -66,12 +65,12 @@ class JobEntityToSolrDocument implements FilterInterface
         $document->addField('isActive', $job->isActive());
         $document->addField('lang', $job->getLanguage());
         $this->processLocation($job, $document);
-        if ($job->getCompany(false)){
+        if ($job->getCompany(false)) {
             $document->addField('organizationName', $job->getCompany(false));
-            if ($job->getLogoRef()){
+            if ($job->getLogoRef()) {
                 $document->addField('companyLogo', $job->getLogoRef());
             }
-        } else if (!is_null($job->getOrganization())) {
+        } elseif (!is_null($job->getOrganization())) {
             $this->processOrganization($job, $document);
         }
         
@@ -94,7 +93,7 @@ class JobEntityToSolrDocument implements FilterInterface
         
         $document->addField('html', $html);
 
-        foreach($job->getClassifications()->getProfessions()->getItems() as $profession) { /* @var  $profession \Jobs\Entity\Category */
+        foreach ($job->getClassifications()->getProfessions()->getItems() as $profession) { /* @var  $profession \Jobs\Entity\Category */
             $document->addField('profession_MultiString', $profession->getName());
         }
         foreach ($job->getClassifications()->getEmploymentTypes()->getItems() as $employmentType) { /* @var  $employmentType \Jobs\Entity\Category */

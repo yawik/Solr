@@ -9,7 +9,6 @@
 
 namespace Solr\Controller;
 
-
 use Core\Console\ProgressBar;
 use Jobs\Repository\Job as JobRepository;
 use SolrClient;
@@ -81,17 +80,17 @@ class ConsoleController extends AbstractActionController
             $i++;
         }
         
-        $this->solrClient->commit(true,false);
-        $this->solrClient->optimize(1,true,false);
+        $this->solrClient->commit(true, false);
+        $this->solrClient->optimize(1, true, false);
 
         return PHP_EOL;
     }
     
     /**
-	 * @return callable
-	 */
-	public function getProgressBarFactory()
-	{
-		return $this->progressBarFactory;
-	}
+     * @return callable
+     */
+    public function getProgressBarFactory()
+    {
+        return $this->progressBarFactory;
+    }
 }

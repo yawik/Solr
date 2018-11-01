@@ -103,14 +103,16 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
         }
 
         if (isset($params[$this->options->getParameterName(ModuleOptions::FIELD_ORGANIZATION)])) {
-           $query->addFilterQuery(
+            $query->addFilterQuery(
              sprintf(
                "organizationName:'%s'",
                \SolrUtils::escapeQueryChars(
                  $params[
                  $this->options->getParameterName(ModuleOptions::FIELD_ORGANIZATION)
                  ]
-               )));
+               )
+             )
+           );
         }
         
         if (isset($params['publishedSince'])) {
@@ -132,8 +134,7 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
 
         $query->setFacetLimit($this->options->getFacetLimit());
 
-        foreach ($this->options->getFacetFields() as $facetField) // facets
-        {
+        foreach ($this->options->getFacetFields() as $facetField) { // facets
             $facets->addDefinition($facetField['name'], $facetField['label']);
         }
 
@@ -156,8 +157,6 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
 
             $query->addFilterQuery('datePublishStart:[' . Util::convertDateTime($publishedSince) . ' TO * ]');
         }
-
-
     }
 
     /**
