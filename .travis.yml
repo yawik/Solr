@@ -38,7 +38,11 @@ before_script:
   - composer install
 
 script:
-  - ./vendor/bin/phpunit
+  - 'if [[ $COVERAGE = yes ]]; then
+        ./vendor/bin/phpunit --verbose --coverage-clover=build/logs/clover.xml --coverage-php=build/logs/clover.serialized;
+    else
+        ./vendor/bin/phpunit --verbose;
+    fi'
 
 after_script:
   - cd `dirname $TRAVIS_BUILD_DIR`/yawik/module/Solr
