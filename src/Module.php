@@ -38,20 +38,4 @@ class Module implements ConsoleUsageProviderInterface
     {
         return ModuleConfigLoader::load(__DIR__.'/config');
     }
-
-    /**
-     * Loads module specific autoloader configuration.
-     *
-     * @return array
-     */
-    public function getAutoloaderConfig()
-    {
-        return array(
-            'Zend\Loader\StandardAutoloader' => array(
-                'namespaces' => array(
-                    __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
-                ),
-            ),
-        );
-    }
 }
