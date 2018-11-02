@@ -30,8 +30,8 @@ install:
 
   # install SOLR extension
   - sh -c "wget http://pecl.php.net/get/solr-2.4.0.tgz"
-  - sh -c "tar xfz $PECLSOLR.tgz"
-  - sh -c "cd $PECLSOLR && phpize && ./configure && make && sudo make install"
+  - sh -c "tar xfz solr-2.4.0.tgz"
+  - sh -c "cd solr-2.4.0 && phpize && ./configure && make && sudo make install"
 
   - phpenv config-add etc/travis/phpenv.ini
   - composer install
