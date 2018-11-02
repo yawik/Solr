@@ -29,7 +29,9 @@ install:
   - pecl install mongodb
 
   # install SOLR extension
-  - pecl install solr
+  - sh -c "wget http://pecl.php.net/get/solr-2.4.0.tgz"
+  - sh -c "tar xfz $PECLSOLR.tgz"
+  - sh -c "cd $PECLSOLR && phpize && ./configure && make && sudo make install"
 
   - phpenv config-add etc/travis/phpenv.ini
   - composer install
