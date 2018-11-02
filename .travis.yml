@@ -1,10 +1,18 @@
 language: php
-php:
-  - "5.6"
-  - "7.0"
-  - "7.1"
-  - "7.1"
-    env: COVERAGE=yes
+
+cache:
+    directories:
+    - "$HOME/.composer/cache"
+    - "$HOME/.npm"
+
+matrix:
+    fast_finish: true
+    include:
+    - php: '5.6'
+    - php: '7.0'
+    - php: '7.1'
+    - php: '7.1'
+      env: COVERAGE=yes
 
 services:
   - mongodb
@@ -38,6 +46,9 @@ script:
     fi'
 
 after_script:
-  - ./vendor/bin/coveralls -vvv
-  - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.serialized
+  - 'if [[ $COVERAGE = yes ]]; then
+        composer require php-coveralls/php-coveralls;
+        travis_retry ./vendor/bin/php-coveralls -vvv;
+        wget https://scrutinizer-ci.com/ocular.phar;
+        travis_retry php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.serialized;
+    fi'
