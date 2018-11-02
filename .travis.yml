@@ -19,6 +19,7 @@ services:
 
 before_install:
   - sudo apt-get update > /dev/null
+  - sudo apt-get install libcurl4-gnutls-dev libxml2-dev
   - "mongo --eval 'db.runCommand({setParameter: 1, textSearchEnabled: true})' admin"
 
 install:
