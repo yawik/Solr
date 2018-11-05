@@ -37,7 +37,7 @@ before_install:
 install:
   # install Mongo extension
   - 'if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" ]]; then
-        echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+        echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini;
     else
         pecl install mongodb;
     fi'
