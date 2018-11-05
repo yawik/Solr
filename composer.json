@@ -23,11 +23,11 @@
     "prefer-stable": true,
     "minimum-stability": "dev",
     "require": {
-        "ext-solr": ">=2.4",
         "yawik/core": "^0.32@dev",
         "zendframework/zend-progressbar": "^2.5"
     },
     "require-dev": {
+        "ext-solr": ">=2.4",
         "phpunit/phpunit": "^5.7",
         "yawik/behat": "~0.32@dev"
     },
