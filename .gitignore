@@ -3,7 +3,7 @@ vendor
 node_modules
 build.properties
 build
-
+composer.lock
 #
 # Eclipse project files
 #
