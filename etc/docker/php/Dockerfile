@@ -34,15 +34,22 @@ RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 RUN docker-php-source delete
 
+# install solr extension
+ENV SOLR_HASH "de1d724299780d927cb9ed14268449ac8a28204b"
+RUN curl --location https://github.com/php/pecl-search_engine-solr/archive/${SOLR_HASH}.tar.gz -o solr.tgz \
+    && tar xfz solr.tgz \
+    && cd pecl-search_engine-solr-${SOLR_HASH} \
+    && phpize \
+    && ./configure \
+    && make \
+    && make install
+RUN docker-php-ext-enable solr
+
 # Add timezone
 RUN rm /etc/localtime && \
     ln -s /usr/share/zoneinfo/UTC /etc/localtime && \
     "date"
 RUN printf '[PHP]\ndate.timezone = "%s"\n', ${TIMEZONE} > /usr/local/etc/php/conf.d/tzone.ini
-
-# Install composer
-RUN curl -sS https://getcomposer.org/installer | \
-    php -- --install-dir=/usr/local/bin --filename=composer
 
 # Cleanup
 RUN rm -rf /var/cache/apk/* \
