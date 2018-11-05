@@ -36,8 +36,10 @@ before_install:
 
 install:
   # install Mongo extension
-  - 'if [[ ${TRAVIS_PHP_VERSION:0:3} != "7.2" ]]; then
-      pecl install mongodb;
+  - 'if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" ]]; then
+        echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini;
+    else
+        pecl install mongodb;
     fi'
   # install SOLR extension
   # using solr master version in php 7.2
