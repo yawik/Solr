@@ -36,9 +36,7 @@ before_install:
 
 install:
   # install Mongo extension
-  - 'if [[ ${TRAVIS_PHP_VERSION:0:3} != "7.2" ]]; then
-      pecl install mongodb;
-    fi'
+  - pecl install mongodb
   # install SOLR extension
   # using solr master version in php 7.2
   - 'if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" ]]; then
