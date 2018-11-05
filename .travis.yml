@@ -50,8 +50,8 @@ script:
 after_script:
   # process coverage
   - 'if [[ $COVERAGE = yes ]]; then
-        composer require php-coveralls/php-coveralls;
-        travis-retry vendor/bin/php-coveralls -vvv;
+        composer require php-coveralls/php-coveralls --no-scripts;
+        ./vendor/bin/php-coveralls -vvv;
         wget https://scrutinizer-ci.com/ocular.phar;
-        travis-retry ocular.phar code-coverage:upload --format=php-clover build/logs/clover.serialized;
+        ocular.phar code-coverage:upload --format=php-clover build/logs/clover.serialized;
     fi'
