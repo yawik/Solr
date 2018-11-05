@@ -32,6 +32,11 @@ before_script:
   # install SOLR extension
   - sh -c "wget http://pecl.php.net/get/$PECLSOLR.tgz"
   - sh -c "tar xfz $PECLSOLR.tgz"
+  # apply solr patch when in 7.2 php version
+  - 'if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" ]]; then
+      curl https://github.com/php/pecl-search_engine-solr/commit/744e32915d5989101267ed2c84a407c582dc6f31.patch -O solr.patch;
+      patch -p < solr.patch
+    fi'
   - sh -c "cd $PECLSOLR && phpize && ./configure && make && sudo make install"
   - phpenv config-add etc/travis/phpenv.ini
   - composer install
