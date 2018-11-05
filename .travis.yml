@@ -1,4 +1,17 @@
 language: php
+
+addons:
+  apt:
+    sources:
+    - google-chrome
+    packages:
+    - google-chrome-stable
+
+cache:
+  directories:
+  - "$HOME/.composer/cache"
+  - "$HOME/.npm"
+
 matrix:
     fast_finish: true
     include:
@@ -48,7 +61,7 @@ before_script:
         sleep 5;
         composer run serve --timeout=0 > /dev/null 2>&1 &
         sleep 3;
-      fi'
+    fi'
 
 script:
   - 'if [[ $COVERAGE = yes ]]; then
