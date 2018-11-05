@@ -1,10 +1,12 @@
 language: php
-php:
-  - "5.6"
-  - "7.0"
-  - "7.1"
-  - "7.1"
-    env: COVERAGE=yes
+matrix:
+    fast_finish: true
+    include:
+    - php: '5.6'
+    - php: '7.0'
+    - php: '7.1'
+    - php: '7.1'
+      env: COVERAGE=yes
 
 services:
   - mongodb
@@ -28,7 +30,6 @@ before_script:
   - sh -c "wget http://pecl.php.net/get/$PECLMONGO.tgz"
   - sh -c "tar xfz $PECLMONGO.tgz"
   - sh -c "cd $PECLMONGO && phpize && ./configure && make && sudo make install"
-
   # install SOLR extension
   - sh -c "wget http://pecl.php.net/get/$PECLSOLR.tgz"
   - sh -c "tar xfz $PECLSOLR.tgz"
