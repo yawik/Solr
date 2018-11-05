@@ -22,7 +22,9 @@ before_install:
 
 install:
   # install Mongo extension
-  - pecl install mongodb
+  - 'if [[ ${TRAVIS_PHP_VERSION:0:3} != "7.2" ]]; then
+      pecl install mongodb;
+    fi'
   # install SOLR extension
   - sh -c "wget http://pecl.php.net/get/$PECLSOLR.tgz"
   - sh -c "tar xfz $PECLSOLR.tgz"
