@@ -18,15 +18,9 @@ env:
 before_install:
   - sudo apt-get update > /dev/null
   - "mongo --eval 'db.runCommand({setParameter: 1, textSearchEnabled: true})' admin"
+  - pecl channel-update pecl.php.net
 
 install:
-  # install php packages required for running YAWIK phpunit tests
-  - sudo apt-get install -y --force-yes php5-intl php5-curl php5-xsl
-
-  # add composer's global bin directory to the path
-  - export PATH="$HOME/.composer/vendor/bin:$PATH"
-
-before_script:
   # install Mongo extension
   - pecl install mongodb
   # install SOLR extension
@@ -34,10 +28,10 @@ before_script:
   - sh -c "tar xfz $PECLSOLR.tgz"
   # apply solr patch when in 7.2 php version
   - 'if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" ]]; then
-      curl https://github.com/php/pecl-search_engine-solr/commit/744e32915d5989101267ed2c84a407c582dc6f31.patch -O solr.patch;
-      cd $PECLSOLR && patch -p0 ../solr.patch;
-      cd -v ../;
-      ls -l;
+        curl https://github.com/php/pecl-search_engine-solr/commit/744e32915d5989101267ed2c84a407c582dc6f31.patch -O solr.patch;
+        cd $PECLSOLR && patch -p0 ../solr.patch;
+        cd -v ../;
+        ls -l;
     fi'
   - sh -c "cd $PECLSOLR && phpize && ./configure && make && sudo make install"
   - phpenv config-add etc/travis/phpenv.ini
