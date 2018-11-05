@@ -33,7 +33,6 @@ before_script:
   - sh -c "wget http://pecl.php.net/get/$PECLSOLR.tgz"
   - sh -c "tar xfz $PECLSOLR.tgz"
   - sh -c "cd $PECLSOLR && phpize && ./configure && make && sudo make install"
-
   - phpenv config-add etc/travis/phpenv.ini
   - composer install
 
