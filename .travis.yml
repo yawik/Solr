@@ -6,6 +6,7 @@ matrix:
     - php: '7.0'
     - php: '7.1'
     - php: '7.2'
+    - php: '7.2'
       env: COVERAGE=yes
 
 services:
@@ -40,11 +41,21 @@ install:
   - phpenv config-add etc/travis/phpenv.ini
   - COMPOSER_MEMORY_LIMIT=-1 composer install
 
+before_script:
+  # behat preparation
+  - 'if [[ $COVERAGE != yes ]]; then
+        composer run start-selenium --timeout=0 > /dev/null 2>&1 &
+        sleep 5;
+        composer run serve --timeout=0 > /dev/null 2>&1 &
+        sleep 3;
+      fi'
+
 script:
   - 'if [[ $COVERAGE = yes ]]; then
         ./vendor/bin/phpunit --verbose --coverage-clover=build/logs/clover.xml --coverage-php=build/logs/clover.serialized;
     else
         ./vendor/bin/phpunit --verbose;
+        ./vendor/bin/behat;
     fi'
 
 after_script:

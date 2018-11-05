@@ -4,12 +4,12 @@ return [
     'doctrine' =>[
         'connection' =>[
             'odm_default' =>[
-                'connectionString' => 'mongodb://172.20.0.1:27017/YAWIK',
+                'connectionString' => 'mongodb://localhost:27017/YAWIK_TEST',
             ]
         ],
         'configuration' => [
             'odm_default' => [
-                'default_db' => 'YAWIK'
+                'default_db' => 'YAWIK_TEST'
             ]
         ]
     ]
