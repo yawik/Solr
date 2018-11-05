@@ -12,7 +12,8 @@ services:
   - mongodb
 
 env:
-  - PECLSOLR=solr-2.4.0
+  global:
+    - PECLSOLR=solr-2.4.0
 
 before_install:
   - sudo apt-get update > /dev/null
