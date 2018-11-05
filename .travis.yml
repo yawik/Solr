@@ -37,7 +37,7 @@ install:
     fi'
   - sh -c "cd $PECLSOLR && phpize && ./configure && make && sudo make install"
   - phpenv config-add etc/travis/phpenv.ini
-  - composer install
+  - COMPOSER_MEMORY_LIMIT=-1 composer install
 
 script:
   - 'if [[ $COVERAGE = yes ]]; then
