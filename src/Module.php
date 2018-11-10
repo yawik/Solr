@@ -36,6 +36,6 @@ class Module implements ConsoleUsageProviderInterface
      */
     public function getConfig()
     {
-        return ModuleConfigLoader::load(__DIR__.'/config');
+        return ModuleConfigLoader::load(__DIR__.'/../config');
     }
 }
