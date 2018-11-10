@@ -1,0 +1,57 @@
+<?php
+/**
+ * Module options override.
+ */
+
+$options = [
+    // set true if using https
+    'secure'    => false,
+
+    // The hostname for the Solr server
+    'hostname'  => 'localhost',
+
+    // The port number
+    'port'      => 8983,
+
+    // The username used for HTTP Authentication, if any
+    'username'  => 'username',
+
+    // The HTTP Authentication password
+    'password'  => 'password',
+
+    // A path for solr jobs index
+    'jobsPath' => '/solr/YawikJobs',
+
+    // List of Facet Fields. Fieldnames must exist in the solr index. Each facet field must have a 'name'.
+    // 'label' is optional. It can be used as a headline of the facet result.
+    'facetFields' => [
+        [
+            'name' => 'regionList',
+            'label' => 'Region'
+        ]
+    ],
+
+    // Maps to facet.limit. Sets the maximum number of constraint counts that should be returned for the facet fields.
+    'facetLimit' => 10,
+
+    // Sets the minimum counts for facet fields that should be included in the response
+    'facetMinCount' => 1,
+
+    //
+    'parameterNames' => [
+        'q' => [
+            'name' => 'q'
+        ],
+        'l' => [
+            'name' => 'l'
+        ],
+        'd' => [
+            'name' => 'd'
+        ]
+    ]
+];
+
+/*
+ * Do not change below this line
+ */
+return [ 'options' => [ 'Solr/Options/Module' => [ 'options' => $options ] ] ];
