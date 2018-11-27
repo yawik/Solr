@@ -48,7 +48,7 @@ install:
     fi'
   # install SOLR extension
   # using solr master version in php 7.2
-  - 'if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" ${TRAVIS_PHP_VERSION:0:3} == "7.3" ]]; then
+  - 'if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" || ${TRAVIS_PHP_VERSION:0:3} == "7.3" ]]; then
       export HASH=de1d724299780d927cb9ed14268449ac8a28204b;
       curl --location https://github.com/php/pecl-search_engine-solr/archive/${HASH}.tar.gz -o solr.tgz;
       sh -c "tar xfz solr.tgz";
