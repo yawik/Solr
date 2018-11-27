@@ -41,11 +41,7 @@ before_install:
 
 install:
   # install Mongo extension
-  - 'if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" ]]; then
-        echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini;
-    else
-        pecl install mongodb;
-    fi'
+  - php --ri mongodb || pecl install -f mongodb
   # install SOLR extension
   # using solr master version in php 7.2
   - 'if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" || ${TRAVIS_PHP_VERSION:0:3} == "7.3" ]]; then
@@ -77,8 +73,8 @@ script:
         ./vendor/bin/phpunit --verbose --coverage-clover=build/logs/clover.xml --coverage-php=build/logs/clover.serialized;
     else
         ./vendor/bin/phpunit --verbose;
-        ./vendor/bin/behat;
     fi'
+  - if [[ $COVERAGE != yes ]]; then ./vendor/bin/behat; fi;
 
 after_script:
   # process coverage
