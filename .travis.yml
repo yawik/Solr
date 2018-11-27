@@ -14,12 +14,16 @@ cache:
 
 matrix:
     fast_finish: true
+    allow_failures:
+    - php: 7.2
+      env: COVERAGE=yes
     include:
-    - php: '5.6'
-    - php: '7.0'
-    - php: '7.1'
-    - php: '7.2'
-    - php: '7.2'
+    - php: 5.6
+    - php: 7.0
+    - php: 7.1
+    - php: 7.2
+    - php: 7.3
+    - php: 7.2
       env: COVERAGE=yes
 
 services:
@@ -33,17 +37,14 @@ before_install:
   - sudo apt-get update > /dev/null
   - "mongo --eval 'db.runCommand({setParameter: 1, textSearchEnabled: true})' admin"
   - pecl channel-update pecl.php.net
+  - if [[ $COVERAGE != yes ]]; then phpenv config-rm xdebug.ini || echo "xdebug not available"; fi;
 
 install:
   # install Mongo extension
-  - 'if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" ]]; then
-        echo "extension = mongodb.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini;
-    else
-        pecl install mongodb;
-    fi'
+  - php --ri mongodb || pecl install -f mongodb
   # install SOLR extension
   # using solr master version in php 7.2
-  - 'if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" ]]; then
+  - 'if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" || ${TRAVIS_PHP_VERSION:0:3} == "7.3" ]]; then
       export HASH=de1d724299780d927cb9ed14268449ac8a28204b;
       curl --location https://github.com/php/pecl-search_engine-solr/archive/${HASH}.tar.gz -o solr.tgz;
       sh -c "tar xfz solr.tgz";
@@ -54,7 +55,9 @@ install:
       sh -c "cd $PECLSOLR && phpize && ./configure && make && sudo make install";
     fi'
   - phpenv config-add etc/travis/phpenv.ini
-  - COMPOSER_MEMORY_LIMIT=-1 composer install
+
+  # TODO: change to --prefer-dist when CoreTestUtils is installable
+  - COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-source
 
 before_script:
   # behat preparation
@@ -70,8 +73,8 @@ script:
         ./vendor/bin/phpunit --verbose --coverage-clover=build/logs/clover.xml --coverage-php=build/logs/clover.serialized;
     else
         ./vendor/bin/phpunit --verbose;
-        ./vendor/bin/behat;
     fi'
+  - if [[ $COVERAGE != yes ]]; then ./vendor/bin/behat; fi;
 
 after_script:
   # process coverage
