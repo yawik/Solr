@@ -166,6 +166,11 @@ class JobEventSubscriber implements EventSubscriber
         $client = $this->getSolrClient();
         $client->commit(true, false);
         $client->optimize(1, true, false);
+
+        // clear arrays. There could be multiple flushs per requests and we do not want
+        // to process already processed entities.
+        $this->add = [];
+        $this->delete = [];
     }
     
     /**
