@@ -31,9 +31,6 @@ use Solr\Bridge\Util;
  */
 class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implements JobInterface
 {
-    use TestInheritanceTrait, TestUsesTraitsTrait, TestSetterGetterTrait;
-
-
 
     /**
      * @var JobInterface
