@@ -7,14 +7,74 @@
         {
             "name": "Carsten Bleek",
             "email": "bleek@cross-solution.de"
+        },
+        {
+            "name": "Mathias Gelhausen",
+            "email": "gelhausen@cross-solution.de"
+        },
+        {
+            "name": "Anthonius Munthi",
+            "email": "me@itstoni.com"
         }
     ],
     "keywords": [
-        "yawik"
+        "yawik", "solr", "zf"
     ],
+    "prefer-stable": true,
+    "minimum-stability": "dev",
     "require": {
-	    "ext-solr": ">=2.4",
+        "ext-solr": ">=2.4",
         "zendframework/zend-progressbar": "^2.5",
-        "composer/installers": "*"
+        "yawik/core": ">=0.32@dev",
+        "yawik/cv": "^0.32@dev",
+        "yawik/auth": "^0.32@dev",
+        "yawik/jobs": "^0.32@dev",
+        "yawik/applications": "^0.32@dev",
+        "yawik/settings": "^0.32@dev",
+        "yawik/organizations": "^0.32@dev",
+        "yawik/geo": "^0.32@dev",
+        "yawik/composer-plugin": "^0.32@dev"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7",
+        "yawik/behat": ">=0.32@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Solr\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-0": {
+            "": "test/"
+        }
+    },
+    "config": {
+        "platform": {
+            "ext-mongo": "1.6.16"
+        },
+        "process-timeout": 0
+    },
+    "scripts": {
+        "auto-scripts": [
+            "npm install"
+        ],
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ],
+        "serve": "php -S localhost:8000 -t test/sandbox/public",
+        "start-selenium": "./vendor/bin/selenium-server-standalone -p 4444 -Dwebdriver.chrome.driver=./vendor/bin/chromedriver",
+        "test": "phpunit"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-develop": "0.32-dev"
+        },
+        "zf": {
+            "module": "Solr"
+        }
     }
 }

@@ -1,52 +1,84 @@
 language: php
-php:
-  - "5.6"
+
+addons:
+  apt:
+    sources:
+    - google-chrome
+    packages:
+    - google-chrome-stable
+
+cache:
+  directories:
+  - "$HOME/.composer/cache"
+  - "$HOME/.npm"
+
+matrix:
+    fast_finish: true
+    allow_failures:
+    - php: 7.2
+      env: COVERAGE=yes
+    include:
+    - php: 7.1
+    - php: 7.2
+    - php: 7.3
+    - php: 7.2
+      env: COVERAGE=yes
 
 services:
   - mongodb
 
 env:
-  - PECLMONGO=mongo-1.6.10 PECLSOLR=solr-2.4.0
+  global:
+    - PECLSOLR=solr-2.4.0
 
 before_install:
   - sudo apt-get update > /dev/null
   - "mongo --eval 'db.runCommand({setParameter: 1, textSearchEnabled: true})' admin"
+  - pecl channel-update pecl.php.net
+  - if [[ $COVERAGE != yes ]]; then phpenv config-rm xdebug.ini || echo "xdebug not available"; fi;
 
 install:
-  # install php packages required for running YAWIK phpunit tests
-  - sudo apt-get install -y --force-yes php5-intl php5-curl php5-xsl
+  # install Mongo extension
+  - php --ri mongodb || pecl install -f mongodb
+  # install SOLR extension
+  # using solr master version in php 7.2
+  - 'if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" || ${TRAVIS_PHP_VERSION:0:3} == "7.3" ]]; then
+      export HASH=de1d724299780d927cb9ed14268449ac8a28204b;
+      curl --location https://github.com/php/pecl-search_engine-solr/archive/${HASH}.tar.gz -o solr.tgz;
+      sh -c "tar xfz solr.tgz";
+      sh -c "cd pecl-search_engine-solr-${HASH} && phpize && ./configure && make && sudo make install";
+    else
+      sh -c "wget http://pecl.php.net/get/$PECLSOLR.tgz";
+      sh -c "tar xfz $PECLSOLR.tgz";
+      sh -c "cd $PECLSOLR && phpize && ./configure && make && sudo make install";
+    fi'
+  - phpenv config-add etc/travis/phpenv.ini
 
-  # add composer's global bin directory to the path
-  - export PATH="$HOME/.composer/vendor/bin:$PATH"
+  # TODO: change to --prefer-dist when CoreTestUtils is installable
+  - COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-source
 
 before_script:
-  # install Mongo extension
-  - sh -c "wget http://pecl.php.net/get/$PECLMONGO.tgz"
-  - sh -c "tar xfz $PECLMONGO.tgz"
-  - sh -c "cd $PECLMONGO && phpize && ./configure && make && sudo make install"
-
-  # install SOLR extension
-  - sh -c "wget http://pecl.php.net/get/$PECLSOLR.tgz"
-  - sh -c "tar xfz $PECLSOLR.tgz"
-  - sh -c "cd $PECLSOLR && phpize && ./configure && make && sudo make install"
-
-  - phpenv config-add .travis/phpenv.ini
-  - curl -sS https://getcomposer.org/installer | php
-  - ./composer.phar self-update
-  - ./composer.phar create-project --stability dev cross-solution/yawik=dev-develop ../yawik
-  - ./composer.phar require zendframework/zend-progressbar
-  # Solr directory still exists in 0.27.2
-  - rm -Rf `dirname $TRAVIS_BUILD_DIR`/yawik/module/Solr
-  - mv ../`basename $TRAVIS_BUILD_DIR` `dirname $TRAVIS_BUILD_DIR`/yawik/module
+  # behat preparation
+  - 'if [[ $COVERAGE != yes ]]; then
+        composer run start-selenium --timeout=0 > /dev/null 2>&1 &
+        sleep 5;
+        composer run serve --timeout=0 > /dev/null 2>&1 &
+        sleep 3;
+    fi'
 
 script:
-  - cd `dirname $TRAVIS_BUILD_DIR`/yawik/module/Solr/test
-  - phpunit
+  - 'if [[ $COVERAGE = yes ]]; then
+        ./vendor/bin/phpunit --verbose --coverage-clover=build/logs/clover.xml --coverage-php=build/logs/clover.serialized;
+    else
+        ./vendor/bin/phpunit --verbose;
+    fi'
+  - if [[ $COVERAGE != yes ]]; then ./vendor/bin/behat; fi;
 
 after_script:
-  - cd `dirname $TRAVIS_BUILD_DIR`/yawik/module/Solr
-  - php `dirname $TRAVIS_BUILD_DIR`/yawik/vendor/bin/coveralls -vvv
-  - wget https://scrutinizer-ci.com/ocular.phar
-  - php ocular.phar code-coverage:upload --format=php-clover test/build/logs/clover.serialized
-
-
+  # process coverage
+  - 'if [[ $COVERAGE = yes ]]; then
+        composer require php-coveralls/php-coveralls --no-scripts;
+        travis_retry ./vendor/bin/php-coveralls -vvv;
+        wget https://scrutinizer-ci.com/ocular.phar;
+        ocular.phar code-coverage:upload --format=php-clover build/logs/clover.serialized;
+    fi'
