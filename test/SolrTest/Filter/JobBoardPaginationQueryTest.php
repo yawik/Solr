@@ -13,6 +13,8 @@ use Interop\Container\ContainerInterface;
 use Jobs\Entity\CoordinatesInterface;
 use Jobs\Entity\JobInterface;
 use Jobs\Entity\Location;
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Solr\Bridge\Manager;
 use Solr\Filter\JobBoardPaginationQuery;
 use Solr\Options\ModuleOptions;
@@ -35,7 +37,7 @@ use Solr\Bridge\Util;
  * @covers  \Solr\Filter\AbstractPaginationQuery
  * @requires extension solr
  */
-class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
+class JobBoardPaginationQueryTest extends TestCase
 {
     /**
      * @var JobBoardPaginationQuery
@@ -43,11 +45,11 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
     protected $target;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var MockObject
      */
     protected $manager;
 
-    public function setUp()
+    public function setUp(): void
     {
         $manager = $this->getMockBuilder(Manager::class)
             ->disableOriginalConstructor()
@@ -63,21 +65,18 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
         $this->manager = $manager;
     }
 
-    /**
-     * @expectedException \DomainException
-     * @expectedExceptionMessage $query must not be null
-     */
     public function testFilterWithoutQuery()
     {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$query must not be null');
         $this->target->filter([]);
     }
 
-    /**
-     * @expectedException \DomainException
-     * @expectedExceptionMessage $facets must not be null
-     */
     public function testFilterWithoutFacets()
     {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$facets must not be null');
+
         $this->target->filter([], new SolrDisMaxQuery());
     }
 
@@ -182,5 +181,33 @@ class JobBoardPaginationQueryTest extends \PHPUnit_Framework_TestCase
     public function testGetRepositoryName()
     {
         $this->assertSame('Jobs/Job', $this->target->getRepositoryName());
+    }
+
+    public function testCreateQueryWithFilterQueries()
+    {
+        $callback = function(SolrDisMaxQuery $query){
+            $query->addFilterQuery('from-callback');
+        };
+
+        $options = new ModuleOptions([
+            'filterQueries' => [
+                'some-filter',
+                $callback
+            ]
+        ]);
+        $facets = $this->createMock(Facets::class);
+        $query = $this->createMock(SolrDisMaxQuery::class);
+
+        $query->expects($this->exactly(4))
+            ->method('addFilterQuery')
+            ->withConsecutive(
+                ['entityName:job'],
+                ['isActive:1'],
+                ['some-filter'],
+                ['from-callback']
+            );
+
+        $target = new JobBoardPaginationQuery($options);
+        $target->filter([],$query,$facets);
     }
 }

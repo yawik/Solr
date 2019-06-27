@@ -1,9 +1,12 @@
+/vendor/
+/node_modules/
+/build/
 .env
-vendor
-node_modules
 build.properties
-build
 composer.lock
+package-lock.json
+.phpunit.result.cache
+
 #
 # Eclipse project files
 #
