@@ -8,6 +8,8 @@
 
 namespace SolrTest\Bridge;
 
+use PHPUnit\Framework\TestCase;
+
 use Interop\Container\ContainerInterface;
 use Solr\Bridge\ResultConverter;
 use Core\Repository\RepositoryService;
@@ -23,11 +25,11 @@ use ArrayObject;
  * @author Anthonius Munthi <me@itstoni.com>
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since 0.26
- * @covers Solr\Bridge\ResultConverter
+ * @covers \Solr\Bridge\ResultConverter
  * @package SolrTest\Bridge
  * @coversDefaultClass \Solr\Bridge\ResultConverter
  */
-class ResultConverterTest extends \PHPUnit_Framework_TestCase
+class ResultConverterTest extends TestCase
 {
     /**
      * @covers ::factory
@@ -57,11 +59,12 @@ class ResultConverterTest extends \PHPUnit_Framework_TestCase
      * @covers ::convert
      * @depends testFactory
      * @dataProvider invalidResponseData
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage invalid response
      */
     public function testConvertThrowsExceptionOnInvalidResponseData($responseData, array $data)
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('invalid response');
+
         list ($resultConverter) = $data;
         
         $filter = $this->getMockBuilder(AbstractPaginationQuery::class)
@@ -154,7 +157,7 @@ class ResultConverterTest extends \PHPUnit_Framework_TestCase
             ->willReturn($repository);
         
         $proxies = $resultConverter->convert($filter, $response);
-        $this->assertInternalType('array', $proxies);
+        $this->assertIsArray($proxies);
         $this->assertCount($expectedCount, $proxies);
         $this->assertContains($proxy1, $proxies);
         $this->assertContains($proxy2, $proxies);

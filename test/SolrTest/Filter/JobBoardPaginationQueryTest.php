@@ -49,7 +49,7 @@ class JobBoardPaginationQueryTest extends TestCase
      */
     protected $manager;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $manager = $this->getMockBuilder(Manager::class)
             ->disableOriginalConstructor()

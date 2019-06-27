@@ -9,8 +9,10 @@
 
 namespace SolrTest\Options;
 
-use CoreTestUtils\TestCase\TestSetterGetterTrait;
-use CoreTestUtils\TestCase\SetupTargetTrait;
+use PHPUnit\Framework\TestCase;
+
+use Cross\TestUtils\TestCase\SetupTargetTrait;
+use Cross\TestUtils\TestCase\TestSetterAndGetterTrait;
 use Solr\Options\ModuleOptions;
 
 /**
@@ -20,18 +22,18 @@ use Solr\Options\ModuleOptions;
  * @author  Mathias Gelhausen <gelhausen@cross-solution.de>
  * @author  Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since   0.26
- * @covers  Solr\Options\ModuleOptions
+ * @covers \Solr\Options\ModuleOptions
  * @package SolrTest\Options
  */
-class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
+class ModuleOptionsTest extends TestCase
 {
-    use TestSetterGetterTrait, SetupTargetTrait;
+    use TestSetterAndGetterTrait, SetupTargetTrait;
 
     protected $target = [
         'class' => ModuleOptions::class
     ];
 
-    public function propertiesProvider()
+    public function setterAndGetterData()
     {
         return [
             ['hostname', [
@@ -57,7 +59,7 @@ class ModuleOptionsTest extends \PHPUnit_Framework_TestCase
             ['secure',[
                 'default' => false,
                 'value' => true,
-                'getter_method' => 'is*',
+                'getter' => 'isSecure',
             ]],
             ['jobsPath', [
                 'default' => '/solr/YawikJobs',

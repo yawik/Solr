@@ -9,8 +9,12 @@
 
 namespace SolrTest\Paginator\Adapter;
 
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
+
 
 use Solr\Bridge\ResultConverter;
+use Solr\Exception\ServerException;
 use Solr\Filter\AbstractPaginationQuery;
 use Solr\Paginator\Adapter\SolrAdapter;
 use Solr\Facets;
@@ -25,10 +29,10 @@ use ArrayObject;
  * @author  Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since   0.26
  * @package SolrTest\Paginator\Adapter
- * @covers  Solr\Paginator\Adapter\SolrAdapter
+ * @covers \Solr\Paginator\Adapter\SolrAdapter
  * @requires extension solr
  */
-class SolrAdapterTest extends \PHPUnit_Framework_TestCase
+class SolrAdapterTest extends TestCase
 {
     /**
      * Class Under test
@@ -38,31 +42,31 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
 
     /**
      * SolrClient Mock
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \SolrClient|MockObject
      */
     protected $client;
 
     /**
      * AbstractPaginationQuery Mock
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var AbstractPaginationQuery|MockObject
      */
     protected $filter;
 
     /**
      * Mock of SolrResponse
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var \SolrResponse|MockObject
      */
     protected $response;
 
     /**
      * Mock of ResultConverter class
      *
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var ResultConverter|MockObject
      */
     protected $converter;
     
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var MockObject
      */
     protected $facets;
 
@@ -77,7 +81,7 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
         ]
     ];
 
-    public function setUp()
+    protected function setUp(): void
     {
         $client = $this->getMockBuilder(\SolrClient::class)
             ->disableOriginalConstructor()
@@ -143,12 +147,11 @@ class SolrAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(3,$this->target->count());
     }
 
-    /**
-     * @expectedException \Solr\Exception\ServerException
-     * @expectedExceptionMessage Failed to process query
-     */
     public function testThrowException()
     {
+        $this->expectException(ServerException::class);
+        $this->expectExceptionMessage('Failed to process query');
+
         $this->client
             ->expects($this->once())
             ->method('query')

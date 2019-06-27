@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @filesource
  * @copyright (c) 2013 - 2016 Cross Solution (http://cross-solution.de)
@@ -6,25 +7,29 @@
  * @author Miroslav Fedeleš <miroslav.fedeles@gmail.com>
  * @since 0.27
  */
+
 namespace SolrTest\Paginator;
 
+use PHPUnit\Framework\TestCase;
 use Solr\Paginator\Paginator;
 use Solr\Paginator\Adapter\SolrAdapter;
 use Solr\Facets;
+use Zend\Paginator\Exception\InvalidArgumentException;
 
 /**
  * @coversDefaultClass \Solr\Paginator\Paginator
  */
-class PaginatorTest extends \PHPUnit_Framework_TestCase
+class PaginatorTest extends TestCase
 {
 
     /**
      * @covers ::__construct()
-     * @expectedException \Zend\Paginator\Exception\InvalidArgumentException
-     * @expectedExceptionMessage adapter must implement
      */
     public function testConstructorThrowInvalidArgumentException()
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('adapter must implement');
+
         new Paginator('invalid');
     }
     

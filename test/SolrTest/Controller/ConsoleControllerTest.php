@@ -9,6 +9,9 @@
 
 namespace SolrTest\Controller;
 
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
+
 use Core\Console\ProgressBar;
 use Doctrine\MongoDB\CursorInterface;
 use Solr\Filter\EntityToDocument\JobEntityToSolrDocument;
@@ -18,6 +21,7 @@ use Jobs\Entity\Job;
 use Jobs\Repository\Job as JobRepository;
 use Solr\Controller\ConsoleController;
 use stdClass;
+use Zend\Log\Filter\Mock;
 
 /**
  * Class ConsoleControllerTest
@@ -28,7 +32,7 @@ use stdClass;
  * @package SolrTest\Controller
  * @coversDefaultClass \Solr\Controller\ConsoleController
  */
-class ConsoleControllerTest extends \PHPUnit_Framework_TestCase
+class ConsoleControllerTest extends TestCase
 {
     
     /**
@@ -37,22 +41,22 @@ class ConsoleControllerTest extends \PHPUnit_Framework_TestCase
     protected $controller;
     
     /**
-     * @var SolrClient|\PHPUnit_Framework_MockObject_MockObject
+     * @var SolrClient|MockObject
      */
     protected $client;
     
     /**
-     * @var CursorInterface|\PHPUnit_Framework_MockObject_MockObject
+     * @var CursorInterface|MockObject
      */
     protected $cursor;
     
     /**
-     * @var ProgressBar|\PHPUnit_Framework_MockObject_MockObject
+     * @var ProgressBar|MockObject
      */
     protected $progressBar;
     
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var MockObject
      */
     protected $progressBarFactory;
 
@@ -62,9 +66,9 @@ class ConsoleControllerTest extends \PHPUnit_Framework_TestCase
     protected $options;
     
     /**
-     * @see PHPUnit_Framework_TestCase::setUp()
+     * {@inheritDoc}
      */
-    public function setUp()
+    protected function setUp():void
     {
         $this->client = $this->getMockBuilder(SolrClient::class)
             ->disableOriginalConstructor()
@@ -123,7 +127,7 @@ class ConsoleControllerTest extends \PHPUnit_Framework_TestCase
         $this->client->expects($this->never())
             ->method('optimize');
         
-        $this->assertContains('no active job', $this->controller->activeJobIndexAction());
+        $this->assertStringContainsString('no active job', $this->controller->activeJobIndexAction());
     }
     
     /**
@@ -165,6 +169,6 @@ class ConsoleControllerTest extends \PHPUnit_Framework_TestCase
     public function testGetProgressBarFactory()
     {
         $progressBarFactory = $this->controller->getProgressBarFactory();
-        $this->assertInternalType('callable', $progressBarFactory);
+        $this->assertIsCallable($progressBarFactory);
     }
 }

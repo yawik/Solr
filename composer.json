@@ -18,27 +18,12 @@
         }
     ],
     "keywords": [
-        "yawik", "solr", "zf"
+        "yawik",
+        "solr",
+        "zf"
     ],
     "prefer-stable": true,
     "minimum-stability": "dev",
-    "require": {
-        "ext-solr": ">=2.4",
-        "zendframework/zend-progressbar": "^2.5",
-        "yawik/core": "^0.33.14",
-        "yawik/cv": ">=0.32",
-        "yawik/auth": ">=0.32",
-        "yawik/jobs": ">=0.32",
-        "yawik/applications": ">=0.32",
-        "yawik/settings": ">=0.32",
-        "yawik/organizations": ">=0.32",
-        "yawik/geo": ">=0.32",
-        "yawik/composer-plugin": ">=0.32"
-    },
-    "require-dev": {
-        "yawik/behat": ">=0.32@dev",
-        "cross-solution/phpunit-utils": "^2.0"
-    },
     "autoload": {
         "psr-4": {
             "Solr\\": "src/"
@@ -76,5 +61,24 @@
         "zf": {
             "module": "Solr"
         }
+    },
+    "require": {
+        "php": ">=7.2",
+        "ext-solr": ">=2.4",
+        "zendframework/zend-progressbar": "^2.5",
+        "yawik/core": "^0.33.14",
+        "yawik/cv": ">=0.32",
+        "yawik/auth": ">=0.32",
+        "yawik/jobs": ">=0.32",
+        "yawik/applications": ">=0.32",
+        "yawik/settings": ">=0.32",
+        "yawik/organizations": ">=0.32",
+        "yawik/geo": ">=0.32",
+        "yawik/composer-plugin": ">=0.32"
+    },
+    "require-dev": {
+        "yawik/behat": ">=0.32@dev",
+        "cross-solution/phpunit-utils": "^2.0",
+        "phpunit/phpunit": "^8.2.3"
     }
 }

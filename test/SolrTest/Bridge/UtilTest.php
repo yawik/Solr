@@ -9,6 +9,8 @@
 
 namespace SolrTest\Bridge;
 
+use PHPUnit\Framework\TestCase;
+
 
 use Core\Entity\LocationInterface;
 use Jobs\Entity\Location;
@@ -24,7 +26,7 @@ use InvalidArgumentException;
  * @since  0.26
  * @package SolrTest\Bridge
  */
-class UtilTest extends \PHPUnit_Framework_TestCase
+class UtilTest extends TestCase
 {
     public function testConvertDateTime()
     {
@@ -69,7 +71,8 @@ class UtilTest extends \PHPUnit_Framework_TestCase
     public function testConvertSolrDateToPhpDateTime($solrDate, $expected)
     {
         if (!$expected) {
-            $this->setExpectedException(InvalidArgumentException::class, 'invalid format');
+            $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('invalid format');
         }
         
         $this->assertEquals($expected, Util::convertSolrDateToPhpDateTime($solrDate));
