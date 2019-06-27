@@ -9,6 +9,8 @@
 
 namespace SolrTest;
 
+use PHPUnit\Framework\TestCase;
+
 use Solr\Facets;
 use ArrayObject;
 use SolrDisMaxQuery;
@@ -17,7 +19,7 @@ use InvalidArgumentException;
 /**
  * @coversDefaultClass \Solr\Facets
  */
-class FacetsTest extends \PHPUnit_Framework_TestCase
+class FacetsTest extends TestCase
 {
 
     /**
@@ -32,9 +34,9 @@ class FacetsTest extends \PHPUnit_Framework_TestCase
     
     
     /**
-     * @see \PHPUnit_Framework_TestCase::setUp()
+     * @see \PHPUnit\Framework\TestCase::setUp()
      */
-    protected function setUp()
+    protected function setUp():void
     {
         $this->facets = new Facets();
         $this->facets->addDefinition(static::DEFINITION_NAME, 'First title', Facets::TYPE_FIELD);
@@ -42,11 +44,11 @@ class FacetsTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers ::addDefinition()
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage invalid type
      */
     public function testAddDefinitionThrowsInvalidArgumentException()
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('invalid type');
         $this->facets->addDefinition('name', 'title', 'invalid');
     }
     
@@ -100,7 +102,7 @@ class FacetsTest extends \PHPUnit_Framework_TestCase
     {
         $this->facets->setFacetResult(new ArrayObject($facetResult));
         $actual = $this->facets->toArray();
-        $this->assertInternalType('array', $actual);
+        $this->assertIsArray($actual);
         $this->assertCount($expectedCount, $actual);
         
         if (isset($expectedValue)) {
@@ -166,7 +168,7 @@ class FacetsTest extends \PHPUnit_Framework_TestCase
     public function testIsValueActive($name, $value, array $params, $active = false, $invalid = false)
     {
         if ($invalid) {
-            $this->setExpectedException(InvalidArgumentException::class);
+            $this->expectException(InvalidArgumentException::class);
         }
         
         $this->facets->setParams($params);
@@ -187,7 +189,7 @@ class FacetsTest extends \PHPUnit_Framework_TestCase
         $this->facets->setParams($params);
         
         $actual = $this->facets->getActiveValues();
-        $this->assertInternalType('array', $actual);
+        $this->assertIsArray($actual);
         $this->assertSame($expected, $actual);
     }
 
@@ -207,10 +209,10 @@ class FacetsTest extends \PHPUnit_Framework_TestCase
     /**
      * @covers ::getTitle()
      * @covers ::assertValidName()
-     * @expectedException \InvalidArgumentException
      */
     public function testGetTitleThrowsInvalidArgumentException()
     {
+        $this->expectException(InvalidArgumentException::class);
         $this->facets->getTitle('invalid');
     }
     

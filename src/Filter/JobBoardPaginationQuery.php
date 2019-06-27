@@ -29,7 +29,6 @@ use DateTime;
  */
 class JobBoardPaginationQuery extends AbstractPaginationQuery
 {
-
     /**
      * @var ModuleOptions $options
      */
@@ -138,8 +137,10 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
             $facets->addDefinition($facetField['name'], $facetField['label']);
         }
 
-        $facets->setParams($params)
-               ->setupQuery($query);
+        $this->configureFilterQuery($query);
+
+        $facets->setParams($params);
+        $facets->setupQuery($query);
 
         $query->setFacetMinCount(1);
 
@@ -173,5 +174,18 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
     public function getRepositoryName()
     {
         return 'Jobs/Job';
+    }
+
+    private function configureFilterQuery(SolrDisMaxQuery $query)
+    {
+        $filters = $this->options->getFilterQueries();
+
+        foreach($filters as $filter){
+            if(is_scalar($filter)){
+                $query->addFilterQuery($filter);
+            }elseif(is_callable($filter)){
+                call_user_func_array($filter,[$query]);
+            }
+        }
     }
 }

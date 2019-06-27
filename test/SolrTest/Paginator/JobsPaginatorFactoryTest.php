@@ -9,6 +9,8 @@
 
 namespace SolrTest\Paginator;
 
+use PHPUnit\Framework\TestCase;
+
 use Interop\Container\ContainerInterface;
 use Solr\Bridge\Manager;
 use Solr\Bridge\ResultConverter;
@@ -30,7 +32,7 @@ use Zend\Paginator\Paginator;
  * @covers  \Solr\Paginator\PaginatorFactoryAbstract
  * @requires extension solr
  */
-class JobsPaginatorFactoryTest extends \PHPUnit_Framework_TestCase
+class JobsPaginatorFactoryTest extends TestCase
 {
 
     public function testInvokation()

@@ -9,7 +9,8 @@
 
 namespace SolrTest\Listener;
 
-
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Core\Options\ModuleOptions;
 use Doctrine\ODM\MongoDB\Event\PostFlushEventArgs;
 use Doctrine\ODM\MongoDB\Event\PreUpdateEventArgs;
@@ -25,6 +26,32 @@ use SolrInputDocument;
 use stdClass;
 
 /**
+ * Class TestJobEventSubscriber
+ * making it possible to test add and delete property on JobEventSubscriber
+ *
+ * @package SolrTest\Listener
+ */
+class TestJobEventSubscriber extends JobEventSubscriber
+{
+    /**
+     * @return Job[]
+     */
+    public function getAdd(): array
+    {
+        return $this->add;
+    }
+
+    /**
+     * @return Job[]
+     */
+    public function getDelete(): array
+    {
+        return $this->delete;
+    }
+}
+
+
+/**
  * Test for Solr\Listener\JobEventSubscriber
  *
  * @author Anthonius Munthi <me@itstoni.com>
@@ -35,32 +62,32 @@ use stdClass;
  * @package SolrTest\Listener
  * @coversDefaultClass \Solr\Listener\JobEventSubscriber
  */
-class JobEventSubscriberTest extends \PHPUnit_Framework_TestCase
+class JobEventSubscriberTest extends TestCase
 {
     /**
-     * @var JobEventSubscriber
+     * @var TestJobEventSubscriber
      */
     protected $subscriber;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var MockObject
      */
     protected $manager;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var MockObject
      */
     protected $client;
 
     /**
-     * @var \PHPUnit_Framework_MockObject_MockObject
+     * @var MockObject
      */
     protected $entityToDocumentFilter;
 
     /**
-     * @see PHPUnit_Framework_TestCase::setUp()
+     * {@inheritDoc}
      */
-    public function setUp()
+    protected function setUp(): void
     {
         $options = $this->getMockBuilder(ModuleOptions::class)
             ->setMethods(['getJobsPath'])
@@ -84,7 +111,7 @@ class JobEventSubscriberTest extends \PHPUnit_Framework_TestCase
             ->disableOriginalConstructor()
             ->getMock();
 
-        $this->subscriber = new JobEventSubscriber($this->manager, $this->entityToDocumentFilter);
+        $this->subscriber = new TestJobEventSubscriber($this->manager, $this->entityToDocumentFilter);
     }
 
     /**
@@ -138,12 +165,13 @@ class JobEventSubscriberTest extends \PHPUnit_Framework_TestCase
             ->method('getDocument')
             ->willReturn($job);
 
-        $this->subscriber->prePersist($event);
-        
+        $subscriber = $this->subscriber;
+        $subscriber->prePersist($event);
+
         if ($shouldBeAdded) {
-            $this->assertAttributeContains($job, 'add', $this->subscriber);
+            $this->assertContains($job,  $subscriber->getAdd());
         } else {
-            $this->assertAttributeNotContains($job, 'add', $this->subscriber);
+            $this->assertNotContains($job, $subscriber->getAdd());
         }
     }
 
@@ -211,18 +239,19 @@ class JobEventSubscriberTest extends \PHPUnit_Framework_TestCase
             ->with($this->equalTo('status'))
             ->willReturn(true);
 
-        $this->subscriber->preUpdate($event);
+        $subscriber = $this->subscriber;
+        $subscriber->preUpdate($event);
         
         if ($shouldBeAdded) {
-            $this->assertAttributeContains($job, 'add', $this->subscriber);
+            $this->assertContains($job, $subscriber->getAdd());
         } else {
-            $this->assertAttributeNotContains($job, 'add', $this->subscriber);
+            $this->assertNotContains($job, $subscriber->getAdd());
         }
-        
+
         if ($shouldBeDeleted) {
-            $this->assertAttributeContains($job, 'delete', $this->subscriber);
+            $this->assertContains($job,$subscriber->getDelete());
         } else {
-            $this->assertAttributeNotContains($job, 'delete', $this->subscriber);
+            $this->assertNotContains($job, $subscriber->getDelete());
         }
     }
     

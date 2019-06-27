@@ -9,6 +9,8 @@
 
 namespace SolrTest\Listener;
 
+use PHPUnit\Framework\TestCase;
+
 
 use Core\Listener\Events\CreatePaginatorEvent;
 use Core\Paginator\PaginatorService;
@@ -24,7 +26,7 @@ use Zend\Paginator\Paginator;
  * @covers \Solr\Listener\CreatePaginatorListener
  * @package SolrTest\Event\Listener
  */
-class CreatePaginatorListenerTest extends \PHPUnit_Framework_TestCase
+class CreatePaginatorListenerTest extends TestCase
 {
 
     public function testOnCreatePaginator()

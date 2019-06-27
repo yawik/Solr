@@ -120,6 +120,27 @@ class ModuleOptions extends AbstractOptions
     ];
 
     /**
+     * @var array
+     */
+    protected $filterQueries = [];
+
+    /**
+     * @return array
+     */
+    public function getFilterQueries()
+    {
+        return $this->filterQueries;
+    }
+
+    /**
+     * @param array $filterQueries
+     */
+    public function setFilterQueries(array $filterQueries)
+    {
+        $this->filterQueries = $filterQueries;
+    }
+
+    /**
      * @return boolean
      */
     public function isSecure()

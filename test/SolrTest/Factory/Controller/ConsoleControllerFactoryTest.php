@@ -9,6 +9,8 @@
 
 namespace SolrTest\Factory\Controller;
 
+use PHPUnit\Framework\TestCase;
+
 use Interop\Container\ContainerInterface;
 use Solr\Factory\Controller\ConsoleControllerFactory;
 use Solr\Bridge\Manager;
@@ -21,7 +23,7 @@ use Core\Console\ProgressBar;
 /**
  * @coversDefaultClass \Solr\Factory\Controller\ConsoleControllerFactory
  */
-class ConsoleControllerFactoryTest extends \PHPUnit_Framework_TestCase
+class ConsoleControllerFactoryTest extends TestCase
 {
 
     /**

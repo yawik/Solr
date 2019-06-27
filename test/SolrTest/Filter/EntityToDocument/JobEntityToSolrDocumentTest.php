@@ -8,6 +8,8 @@
  */
 namespace SolrTest\Filter\EntityToDocument;
 
+use PHPUnit\Framework\TestCase;
+
 use Solr\Filter\EntityToDocument\JobEntityToSolrDocument as JobFilter;
 use Jobs\Entity\Job;
 use Jobs\Entity\Location;
@@ -16,6 +18,7 @@ use Organizations\Entity\Organization;
 use Organizations\Entity\OrganizationImage;
 use Organizations\Entity\OrganizationName;
 use Solr\Bridge\Util;
+use Solr\Options\ModuleOptions;
 use SolrInputDocument;
 use DateTime;
 use Core\Entity\Collection\ArrayCollection;
@@ -24,7 +27,7 @@ use stdClass;
 /**
  * @coversDefaultClass \Solr\Filter\EntityToDocument\JobEntityToSolrDocument
  */
-class JobEntityToSolrDocumentTest extends \PHPUnit_Framework_TestCase
+class JobEntityToSolrDocumentTest extends TestCase
 {
     /**
      * @var JobFilter
@@ -32,20 +35,20 @@ class JobEntityToSolrDocumentTest extends \PHPUnit_Framework_TestCase
     protected $jobFilter;
 
     /**
-     * @see PHPUnit_Framework_TestCase::setUp()
+     * {@inheritDoc}
      */
-    public function setUp()
+    protected function setUp():void
     {
-        $this->jobFilter = new JobFilter(new \Solr\Options\ModuleOptions());
+        $this->jobFilter = new JobFilter(new ModuleOptions());
     }
 
     /**
      * @covers ::filter()
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage must be instance of
      */
     public function testFilterWithInvalidJob()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('must be instance of');
         $this->jobFilter->filter('invalid');
     }
 
