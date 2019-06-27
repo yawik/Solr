@@ -46,9 +46,6 @@ RUN curl --location https://github.com/php/pecl-search_engine-solr/archive/${SOL
 RUN docker-php-ext-enable solr
 
 # Add timezone
-RUN rm /etc/localtime && \
-    ln -s /usr/share/zoneinfo/UTC /etc/localtime && \
-    "date"
 RUN printf '[PHP]\ndate.timezone = "%s"\n', ${TIMEZONE} > /usr/local/etc/php/conf.d/tzone.ini
 
 # Cleanup
