@@ -129,7 +129,15 @@ class ModuleOptionsTest extends TestCase
                     'employmentType' => 'MyEmploymentType',
                 ],
             ]],
-
+            ['sorts', [
+                'default' => [
+                    ['datePublishStart' => \SolrQuery::ORDER_DESC]
+                ],
+                'value' => [
+                    'foo' => 'bar',
+                    'hello' => 'world'
+                ]
+            ]]
         ];
     }
 }

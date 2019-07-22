@@ -48,6 +48,11 @@ $options = [
         'd' => [
             'name' => 'd'
         ]
+    ],
+
+    // apply sorts options here
+    [
+        'datePublishStart' => \SolrQuery::ORDER_DESC
     ]
 ];
 
