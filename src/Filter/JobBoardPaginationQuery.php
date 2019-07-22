@@ -61,7 +61,7 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
             $query->setMinimumMatch(2);
         } else {
             $q = '*:*';
-            $query->addSortField('datePublishStart', SolrQuery::ORDER_DESC);
+            $this->configureSorts($query);
         }
 
         $query->setQuery($q);
@@ -174,6 +174,13 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
     public function getRepositoryName()
     {
         return 'Jobs/Job';
+    }
+
+    private function configureSorts(SolrDisMaxQuery $query)
+    {
+        foreach($this->options->getSorts() as $fieldName => $order){
+            $query->addSortField($fieldName, $order);
+        }
     }
 
     private function configureFilterQuery(SolrDisMaxQuery $query)

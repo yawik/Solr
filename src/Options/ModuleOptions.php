@@ -69,6 +69,13 @@ class ModuleOptions extends AbstractOptions
     protected $jobsPath = '/solr/YawikJobs';
 
     /**
+     * An array of fieldName => SortOrder
+     *
+     * @var array
+     */
+    protected $sorts = ['datePublishStart' => \SolrQuery::ORDER_DESC];
+
+    /**
      * @var $facetFields array
      */
     protected $facetFields = [
@@ -123,6 +130,22 @@ class ModuleOptions extends AbstractOptions
      * @var array
      */
     protected $filterQueries = [];
+
+    /**
+     * @return array
+     */
+    public function getSorts(): array
+    {
+        return $this->sorts;
+    }
+
+    /**
+     * @param array $sorts
+     */
+    public function setSorts(array $sorts): void
+    {
+        $this->sorts = $sorts;
+    }
 
     /**
      * @return array
