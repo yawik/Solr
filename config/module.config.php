@@ -12,6 +12,15 @@ return array(
             'Solr/Console' => 'Solr\Factory\Controller\ConsoleControllerFactory'
         ]
     ],
+
+    'controller_plugins' => [
+        'delegators' => [
+            \Jobs\Controller\Plugin\ProcessJsonRequest::class => [
+                \Solr\Factory\Controller\Plugin\ProcessJsonRequestDelegatorFactory::class
+            ],
+        ],
+    ],
+
     'doctrine' => [
         'eventmanager' => [
             'odm_default' => [
