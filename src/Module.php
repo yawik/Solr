@@ -9,6 +9,8 @@
 
 namespace Solr;
 
+use Core\ModuleManager\Feature\VersionProviderInterface;
+use Core\ModuleManager\Feature\VersionProviderTrait;
 use Core\ModuleManager\ModuleConfigLoader;
 use Zend\Console\Adapter\AdapterInterface;
 use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
@@ -20,8 +22,12 @@ use Zend\ModuleManager\Feature\ConsoleUsageProviderInterface;
  * @since   0.26
  * @package Solr
  */
-class Module implements ConsoleUsageProviderInterface
+class Module implements ConsoleUsageProviderInterface,VersionProviderInterface
 {
+    use VersionProviderTrait;
+
+    const VERSION = '1.1.0';
+
     public function getConsoleUsage(AdapterInterface $console)
     {
         return [

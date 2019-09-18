@@ -17,6 +17,9 @@
             "email": "me@itstoni.com"
         }
     ],
+    "support": {
+        "source": "https://github.com/yawik/Solr"
+    },
     "keywords": [
         "yawik",
         "solr",
