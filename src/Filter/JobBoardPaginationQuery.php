@@ -139,6 +139,8 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
 
         $this->configureFilterQuery($query);
 
+        $this->configureBoostQuery($query);
+
         $facets->setParams($params);
         $facets->setupQuery($query);
 
@@ -192,6 +194,17 @@ class JobBoardPaginationQuery extends AbstractPaginationQuery
                 $query->addFilterQuery($filter);
             }elseif(is_callable($filter)){
                 call_user_func_array($filter,[$query]);
+            }
+        }
+    }
+
+    private function configureBoostQuery(SolrDisMaxQuery $query)
+    {
+        $filters = $this->options->getBoostQueries();
+
+        foreach($filters as $filter){
+            if(is_scalar($filter)){
+                $query->addParam('bq', $filter);
             }
         }
     }

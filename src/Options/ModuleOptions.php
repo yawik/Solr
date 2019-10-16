@@ -132,6 +132,27 @@ class ModuleOptions extends AbstractOptions
     protected $filterQueries = [];
 
     /**
+     * @var array
+     */
+    protected $boostQueries = [];
+
+    /**
+     * @return array
+     */
+    public function getBoostQueries()
+    {
+        return $this->boostQueries;
+    }
+
+    /**
+     * @param array $boostQueries
+     */
+    public function setBoostQueries(array $boostQueries)
+    {
+        $this->boostQueries = $boostQueries;
+    }
+
+    /**
      * @return array
      */
     public function getSorts(): array
