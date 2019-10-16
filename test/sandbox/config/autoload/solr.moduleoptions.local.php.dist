@@ -48,7 +48,23 @@ $options = [
         'd' => [
             'name' => 'd'
         ]
-    ]
+    ],
+
+    // default sort order, if no other search parameter is given
+    'sorts' => [
+        'random' => \SolrQuery::ORDER_ASC,
+    ],
+
+    // Search query that is made independently of the search parameters entered.
+    'filterQueries' => [
+        'text:(mysearch) AND NOT (foo bar)',
+        'organizationName:"CROSS Solution"'
+    ],
+
+    // boost jobads of the company "CROSS Solution"
+    'boostQueries' => [
+         'organizationName:"CROSS Solution"^1',
+    ],
 ];
 
 /*

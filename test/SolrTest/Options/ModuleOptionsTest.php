@@ -41,8 +41,11 @@ class ModuleOptionsTest extends TestCase
                 'default' => 'localhost'
             ]],
             ['port', [
-                'default' => 8983,
-                'value' => 4568
+                'value' => 8983,
+                'setter' => false
+            ]],
+            ['port', [
+                'value' => 4711,
             ]],
             ['path', [
                 'default' => '/solr',
@@ -125,7 +128,7 @@ class ModuleOptionsTest extends TestCase
                     'employmentType' => 'employmentType_MultiString',
                 ],
                 'value' => [
-                    'profession' => 'MyProfession',
+                    'professin' => 'MyProfession',
                     'employmentType' => 'MyEmploymentType',
                 ],
             ]],
@@ -137,7 +140,21 @@ class ModuleOptionsTest extends TestCase
                     'foo' => 'bar',
                     'hello' => 'world'
                 ]
-            ]]
+            ]],
+            ['filterQueries', [
+                'value' => [
+                    ['text:(foo bar)'],
+                ]
+            ]],
+            ['boostQueries', [
+                'value' => [],
+                'setter' => false
+            ]],
+            ['boostQueries', [
+                'value' => [
+                    ['organizationName:CROSS^1']
+                ],
+            ]],
         ];
     }
 }
