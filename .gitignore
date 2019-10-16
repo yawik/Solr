@@ -3,7 +3,6 @@
 /build/
 .env
 build.properties
-package-lock.json
 .phpunit.result.cache
 
 #
