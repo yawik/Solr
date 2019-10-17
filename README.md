@@ -12,7 +12,9 @@ Requirements
 ------------
 
 * running [YAWIK](https://github.com/cross-solution/YAWIK)
-* running Solr Server
+* running Solr Server < 7
+
+This module currently requires a Solr 6
 
 
 Installation
@@ -20,7 +22,7 @@ Installation
 Using composer
 
 ```
-composer install yawik/solr
+composer require yawik/solr
 ```
 
 Documentation
