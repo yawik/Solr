@@ -586,7 +586,7 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
      */
     public function getAttachedEntity($key)
     {
-        $this->job->getAttachedEntity($key);
+        return $this->job->getAttachedEntity($key);
     }
 
     /**
@@ -606,7 +606,7 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
      */
     public function hasAttachedEntity($key)
     {
-        $this->job->hasAttachedEntity($key);
+        return $this->job->hasAttachedEntity($key);
     }
 
     /**
