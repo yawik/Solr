@@ -10,7 +10,7 @@ namespace Solr\Factory\Controller;
 
 use Interop\Container\ContainerInterface;
 use Solr\Controller\ConsoleController;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Core\Console\ProgressBar;
 
 class ConsoleControllerFactory implements FactoryInterface

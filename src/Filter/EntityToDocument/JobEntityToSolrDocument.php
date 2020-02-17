@@ -11,12 +11,12 @@
 namespace Solr\Filter\EntityToDocument;
 
 use Solr\Options\ModuleOptions;
-use Zend\Filter\FilterInterface;
+use Laminas\Filter\FilterInterface;
 use Jobs\Entity\Job as JobEntity;
 use SolrInputDocument;
 use InvalidArgumentException;
 use Solr\Bridge\Util;
-use Zend\Filter\StripTags;
+use Laminas\Filter\StripTags;
 
 class JobEntityToSolrDocument implements FilterInterface
 {
@@ -31,7 +31,7 @@ class JobEntityToSolrDocument implements FilterInterface
     }
 
     /**
-     * @see \Zend\Filter\FilterInterface::filter()
+     * @see \Laminas\Filter\FilterInterface::filter()
      * @param JobEntity $job
      * @return SolrInputDocument
      */

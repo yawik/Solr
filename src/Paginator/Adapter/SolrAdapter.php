@@ -11,8 +11,8 @@ namespace Solr\Paginator\Adapter;
 
 use Solr\Exception\ServerException;
 use Solr\Filter\AbstractPaginationQuery;
-use Zend\Paginator\Adapter\AdapterInterface;
-use Zend\Stdlib\Parameters;
+use Laminas\Paginator\Adapter\AdapterInterface;
+use Laminas\Stdlib\Parameters;
 use Solr\Bridge\ResultConverter;
 use Solr\FacetsProviderInterface;
 use Solr\Facets;

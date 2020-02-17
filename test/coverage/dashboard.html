@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /home/cbleek/AtomProjects/Solr/src</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="_css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="_css/nv.d3.min.css" rel="stylesheet" type="text/css">
+  <link href="_css/style.css" rel="stylesheet" type="text/css">
+  <link href="_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="index.html">/home/cbleek/AtomProjects/Solr/src</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Controller/Plugin/FacetsInjectorProcessJsonRequestDecorator.php.html#20">Solr\Controller\Plugin\FacetsInjectorProcessJsonRequestDecorator</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Factory/Controller/Plugin/ProcessJsonRequestDelegatorFactory.php.html#22">Solr\Factory\Controller\Plugin\ProcessJsonRequestDelegatorFactory</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Factory/Filter/JobBoardPaginationQueryFactory.php.html#14">Solr\Factory\Filter\JobBoardPaginationQueryFactory</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Module.php.html#25">Solr\Module</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/JobProxy.php.html#32">Solr\Entity\JobProxy</a></td><td class="text-right">77%</td></tr>
+       <tr><td><a href="Filter/EntityToDocument/JobEntityToSolrDocument.php.html#21">Solr\Filter\EntityToDocument\JobEntityToSolrDocument</a></td><td class="text-right">89%</td></tr>
+       <tr><td><a href="Filter/JobBoardPaginationQuery.php.html#30">Solr\Filter\JobBoardPaginationQuery</a></td><td class="text-right">89%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Entity/JobProxy.php.html#32">Solr\Entity\JobProxy</a></td><td class="text-right">151</td></tr>
+       <tr><td><a href="Filter/JobBoardPaginationQuery.php.html#30">Solr\Filter\JobBoardPaginationQuery</a></td><td class="text-right">26</td></tr>
+       <tr><td><a href="Filter/EntityToDocument/JobEntityToSolrDocument.php.html#21">Solr\Filter\EntityToDocument\JobEntityToSolrDocument</a></td><td class="text-right">24</td></tr>
+       <tr><td><a href="Controller/Plugin/FacetsInjectorProcessJsonRequestDecorator.php.html#20">Solr\Controller\Plugin\FacetsInjectorProcessJsonRequestDecorator</a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Factory/Controller/Plugin/ProcessJsonRequestDelegatorFactory.php.html#22">Solr\Factory\Controller\Plugin\ProcessJsonRequestDelegatorFactory</a></td><td class="text-right">6</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Controller/Plugin/FacetsInjectorProcessJsonRequestDecorator.php.html#27"><abbr title="Solr\Controller\Plugin\FacetsInjectorProcessJsonRequestDecorator::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Plugin/FacetsInjectorProcessJsonRequestDecorator.php.html#32"><abbr title="Solr\Controller\Plugin\FacetsInjectorProcessJsonRequestDecorator::setController">setController</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Module.php.html#43"><abbr title="Solr\Module::getConfig">getConfig</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Module.php.html#31"><abbr title="Solr\Module::getConsoleUsage">getConsoleUsage</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Listener/JobEventSubscriber.php.html#79"><abbr title="Solr\Listener\JobEventSubscriber::forceUpdate">forceUpdate</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Filter/EntityToDocument/JobEntityToSolrDocument.php.html#28"><abbr title="Solr\Filter\EntityToDocument\JobEntityToSolrDocument::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Factory/Filter/JobBoardPaginationQueryFactory.php.html#29"><abbr title="Solr\Factory\Filter\JobBoardPaginationQueryFactory::createService">createService</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Factory/Filter/JobBoardPaginationQueryFactory.php.html#16"><abbr title="Solr\Factory\Filter\JobBoardPaginationQueryFactory::__invoke">__invoke</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Factory/Controller/Plugin/ProcessJsonRequestDelegatorFactory.php.html#24"><abbr title="Solr\Factory\Controller\Plugin\ProcessJsonRequestDelegatorFactory::__invoke">__invoke</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/JobProxy.php.html#622"><abbr title="Solr\Entity\JobProxy::createAttachedEntity">createAttachedEntity</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/JobProxy.php.html#607"><abbr title="Solr\Entity\JobProxy::hasAttachedEntity">hasAttachedEntity</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/JobProxy.php.html#597"><abbr title="Solr\Entity\JobProxy::removeAttachedEntity">removeAttachedEntity</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/JobProxy.php.html#587"><abbr title="Solr\Entity\JobProxy::getAttachedEntity">getAttachedEntity</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/JobProxy.php.html#576"><abbr title="Solr\Entity\JobProxy::addAttachedEntity">addAttachedEntity</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/JobProxy.php.html#560"><abbr title="Solr\Entity\JobProxy::setAttachableEntityManager">setAttachableEntityManager</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/JobProxy.php.html#549"><abbr title="Solr\Entity\JobProxy::setClassifications">setClassifications</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/JobProxy.php.html#530"><abbr title="Solr\Entity\JobProxy::setTemplateValues">setTemplateValues</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/JobProxy.php.html#510"><abbr title="Solr\Entity\JobProxy::hasMetaData">hasMetaData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/JobProxy.php.html#497"><abbr title="Solr\Entity\JobProxy::setMetaData">setMetaData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/JobProxy.php.html#484"><abbr title="Solr\Entity\JobProxy::getMetaData">getMetaData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Plugin/FacetsInjectorProcessJsonRequestDecorator.php.html#38"><abbr title="Solr\Controller\Plugin\FacetsInjectorProcessJsonRequestDecorator::__invoke">__invoke</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Options/ModuleOptions.php.html#401"><abbr title="Solr\Options\ModuleOptions::getParameterName">getParameterName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Filter/JobBoardPaginationQuery.php.html#201"><abbr title="Solr\Filter\JobBoardPaginationQuery::configureBoostQuery">configureBoostQuery</abbr></a></td><td class="text-right">60%</td></tr>
+       <tr><td><a href="Filter/EntityToDocument/JobEntityToSolrDocument.php.html#38"><abbr title="Solr\Filter\EntityToDocument\JobEntityToSolrDocument::filter">filter</abbr></a></td><td class="text-right">85%</td></tr>
+       <tr><td><a href="Filter/JobBoardPaginationQuery.php.html#48"><abbr title="Solr\Filter\JobBoardPaginationQuery::createQuery">createQuery</abbr></a></td><td class="text-right">89%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Filter/EntityToDocument/JobEntityToSolrDocument.php.html#38"><abbr title="Solr\Filter\EntityToDocument\JobEntityToSolrDocument::filter">filter</abbr></a></td><td class="text-right">14</td></tr>
+       <tr><td><a href="Filter/JobBoardPaginationQuery.php.html#48"><abbr title="Solr\Filter\JobBoardPaginationQuery::createQuery">createQuery</abbr></a></td><td class="text-right">14</td></tr>
+       <tr><td><a href="Controller/Plugin/FacetsInjectorProcessJsonRequestDecorator.php.html#38"><abbr title="Solr\Controller\Plugin\FacetsInjectorProcessJsonRequestDecorator::__invoke">__invoke</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Factory/Controller/Plugin/ProcessJsonRequestDelegatorFactory.php.html#24"><abbr title="Solr\Factory\Controller\Plugin\ProcessJsonRequestDelegatorFactory::__invoke">__invoke</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Listener/JobEventSubscriber.php.html#79"><abbr title="Solr\Listener\JobEventSubscriber::forceUpdate">forceUpdate</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Options/ModuleOptions.php.html#401"><abbr title="Solr\Options\ModuleOptions::getParameterName">getParameterName</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Filter/JobBoardPaginationQuery.php.html#201"><abbr title="Solr\Filter\JobBoardPaginationQuery::configureBoostQuery">configureBoostQuery</abbr></a></td><td class="text-right">3</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 7.0.8</a> using <a href="https://secure.php.net/" target="_top">PHP 7.2.22-1+ubuntu18.04.1+deb.sury.org+1</a> with <a href="https://xdebug.org/">Xdebug 2.7.2</a> and <a href="https://phpunit.de/">PHPUnit 8.3.5</a> at Wed Oct 16 10:02:38 UTC 2019.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="_js/jquery.min.js" type="text/javascript"></script>
+  <script src="_js/d3.min.js" type="text/javascript"></script>
+  <script src="_js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([4,0,0,0,0,0,0,0,1,2,2,13], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([22,0,0,0,0,0,0,1,0,2,0,141], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[100,5,"<a href=\"Bridge\/Manager.php.html#24\">Solr\\Bridge\\Manager<\/a>"],[100,10,"<a href=\"Bridge\/ResultConverter.php.html#28\">Solr\\Bridge\\ResultConverter<\/a>"],[100,6,"<a href=\"Bridge\/Util.php.html#23\">Solr\\Bridge\\Util<\/a>"],[100,5,"<a href=\"Controller\/ConsoleController.php.html#23\">Solr\\Controller\\ConsoleController<\/a>"],[0,4,"<a href=\"Controller\/Plugin\/FacetsInjectorProcessJsonRequestDecorator.php.html#20\">Solr\\Controller\\Plugin\\FacetsInjectorProcessJsonRequestDecorator<\/a>"],[77.64705882352942,80,"<a href=\"Entity\/JobProxy.php.html#32\">Solr\\Entity\\JobProxy<\/a>"],[100,0,"<a href=\"Exception\/ServerException.php.html#22\">Solr\\Exception\\ServerException<\/a>"],[100,30,"<a href=\"Facets.php.html#22\">Solr\\Facets<\/a>"],[100,1,"<a href=\"Factory\/Controller\/ConsoleControllerFactory.php.html#16\">Solr\\Factory\\Controller\\ConsoleControllerFactory<\/a>"],[0,2,"<a href=\"Factory\/Controller\/Plugin\/ProcessJsonRequestDelegatorFactory.php.html#22\">Solr\\Factory\\Controller\\Plugin\\ProcessJsonRequestDelegatorFactory<\/a>"],[0,2,"<a href=\"Factory\/Filter\/JobBoardPaginationQueryFactory.php.html#14\">Solr\\Factory\\Filter\\JobBoardPaginationQueryFactory<\/a>"],[100,6,"<a href=\"Filter\/AbstractPaginationQuery.php.html#26\">Solr\\Filter\\AbstractPaginationQuery<\/a>"],[89.28571428571429,24,"<a href=\"Filter\/EntityToDocument\/JobEntityToSolrDocument.php.html#21\">Solr\\Filter\\EntityToDocument\\JobEntityToSolrDocument<\/a>"],[89.41176470588236,26,"<a href=\"Filter\/JobBoardPaginationQuery.php.html#30\">Solr\\Filter\\JobBoardPaginationQuery<\/a>"],[100,3,"<a href=\"Listener\/CreatePaginatorListener.php.html#22\">Solr\\Listener\\CreatePaginatorListener<\/a>"],[92.15686274509804,25,"<a href=\"Listener\/JobEventSubscriber.php.html#32\">Solr\\Listener\\JobEventSubscriber<\/a>"],[0,2,"<a href=\"Module.php.html#25\">Solr\\Module<\/a>"],[93.75,32,"<a href=\"Options\/ModuleOptions.php.html#22\">Solr\\Options\\ModuleOptions<\/a>"],[100,7,"<a href=\"Paginator\/Adapter\/SolrAdapter.php.html#28\">Solr\\Paginator\\Adapter\\SolrAdapter<\/a>"],[100,2,"<a href=\"Paginator\/JobsBoardPaginatorFactory.php.html#23\">Solr\\Paginator\\JobsBoardPaginatorFactory<\/a>"],[100,3,"<a href=\"Paginator\/Paginator.php.html#16\">Solr\\Paginator\\Paginator<\/a>"],[100,3,"<a href=\"Paginator\/PaginatorFactoryAbstract.php.html#29\">Solr\\Paginator\\PaginatorFactoryAbstract<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[100,1,"<a href=\"Bridge\/Manager.php.html#42\">Solr\\Bridge\\Manager::__construct<\/a>"],[100,2,"<a href=\"Bridge\/Manager.php.html#53\">Solr\\Bridge\\Manager::getClient<\/a>"],[100,1,"<a href=\"Bridge\/Manager.php.html#77\">Solr\\Bridge\\Manager::getOptions<\/a>"],[100,1,"<a href=\"Bridge\/Manager.php.html#89\">Solr\\Bridge\\Manager::factory<\/a>"],[100,1,"<a href=\"Bridge\/ResultConverter.php.html#39\">Solr\\Bridge\\ResultConverter::__construct<\/a>"],[100,8,"<a href=\"Bridge\/ResultConverter.php.html#52\">Solr\\Bridge\\ResultConverter::convert<\/a>"],[100,1,"<a href=\"Bridge\/ResultConverter.php.html#93\">Solr\\Bridge\\ResultConverter::factory<\/a>"],[100,1,"<a href=\"Bridge\/Util.php.html#30\">Solr\\Bridge\\Util::convertLocationCoordinates<\/a>"],[100,1,"<a href=\"Bridge\/Util.php.html#47\">Solr\\Bridge\\Util::convertLocationString<\/a>"],[100,1,"<a href=\"Bridge\/Util.php.html#63\">Solr\\Bridge\\Util::convertDateTime<\/a>"],[100,3,"<a href=\"Bridge\/Util.php.html#74\">Solr\\Bridge\\Util::convertSolrDateToPhpDateTime<\/a>"],[100,1,"<a href=\"Controller\/ConsoleController.php.html#52\">Solr\\Controller\\ConsoleController::__construct<\/a>"],[100,3,"<a href=\"Controller\/ConsoleController.php.html#60\">Solr\\Controller\\ConsoleController::activeJobIndexAction<\/a>"],[100,1,"<a href=\"Controller\/ConsoleController.php.html#92\">Solr\\Controller\\ConsoleController::getProgressBarFactory<\/a>"],[0,1,"<a href=\"Controller\/Plugin\/FacetsInjectorProcessJsonRequestDecorator.php.html#27\">Solr\\Controller\\Plugin\\FacetsInjectorProcessJsonRequestDecorator::__construct<\/a>"],[0,1,"<a href=\"Controller\/Plugin\/FacetsInjectorProcessJsonRequestDecorator.php.html#32\">Solr\\Controller\\Plugin\\FacetsInjectorProcessJsonRequestDecorator::setController<\/a>"],[0,2,"<a href=\"Controller\/Plugin\/FacetsInjectorProcessJsonRequestDecorator.php.html#38\">Solr\\Controller\\Plugin\\FacetsInjectorProcessJsonRequestDecorator::__invoke<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#49\">Solr\\Entity\\JobProxy::__construct<\/a>"],[100,2,"<a href=\"Entity\/JobProxy.php.html#58\">Solr\\Entity\\JobProxy::getId<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#66\">Solr\\Entity\\JobProxy::getApplications<\/a>"],[100,2,"<a href=\"Entity\/JobProxy.php.html#74\">Solr\\Entity\\JobProxy::getApplyId<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#82\">Solr\\Entity\\JobProxy::getAtsEnabled<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#90\">Solr\\Entity\\JobProxy::getAtsMode<\/a>"],[100,2,"<a href=\"Entity\/JobProxy.php.html#98\">Solr\\Entity\\JobProxy::getCompany<\/a>"],[100,2,"<a href=\"Entity\/JobProxy.php.html#106\">Solr\\Entity\\JobProxy::getContactEmail<\/a>"],[100,2,"<a href=\"Entity\/JobProxy.php.html#114\">Solr\\Entity\\JobProxy::getDatePublishEnd<\/a>"],[100,2,"<a href=\"Entity\/JobProxy.php.html#124\">Solr\\Entity\\JobProxy::getDatePublishStart<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#134\">Solr\\Entity\\JobProxy::getHistory<\/a>"],[100,2,"<a href=\"Entity\/JobProxy.php.html#142\">Solr\\Entity\\JobProxy::getLanguage<\/a>"],[100,3,"<a href=\"Entity\/JobProxy.php.html#150\">Solr\\Entity\\JobProxy::getLink<\/a>"],[100,7,"<a href=\"Entity\/JobProxy.php.html#165\">Solr\\Entity\\JobProxy::getLocation<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#188\">Solr\\Entity\\JobProxy::getLocations<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#196\">Solr\\Entity\\JobProxy::getOrganization<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#204\">Solr\\Entity\\JobProxy::getPortals<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#212\">Solr\\Entity\\JobProxy::getReference<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#220\">Solr\\Entity\\JobProxy::getStatus<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#228\">Solr\\Entity\\JobProxy::getTermsAccepted<\/a>"],[100,2,"<a href=\"Entity\/JobProxy.php.html#236\">Solr\\Entity\\JobProxy::getTitle<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#244\">Solr\\Entity\\JobProxy::getUriApply<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#252\">Solr\\Entity\\JobProxy::getUriPublisher<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#260\">Solr\\Entity\\JobProxy::getUser<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#268\">Solr\\Entity\\JobProxy::setApplications<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#276\">Solr\\Entity\\JobProxy::setApplyId<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#284\">Solr\\Entity\\JobProxy::setAtsEnabled<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#292\">Solr\\Entity\\JobProxy::setAtsMode<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#300\">Solr\\Entity\\JobProxy::setCompany<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#308\">Solr\\Entity\\JobProxy::setContactEmail<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#316\">Solr\\Entity\\JobProxy::setDatePublishEnd<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#324\">Solr\\Entity\\JobProxy::setDatePublishStart<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#332\">Solr\\Entity\\JobProxy::setHistory<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#340\">Solr\\Entity\\JobProxy::setLanguage<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#348\">Solr\\Entity\\JobProxy::setLink<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#356\">Solr\\Entity\\JobProxy::setLocation<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#364\">Solr\\Entity\\JobProxy::setLocations<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#372\">Solr\\Entity\\JobProxy::setOrganization<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#380\">Solr\\Entity\\JobProxy::setPortals<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#388\">Solr\\Entity\\JobProxy::setReference<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#396\">Solr\\Entity\\JobProxy::setStatus<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#404\">Solr\\Entity\\JobProxy::setTermsAccepted<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#412\">Solr\\Entity\\JobProxy::setTitle<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#420\">Solr\\Entity\\JobProxy::setUriApply<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#428\">Solr\\Entity\\JobProxy::setUriPublisher<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#436\">Solr\\Entity\\JobProxy::setUser<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#444\">Solr\\Entity\\JobProxy::getResourceId<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#452\">Solr\\Entity\\JobProxy::getPermissions<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#460\">Solr\\Entity\\JobProxy::setPermissions<\/a>"],[100,2,"<a href=\"Entity\/JobProxy.php.html#469\">Solr\\Entity\\JobProxy::getSolrValue<\/a>"],[0,1,"<a href=\"Entity\/JobProxy.php.html#484\">Solr\\Entity\\JobProxy::getMetaData<\/a>"],[0,1,"<a href=\"Entity\/JobProxy.php.html#497\">Solr\\Entity\\JobProxy::setMetaData<\/a>"],[0,1,"<a href=\"Entity\/JobProxy.php.html#510\">Solr\\Entity\\JobProxy::hasMetaData<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#520\">Solr\\Entity\\JobProxy::getTemplateValues<\/a>"],[0,1,"<a href=\"Entity\/JobProxy.php.html#530\">Solr\\Entity\\JobProxy::setTemplateValues<\/a>"],[100,1,"<a href=\"Entity\/JobProxy.php.html#539\">Solr\\Entity\\JobProxy::getClassifications<\/a>"],[0,1,"<a href=\"Entity\/JobProxy.php.html#549\">Solr\\Entity\\JobProxy::setClassifications<\/a>"],[0,1,"<a href=\"Entity\/JobProxy.php.html#560\">Solr\\Entity\\JobProxy::setAttachableEntityManager<\/a>"],[0,1,"<a href=\"Entity\/JobProxy.php.html#576\">Solr\\Entity\\JobProxy::addAttachedEntity<\/a>"],[0,1,"<a href=\"Entity\/JobProxy.php.html#587\">Solr\\Entity\\JobProxy::getAttachedEntity<\/a>"],[0,1,"<a href=\"Entity\/JobProxy.php.html#597\">Solr\\Entity\\JobProxy::removeAttachedEntity<\/a>"],[0,1,"<a href=\"Entity\/JobProxy.php.html#607\">Solr\\Entity\\JobProxy::hasAttachedEntity<\/a>"],[0,1,"<a href=\"Entity\/JobProxy.php.html#622\">Solr\\Entity\\JobProxy::createAttachedEntity<\/a>"],[100,2,"<a href=\"Facets.php.html#59\">Solr\\Facets::addDefinition<\/a>"],[100,1,"<a href=\"Facets.php.html#76\">Solr\\Facets::getIterator<\/a>"],[100,1,"<a href=\"Facets.php.html#84\">Solr\\Facets::count<\/a>"],[100,5,"<a href=\"Facets.php.html#92\">Solr\\Facets::toArray<\/a>"],[100,1,"<a href=\"Facets.php.html#121\">Solr\\Facets::setFacetResult<\/a>"],[100,1,"<a href=\"Facets.php.html#132\">Solr\\Facets::setParams<\/a>"],[100,5,"<a href=\"Facets.php.html#143\">Solr\\Facets::setupQuery<\/a>"],[100,3,"<a href=\"Facets.php.html#172\">Solr\\Facets::isValueActive<\/a>"],[100,8,"<a href=\"Facets.php.html#184\">Solr\\Facets::getActiveValues<\/a>"],[100,1,"<a href=\"Facets.php.html#215\">Solr\\Facets::getTitle<\/a>"],[100,2,"<a href=\"Facets.php.html#226\">Solr\\Facets::assertValidName<\/a>"],[100,1,"<a href=\"Factory\/Controller\/ConsoleControllerFactory.php.html#18\">Solr\\Factory\\Controller\\ConsoleControllerFactory::__invoke<\/a>"],[0,2,"<a href=\"Factory\/Controller\/Plugin\/ProcessJsonRequestDelegatorFactory.php.html#24\">Solr\\Factory\\Controller\\Plugin\\ProcessJsonRequestDelegatorFactory::__invoke<\/a>"],[0,1,"<a href=\"Factory\/Filter\/JobBoardPaginationQueryFactory.php.html#16\">Solr\\Factory\\Filter\\JobBoardPaginationQueryFactory::__invoke<\/a>"],[0,1,"<a href=\"Factory\/Filter\/JobBoardPaginationQueryFactory.php.html#29\">Solr\\Factory\\Filter\\JobBoardPaginationQueryFactory::createService<\/a>"],[100,3,"<a href=\"Filter\/AbstractPaginationQuery.php.html#34\">Solr\\Filter\\AbstractPaginationQuery::filter<\/a>"],[100,1,"<a href=\"Filter\/AbstractPaginationQuery.php.html#52\">Solr\\Filter\\AbstractPaginationQuery::proxyFactory<\/a>"],[100,1,"<a href=\"Filter\/AbstractPaginationQuery.php.html#59\">Solr\\Filter\\AbstractPaginationQuery::getRepositoryName<\/a>"],[100,1,"<a href=\"Filter\/AbstractPaginationQuery.php.html#66\">Solr\\Filter\\AbstractPaginationQuery::createQuery<\/a>"],[0,1,"<a href=\"Filter\/EntityToDocument\/JobEntityToSolrDocument.php.html#28\">Solr\\Filter\\EntityToDocument\\JobEntityToSolrDocument::__construct<\/a>"],[85.1063829787234,14,"<a href=\"Filter\/EntityToDocument\/JobEntityToSolrDocument.php.html#38\">Solr\\Filter\\EntityToDocument\\JobEntityToSolrDocument::filter<\/a>"],[100,3,"<a href=\"Filter\/EntityToDocument\/JobEntityToSolrDocument.php.html#114\">Solr\\Filter\\EntityToDocument\\JobEntityToSolrDocument::getDocumentIds<\/a>"],[100,2,"<a href=\"Filter\/EntityToDocument\/JobEntityToSolrDocument.php.html#132\">Solr\\Filter\\EntityToDocument\\JobEntityToSolrDocument::processOrganization<\/a>"],[100,3,"<a href=\"Filter\/EntityToDocument\/JobEntityToSolrDocument.php.html#148\">Solr\\Filter\\EntityToDocument\\JobEntityToSolrDocument::processLocation<\/a>"],[100,1,"<a href=\"Filter\/EntityToDocument\/JobEntityToSolrDocument.php.html#181\">Solr\\Filter\\EntityToDocument\\JobEntityToSolrDocument::getLocationDocumentId<\/a>"],[100,1,"<a href=\"Filter\/JobBoardPaginationQuery.php.html#40\">Solr\\Filter\\JobBoardPaginationQuery::__construct<\/a>"],[89.39393939393939,14,"<a href=\"Filter\/JobBoardPaginationQuery.php.html#48\">Solr\\Filter\\JobBoardPaginationQuery::createQuery<\/a>"],[100,1,"<a href=\"Filter\/JobBoardPaginationQuery.php.html#168\">Solr\\Filter\\JobBoardPaginationQuery::proxyFactory<\/a>"],[100,1,"<a href=\"Filter\/JobBoardPaginationQuery.php.html#176\">Solr\\Filter\\JobBoardPaginationQuery::getRepositoryName<\/a>"],[100,2,"<a href=\"Filter\/JobBoardPaginationQuery.php.html#181\">Solr\\Filter\\JobBoardPaginationQuery::configureSorts<\/a>"],[100,4,"<a href=\"Filter\/JobBoardPaginationQuery.php.html#188\">Solr\\Filter\\JobBoardPaginationQuery::configureFilterQuery<\/a>"],[60,3,"<a href=\"Filter\/JobBoardPaginationQuery.php.html#201\">Solr\\Filter\\JobBoardPaginationQuery::configureBoostQuery<\/a>"],[100,3,"<a href=\"Listener\/CreatePaginatorListener.php.html#29\">Solr\\Listener\\CreatePaginatorListener::onCreatePaginator<\/a>"],[100,1,"<a href=\"Listener\/JobEventSubscriber.php.html#69\">Solr\\Listener\\JobEventSubscriber::__construct<\/a>"],[0,2,"<a href=\"Listener\/JobEventSubscriber.php.html#79\">Solr\\Listener\\JobEventSubscriber::forceUpdate<\/a>"],[100,1,"<a href=\"Listener\/JobEventSubscriber.php.html#93\">Solr\\Listener\\JobEventSubscriber::getSubscribedEvents<\/a>"],[100,3,"<a href=\"Listener\/JobEventSubscriber.php.html#106\">Solr\\Listener\\JobEventSubscriber::prePersist<\/a>"],[100,10,"<a href=\"Listener\/JobEventSubscriber.php.html#127\">Solr\\Listener\\JobEventSubscriber::preUpdate<\/a>"],[100,5,"<a href=\"Listener\/JobEventSubscriber.php.html#169\">Solr\\Listener\\JobEventSubscriber::postFlush<\/a>"],[100,2,"<a href=\"Listener\/JobEventSubscriber.php.html#204\">Solr\\Listener\\JobEventSubscriber::getSolrClient<\/a>"],[100,1,"<a href=\"Listener\/JobEventSubscriber.php.html#218\">Solr\\Listener\\JobEventSubscriber::factory<\/a>"],[0,1,"<a href=\"Module.php.html#31\">Solr\\Module::getConsoleUsage<\/a>"],[0,1,"<a href=\"Module.php.html#43\">Solr\\Module::getConfig<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#142\">Solr\\Options\\ModuleOptions::getBoostQueries<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#150\">Solr\\Options\\ModuleOptions::setBoostQueries<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#158\">Solr\\Options\\ModuleOptions::getSorts<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#166\">Solr\\Options\\ModuleOptions::setSorts<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#174\">Solr\\Options\\ModuleOptions::getFilterQueries<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#182\">Solr\\Options\\ModuleOptions::setFilterQueries<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#190\">Solr\\Options\\ModuleOptions::isSecure<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#199\">Solr\\Options\\ModuleOptions::setSecure<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#209\">Solr\\Options\\ModuleOptions::getHostname<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#218\">Solr\\Options\\ModuleOptions::setHostname<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#228\">Solr\\Options\\ModuleOptions::getPort<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#237\">Solr\\Options\\ModuleOptions::setPort<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#247\">Solr\\Options\\ModuleOptions::getPath<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#256\">Solr\\Options\\ModuleOptions::setPath<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#266\">Solr\\Options\\ModuleOptions::getUsername<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#275\">Solr\\Options\\ModuleOptions::setUsername<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#285\">Solr\\Options\\ModuleOptions::getPassword<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#294\">Solr\\Options\\ModuleOptions::setPassword<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#304\">Solr\\Options\\ModuleOptions::getJobsPath<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#313\">Solr\\Options\\ModuleOptions::setJobsPath<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#323\">Solr\\Options\\ModuleOptions::getFacetFields<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#333\">Solr\\Options\\ModuleOptions::setFacetFields<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#342\">Solr\\Options\\ModuleOptions::getParameterNames<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#352\">Solr\\Options\\ModuleOptions::setParameterNames<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#361\">Solr\\Options\\ModuleOptions::getFacetLimit<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#371\">Solr\\Options\\ModuleOptions::setFacetLimit<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#380\">Solr\\Options\\ModuleOptions::getFacetMinCount<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#390\">Solr\\Options\\ModuleOptions::setFacetMinCount<\/a>"],[0,2,"<a href=\"Options\/ModuleOptions.php.html#401\">Solr\\Options\\ModuleOptions::getParameterName<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#409\">Solr\\Options\\ModuleOptions::getMappings<\/a>"],[100,1,"<a href=\"Options\/ModuleOptions.php.html#414\">Solr\\Options\\ModuleOptions::setMappings<\/a>"],[100,1,"<a href=\"Paginator\/Adapter\/SolrAdapter.php.html#77\">Solr\\Paginator\\Adapter\\SolrAdapter::__construct<\/a>"],[100,1,"<a href=\"Paginator\/Adapter\/SolrAdapter.php.html#89\">Solr\\Paginator\\Adapter\\SolrAdapter::getItems<\/a>"],[100,1,"<a href=\"Paginator\/Adapter\/SolrAdapter.php.html#102\">Solr\\Paginator\\Adapter\\SolrAdapter::count<\/a>"],[100,1,"<a href=\"Paginator\/Adapter\/SolrAdapter.php.html#111\">Solr\\Paginator\\Adapter\\SolrAdapter::getFacets<\/a>"],[100,3,"<a href=\"Paginator\/Adapter\/SolrAdapter.php.html#124\">Solr\\Paginator\\Adapter\\SolrAdapter::getResponse<\/a>"],[100,1,"<a href=\"Paginator\/JobsBoardPaginatorFactory.php.html#25\">Solr\\Paginator\\JobsBoardPaginatorFactory::getFilter<\/a>"],[100,1,"<a href=\"Paginator\/JobsBoardPaginatorFactory.php.html#33\">Solr\\Paginator\\JobsBoardPaginatorFactory::getConnectPath<\/a>"],[100,2,"<a href=\"Paginator\/Paginator.php.html#22\">Solr\\Paginator\\Paginator::__construct<\/a>"],[100,1,"<a href=\"Paginator\/Paginator.php.html#34\">Solr\\Paginator\\Paginator::getFacets<\/a>"],[100,1,"<a href=\"Paginator\/PaginatorFactoryAbstract.php.html#31\">Solr\\Paginator\\PaginatorFactoryAbstract::__invoke<\/a>"],[100,1,"<a href=\"Paginator\/PaginatorFactoryAbstract.php.html#51\">Solr\\Paginator\\PaginatorFactoryAbstract::getFilter<\/a>"],[100,1,"<a href=\"Paginator\/PaginatorFactoryAbstract.php.html#60\">Solr\\Paginator\\PaginatorFactoryAbstract::getConnectPath<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

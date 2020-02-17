@@ -33,7 +33,7 @@ class CreatePaginatorListener
         $paginators = $event->getPaginators();
         $serviceName = 'Solr/' . $paginatorName;
         if (is_object($paginators) && $paginators->has($serviceName)) {
-            /* @var \Zend\Paginator\Paginator $paginator */
+            /* @var \Laminas\Paginator\Paginator $paginator */
             // yes, we have that solr paginator to replace $paginatorName
             $paginator = $paginators->get($serviceName, $params);
             $event->setPaginator($paginator);

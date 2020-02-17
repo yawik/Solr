@@ -10,14 +10,14 @@
  */
 namespace Solr\Paginator;
 
-use Zend\Paginator\Exception\InvalidArgumentException;
+use Laminas\Paginator\Exception\InvalidArgumentException;
 use Solr\FacetsProviderInterface;
 
-class Paginator extends \Zend\Paginator\Paginator implements FacetsProviderInterface
+class Paginator extends \Laminas\Paginator\Paginator implements FacetsProviderInterface
 {
 
     /**
-     * @see \Zend\Paginator\Paginator::__construct()
+     * @see \Laminas\Paginator\Paginator::__construct()
      */
     public function __construct($adapter)
     {

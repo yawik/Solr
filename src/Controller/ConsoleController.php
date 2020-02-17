@@ -12,7 +12,7 @@ namespace Solr\Controller;
 use Core\Console\ProgressBar;
 use Jobs\Repository\Job as JobRepository;
 use SolrClient;
-use Zend\Mvc\Controller\AbstractActionController;
+use Laminas\Mvc\Controller\AbstractActionController;
 
 /**
  * @author Anthonius Munthi <me@itstoni.com>

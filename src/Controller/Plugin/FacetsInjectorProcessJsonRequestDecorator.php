@@ -29,7 +29,7 @@ class FacetsInjectorProcessJsonRequestDecorator extends ProcessJsonRequest
         $this->processJsonRequestPlugin = $processJsonRequestPlugin;
     }
 
-    public function setController(\Zend\Stdlib\DispatchableInterface $controller): void
+    public function setController(\Laminas\Stdlib\DispatchableInterface $controller): void
     {
         parent::setController($controller);
         $this->processJsonRequestPlugin->setController($controller);

@@ -68,7 +68,7 @@
     "require": {
         "php": ">=7.2",
         "ext-solr": ">=2.4",
-        "zendframework/zend-progressbar": "^2.5",
+        "laminas/laminas-progressbar": "^2.5",
         "yawik/core": "^0.33.14",
         "yawik/cv": ">=0.32",
         "yawik/auth": ">=0.32",
@@ -77,7 +77,8 @@
         "yawik/settings": ">=0.32",
         "yawik/organizations": ">=0.32",
         "yawik/geo": ">=0.32",
-        "yawik/composer-plugin": ">=0.32"
+        "yawik/composer-plugin": ">=0.32",
+        "laminas/laminas-dependency-plugin": "^1.0"
     },
     "require-dev": {
         "yawik/behat": ">=0.32@dev",

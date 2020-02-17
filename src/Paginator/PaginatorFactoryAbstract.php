@@ -15,7 +15,7 @@ use Solr\Bridge\ResultConverter;
 use Solr\Options\ModuleOptions;
 use Solr\Paginator\Adapter\SolrAdapter;
 use Solr\Facets;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 
 /**
  * Abstract class for Solr paginator factory

@@ -21,7 +21,7 @@ use Jobs\Entity\Job;
 use Jobs\Repository\Job as JobRepository;
 use Solr\Controller\ConsoleController;
 use stdClass;
-use Zend\Log\Filter\Mock;
+use Laminas\Log\Filter\Mock;
 
 /**
  * Class ConsoleControllerTest

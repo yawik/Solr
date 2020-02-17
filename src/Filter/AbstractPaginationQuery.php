@@ -11,7 +11,7 @@ namespace Solr\Filter;
 
 use SolrDisMaxQuery;
 use ArrayAccess;
-use Zend\Filter\FilterInterface;
+use Laminas\Filter\FilterInterface;
 use Solr\Facets;
 use DomainException;
 
@@ -29,7 +29,7 @@ abstract class AbstractPaginationQuery implements FilterInterface
     /**
      * Filter query based on given value
      *
-     * @see \Zend\Filter\FilterInterface::filter()
+     * @see \Laminas\Filter\FilterInterface::filter()
      */
     public function filter($value, SolrDisMaxQuery $query = null, Facets $facets = null)
     {
