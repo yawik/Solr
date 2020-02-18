@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
 use Solr\Paginator\Paginator;
 use Solr\Paginator\Adapter\SolrAdapter;
 use Solr\Facets;
-use Zend\Paginator\Exception\InvalidArgumentException;
+use Laminas\Paginator\Exception\InvalidArgumentException;
 
 /**
  * @coversDefaultClass \Solr\Paginator\Paginator

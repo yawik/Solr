@@ -11,7 +11,7 @@ namespace Solr\Factory\Controller\Plugin;
 
 use Interop\Container\ContainerInterface;
 use Solr\Controller\Plugin\FacetsInjectorProcessJsonRequestDecorator;
-use Zend\ServiceManager\Factory\DelegatorFactoryInterface;
+use Laminas\ServiceManager\Factory\DelegatorFactoryInterface;
 
 /**
  * Factory for \Solr\Factory\Controller\Plugin\ProcessJsonRequestDelegator

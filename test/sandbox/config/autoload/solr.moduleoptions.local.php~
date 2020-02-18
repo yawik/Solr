@@ -1,0 +1,83 @@
+<?php                                                                                                                                                                                                                                                                     
+/**                                                                                                                                                                                                                                                                       
+ * Module options override.                                                                                                                                                                                                                                               
+ */                                                                                                                                                                                                                                                                       
+                                                                                                                                                                                                                                                                          
+$options = [                                                                                                                                                                                                                                                              
+    // set true if using https                                                                                                                                                                                                                                            
+    'secure'    => false,                                                                                                                                                                                                                                                 
+                                                                                                                                                                                                                                                                          
+    // The hostname for the Solr server                                                                                                                                                                                                                                   
+    'hostname'  => 'solr.hq.cross',                                                                                                                                                                                                          
+                                                                                                                                                                                                                                                                          
+    // The port number                                                                                                                                                                                                                                                    
+    'port'      => 8983,                                                                                                                                                                                                                                                  
+                                                                                                                                                                                                                                                                          
+    // The username used for HTTP Authentication, if any                                                                                                                                                                                                                  
+    'username'  => null, #'yawik',                                                                                                                                                                                                                                               
+                                                                                                                                                                                                                                                                          
+    // The HTTP Authentication password                                                                                                                                                                                                                                   
+    'password'  => null, #'3qaS2uQU86dGbMXjDds2',                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                          
+    // A path for solr jobs index                                                                                                                                                                                                                                         
+    'jobsPath' => '/solr/Gastro24',                                                                                                                                                                                                                                       
+
+    // List of Facet Fields. Fieldnames must exist in the solr index. Each facet field must have a 'name'.
+    // 'label' is optional. It can be used as a headline of the facet result.
+    'facetFields' => [
+        [
+            'name' => 'region_MultiString',
+            'label' => 'Region'
+        ],
+        [
+            'name' => 'city_MultiString',
+            'label' => 'Stadt'
+        ],
+        [
+            'name' => 'organizationTag',
+            'label' => 'Firma'
+        ],
+        [
+            'name' => 'profession_MultiString',
+            'label' => 'Berufsfeld'
+        ],
+        [
+            'name' => 'industry_MultiString',
+            'label' => 'Branche'
+        ],
+        [
+            'name' => 'employmentType_MultiString',
+            'label' => 'Art der Anstellung'
+        ]
+
+    ],
+    //
+    'parameterNames' => [
+        'q' => [
+            'name' => 'q'
+        ],
+        'l' => [
+            'name' => 'l'
+        ],
+        'd' => [
+            'name' => 'd'
+        ]
+    ],
+    'sorts' => [
+        'random' => \SolrQuery::ORDER_ASC,
+    ],
+    'filterQueries' => [
+         //   'text:(vertrieb OR sales OR Verkäufer OR "Key Account")  AND NOT (oracle OR softwareentwicklung OR Netzwerktechniker OR SAP or JAVA OR sachbearbeiter OR Maschinenbau OR P
+    ],
+    'boostQueries' => [
+         'organizationName:(hays orizon)^-1',
+    ],
+                                 
+
+
+];
+
+/*
+ * Do not change below this line
+ */
+return [ 'options' => [ 'Solr/Options/Module' => [ 'options' => $options ] ] ];

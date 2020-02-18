@@ -10,7 +10,7 @@
 namespace Solr\Options;
 
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
-use Zend\Stdlib\AbstractOptions;
+use Laminas\Stdlib\AbstractOptions;
 
 /**
  * Provide available options for Solr Module

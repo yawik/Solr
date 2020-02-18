@@ -4,7 +4,7 @@ namespace Solr\Factory\Filter;
 
 use Interop\Container\ContainerInterface;
 use Solr\Filter\JobBoardPaginationQuery;
-use Zend\ServiceManager\Factory\FactoryInterface;
+use Laminas\ServiceManager\Factory\FactoryInterface;
 use Solr\Options\ModuleOptions;
 
 /**

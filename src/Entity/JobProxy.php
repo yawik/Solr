@@ -439,7 +439,7 @@ class JobProxy extends AbstractIdentifiableModificationDateAwareEntity implement
     }
     
     /**
-     * @see \Zend\Permissions\Acl\Resource\ResourceInterface::getResourceId()
+     * @see \Laminas\Permissions\Acl\Resource\ResourceInterface::getResourceId()
      */
     public function getResourceId()
     {

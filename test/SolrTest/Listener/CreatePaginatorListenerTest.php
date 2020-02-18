@@ -15,7 +15,7 @@ use PHPUnit\Framework\TestCase;
 use Core\Listener\Events\CreatePaginatorEvent;
 use Core\Paginator\PaginatorService;
 use Solr\Listener\CreatePaginatorListener;
-use Zend\Paginator\Paginator;
+use Laminas\Paginator\Paginator;
 
 /**
  * Test for Solr\Listener\CreatePaginatorListener

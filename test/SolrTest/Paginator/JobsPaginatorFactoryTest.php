@@ -18,8 +18,8 @@ use Solr\Filter\JobBoardPaginationQuery;
 use Solr\Options\ModuleOptions;
 use Solr\Paginator\Adapter\SolrAdapter;
 use Solr\Paginator\JobsBoardPaginatorFactory;
-use Zend\Filter\FilterPluginManager;
-use Zend\Paginator\Paginator;
+use Laminas\Filter\FilterPluginManager;
+use Laminas\Paginator\Paginator;
 
 /**
  * Class JobsPaginatorFactoryTest
