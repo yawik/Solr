@@ -26,7 +26,7 @@ class Module implements ConsoleUsageProviderInterface,VersionProviderInterface
 {
     use VersionProviderTrait;
 
-    const VERSION = '0.8.2';
+    const VERSION = '0.9.0';
 
     public function getConsoleUsage(AdapterInterface $console)
     {
