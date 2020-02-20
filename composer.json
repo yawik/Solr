@@ -77,7 +77,7 @@
         "yawik/settings": "^0.34.0",
         "yawik/organizations": "^0.34.0",
         "yawik/geo": "^1.1.0",
-        "yawik/composer-plugin": "^1.0.0",
+        "yawik/composer-plugin": "^2.0.0",
         "laminas/laminas-dependency-plugin": "^1.0"
     },
     "require-dev": {
