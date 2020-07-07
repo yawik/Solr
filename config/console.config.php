@@ -13,7 +13,7 @@ return [
             'routes' => [
                 'solr-index-job'    => [
                     'options' => [
-                        'route'    => 'solr index job',
+                        'route'    => 'solr index job [--batch=]',
                         'defaults' => [
                             'controller' => 'Solr/Console',
                             'action'     => 'activeJobIndex',
