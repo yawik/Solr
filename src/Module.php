@@ -19,6 +19,7 @@ use Laminas\ModuleManager\Feature\ConsoleUsageProviderInterface;
  * Class Module
  *
  * @author  Anthonius Munthi <me@itstoni.com>
+ * @author  Mathias Gelhausen <gelhausen@cross-solution.de>
  * @since   0.26
  * @package Solr
  */
@@ -26,7 +27,7 @@ class Module implements ConsoleUsageProviderInterface, VersionProviderInterface
 {
     use VersionProviderTrait;
 
-    const VERSION = '0.9.4';
+    const VERSION = '1.0.0';
 
     public function getConsoleUsage(AdapterInterface $console)
     {
