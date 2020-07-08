@@ -40,7 +40,7 @@ class JobEntityToSolrDocument implements FilterInterface
         if (!$job instanceof JobEntity) {
             throw new InvalidArgumentException(sprintf('$job must be instance of "%s"', JobEntity::class));
         }
-        
+
         $document = new SolrInputDocument();
         $document->addField('id', $job->getId());
         $document->addField('applyId', $job->getApplyId());
@@ -73,9 +73,9 @@ class JobEntityToSolrDocument implements FilterInterface
         } elseif (!is_null($job->getOrganization())) {
             $this->processOrganization($job, $document);
         }
-        
+
         $plainText = $job->getMetaData('plainText');
-        
+
         if ($plainText) {
             $html = $plainText;
         } else {
@@ -84,13 +84,13 @@ class JobEntityToSolrDocument implements FilterInterface
             $stripTags = new StripTags();
             $stripTags->setAttributesAllowed([])->setTagsAllowed([]);
             $description = $stripTags->filter($description);
-    
+
             $qualification = $stripTags($templateValues->getQualifications());
             $requirements = $stripTags($templateValues->getRequirements());
             $benefits = $stripTags($templateValues->getBenefits());
             $html = "$description " . $job->getTitle() ." $requirements $qualification $benefits";
         }
-        
+
         $document->addField('html', $html);
 
         foreach ($job->getClassifications()->getProfessions()->getItems() as $profession) { /* @var  $profession \Jobs\Entity\Category */
@@ -106,7 +106,7 @@ class JobEntityToSolrDocument implements FilterInterface
 
         return $document;
     }
-    
+
     /**
      * @param JobEntity $job
      * @return array
@@ -114,17 +114,17 @@ class JobEntityToSolrDocument implements FilterInterface
     public function getDocumentIds(JobEntity $job)
     {
         $ids = [$job->getId()];
-            
+
         /* @var $location \Jobs\Entity\Location */
         foreach ($job->getLocations() as $location) {
             if (is_object($location->getCoordinates())) {
                 $ids[] = $this->getLocationDocumentId($job, Util::convertLocationCoordinates($location));
             }
         }
-        
+
         return $ids;
     }
-    
+
     /**
      * @param JobEntity $job
      * @param SolrInputDocument $document
@@ -156,8 +156,6 @@ class JobEntityToSolrDocument implements FilterInterface
                 $region = $location->getRegion();
                 $city = $location->getCity();
                 $loc->addField('point', $coordinate);
-                $loc->addField('latLon', $coordinate);
-                $document->addField('locations', $coordinate);
                 $document->addField('points', $coordinate);
                 $loc->addField('id', $this->getLocationDocumentId($job, $coordinate));
                 $loc->addField('city', $city);
@@ -169,10 +167,10 @@ class JobEntityToSolrDocument implements FilterInterface
                 $document->addChildDocument($loc);
             }
         }
-        
+
         $document->addField('location', $job->getLocation());
     }
-    
+
     /**
      * @param JobEntity $job
      * @param string $coordinate

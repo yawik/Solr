@@ -42,7 +42,6 @@
   <fieldType name="ignored" class="solr.StrField" indexed="false" stored="false" multiValued="true"/>
   <fieldType name="int" class="solr.TrieIntField" positionIncrementGap="0" precisionStep="0"/>
   <fieldType name="location" class="solr.LatLonType" subFieldSuffix="_coordinate"/>
-  <fieldType name="location_rpt" class="solr.SpatialRecursivePrefixTreeFieldType" geo="true" maxDistErr="0.001" spatialContextFactory="org.locationtech.spatial4j.context.jts.JtsSpatialContextFactory" distErrPct="0.025" distanceUnits="kilometers"/>
   <fieldType name="long" class="solr.TrieLongField" positionIncrementGap="0" precisionStep="0"/>
   <fieldType name="lowercase" class="solr.TextField" positionIncrementGap="100">
     <analyzer>
@@ -450,9 +449,9 @@
   <field name="datePublishStart" type="date" indexed="true" stored="true"/>
   <field name="description" type="text_de_splitting" indexed="true" stored="true"/>
   <field name="docType" type="string" indexed="true" stored="true"/>
+  <field name="employmentTypeList" type="string" multiValued="true" indexed="true" stored="true"/>
   <field name="entityName" type="string" indexed="true" required="true" stored="false"/>
   <field name="exportId" type="long" indexed="false" stored="true"/>
-  <field name="geoLocation" type="location_rpt" multiValued="true" indexed="true" stored="true"/>
   <field name="html" type="html" indexed="true" stored="true"/>
   <field name="id" type="string" multiValued="false" indexed="true" required="true" stored="true"/>
   <field name="industryList" type="string" multiValued="true" indexed="true" stored="true"/>
@@ -461,10 +460,8 @@
   <field name="isTopJob" type="boolean" indexed="true" stored="true"/>
   <field name="keywords" type="text_de_splitting" indexed="true" stored="true"/>
   <field name="lang" type="string" indexed="true" stored="true"/>
-  <field name="latLon" type="location_rpt" multiValued="false" indexed="true" stored="true"/>
   <field name="link" type="text_general" indexed="false" stored="true"/>
   <field name="location" type="string" docValues="false" indexed="true" stored="true"/>
-  <field name="locations" type="location_rpt" multiValued="true" indexed="true" stored="true"/>
   <field name="organizationId" type="string" indexed="true" stored="true"/>
   <field name="organizationName" type="text_general" indexed="true" stored="true"/>
   <field name="organizationTag" type="string" indexed="true" stored="false"/>
@@ -489,12 +486,14 @@
   <field name="zipCityCountryList" type="text_path" multiValued="true" indexed="false" stored="true"/>
   <dynamicField name="portalDatePublishStart*" type="date" multiValued="false" indexed="false" stored="true"/>
   <dynamicField name="portalDatePublishEnd*" type="date" multiValued="false" indexed="true" stored="true"/>
+  <dynamicField name="*_MultiString" type="string" multiValued="true" indexed="true" stored="true"/>
   <dynamicField name="*_coordinate" type="tdouble" indexed="true" stored="false"/>
   <dynamicField name="portalUrl*" type="string" multiValued="false" indexed="false" stored="true"/>
   <dynamicField name="keyValue*" type="text_path" multiValued="true" indexed="false" stored="true"/>
   <dynamicField name="random*" type="random" indexed="true" stored="true"/>
   <dynamicField name="*_dt" type="date" indexed="true" stored="true"/>
   <dynamicField name="*_p" type="location" indexed="true" stored="true"/>
+  <dynamicField name="*_s" type="string" indexed="true" stored="true"/>
   <copyField source="description" dest="text"/>
   <copyField source="html" dest="text"/>
   <copyField source="keywords" dest="text"/>

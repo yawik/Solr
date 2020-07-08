@@ -22,7 +22,7 @@ use Laminas\ModuleManager\Feature\ConsoleUsageProviderInterface;
  * @since   0.26
  * @package Solr
  */
-class Module implements ConsoleUsageProviderInterface,VersionProviderInterface
+class Module implements ConsoleUsageProviderInterface, VersionProviderInterface
 {
     use VersionProviderTrait;
 
@@ -32,6 +32,11 @@ class Module implements ConsoleUsageProviderInterface,VersionProviderInterface
     {
         return [
             'solr index job' => 'Indexing active jobs',
+            ['--batch=<int>', 'Indexing jobs in batches of <int> jobs.'],
+            ['', 'Each invokation will continue the indexing with the next batch.'],
+            ['', 'When the last batch is indexed, it exists with a non-zero exit code.'],
+            ['', 'So you can do something like:'],
+            ['', 'while true; do [yawik] solr index job --batch 2500 || break; done'],
         ];
     }
 

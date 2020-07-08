@@ -73,7 +73,7 @@ class JobEntityToSolrDocumentTest extends TestCase
             ->setApplyId('some-external-id');
 
         $document = $this->jobFilter->filter($job);
-        
+
         $this->assertInstanceOf(SolrInputDocument::class, $document);
         $this->assertSame($job->getId(), $this->getDocumentValue($document, 'id'));
         $this->assertSame($job->getApplyId(), $this->getDocumentValue($document, 'applyId'));
@@ -88,7 +88,7 @@ class JobEntityToSolrDocumentTest extends TestCase
         $this->assertFalse((bool)$this->getDocumentValue($document, 'isActive'));
         $this->assertSame($job->getLanguage(), $this->getDocumentValue($document, 'lang'));
     }
-    
+
     /**
      * @covers ::filter()
      */
@@ -96,10 +96,10 @@ class JobEntityToSolrDocumentTest extends TestCase
     {
         $organization = $this->getMockBuilder(Organization::class)
             ->getMock();
-        
+
         $job = new Job();
         $job->setOrganization($organization);
-        
+
         $jobFilter = $this->getMockBuilder(JobFilter::class)
             ->disableOriginalConstructor()
             ->setMethods(['processOrganization'])
@@ -107,10 +107,10 @@ class JobEntityToSolrDocumentTest extends TestCase
         $jobFilter->expects($this->once())
             ->method('processOrganization')
             ->with($this->identicalTo($job), $this->isInstanceOf(SolrInputDocument::class));
-        
+
         $jobFilter->filter($job);
     }
-    
+
     /**
      * @covers ::getDocumentIds()
      * @covers ::getLocationDocumentId()
@@ -120,9 +120,9 @@ class JobEntityToSolrDocumentTest extends TestCase
         $id = 'some-id';
         $job = new Job();
         $job->setId($id);
-        
+
         $this->assertSame([$id], $this->jobFilter->getDocumentIds($job));
-        
+
         $coordinate1 = 1.2;
         $coordinate2 = 2.1;
         $coordinatesWrapper = $this->getMockBuilder(stdClass::class)
@@ -136,7 +136,7 @@ class JobEntityToSolrDocumentTest extends TestCase
             ->willReturn($coordinatesWrapper);
         $locations = new ArrayCollection([$location]);
         $job->setLocations($locations);
-        
+
         $this->assertSame([$id, "{$id}-{$coordinate2},{$coordinate1}"], $this->jobFilter->getDocumentIds($job));
     }
 
@@ -148,19 +148,19 @@ class JobEntityToSolrDocumentTest extends TestCase
         $companyLogo = 'some-uri';
         $organizationName = 'some-name';
         $organizationId = 'some-id';
-        
+
         $org = $this->getMockBuilder(Organization::class)
             ->getMock();
         $org->expects($this->once())
             ->method('getId')
             ->willReturn($organizationId);
-        
+
         $orgName = $this->getMockBuilder(OrganizationName::class)
             ->getMock();
         $orgName->expects($this->once())
             ->method('getName')
             ->willReturn($organizationName);
-        
+
         $orgImage = $this->getMockBuilder(OrganizationImage::class)
             ->getMock();
         $orgImage->expects($this->once())
@@ -177,7 +177,7 @@ class JobEntityToSolrDocumentTest extends TestCase
             ->willReturn($orgImage);
 
         $document = new SolrInputDocument();
-        
+
         $this->jobFilter->processOrganization($job, $document);
         $this->assertSame($companyLogo, $this->getDocumentValue($document, 'companyLogo'));
         $this->assertSame($organizationName, $this->getDocumentValue($document, 'organizationName'));
@@ -203,7 +203,7 @@ class JobEntityToSolrDocumentTest extends TestCase
         $location = $this->getMockBuilder(Location::class)->getMock();
         $coordinates = $this->getMockBuilder(CoordinatesInterface::class)->getMock();
         $locations = [$location];
-        
+
         $job->setId('job-id');
         $job->setLocation($locationText);
         $job->expects($this->once())
@@ -226,9 +226,9 @@ class JobEntityToSolrDocumentTest extends TestCase
         $coordinates->expects($this->once())
             ->method('getCoordinates')
             ->willReturn($coordinatesArray);
-        
+
         $document = new SolrInputDocument();
-            
+
         $this->jobFilter->processLocation($job, $document);
         $this->assertSame($job->getLocation(), $this->getDocumentValue($document, 'location'));
         $this->assertSame($region, $this->getDocumentValue($document, 'region_MultiString'));
@@ -238,15 +238,14 @@ class JobEntityToSolrDocumentTest extends TestCase
         $childDocument = reset($childDocuments);
         $this->assertSame('location', $this->getDocumentValue($childDocument, 'entityName'));
         $this->assertSame($coordinatesConverted, $this->getDocumentValue($childDocument, 'point'));
-        $this->assertSame($coordinatesConverted, $this->getDocumentValue($childDocument, 'latLon'));
         $this->assertSame("{$job->getId()}-$coordinatesConverted", $this->getDocumentValue($childDocument, 'id'));
         $this->assertSame($city, $this->getDocumentValue($childDocument, 'city'));
         $this->assertSame($postalCode, $this->getDocumentValue($childDocument, 'postalCode'));
         $this->assertSame($country, $this->getDocumentValue($childDocument, 'country'));
         $this->assertSame($region, $this->getDocumentValue($childDocument, 'region'));
-        
+
     }
-    
+
     /**
      * @param SolrInputDocument $document
      * @param string $fieldName
