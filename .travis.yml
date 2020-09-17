@@ -1,3 +1,5 @@
+dist: focal
+
 language: php
 
 addons:
@@ -10,44 +12,26 @@ cache:
 
 matrix:
     fast_finish: true
-    allow_failures:
-    - php: 7.4
-      env: COVERAGE=yes
     include:
-    - php: 7.3
+    - php: 7.4
     - php: 7.4
       env: COVERAGE=yes
-
 services:
   - mongodb
 
-env:
-  global:
-    - PECLSOLR=solr-2.4.0
-
 before_install:
+  - phpenv config-add etc/travis/phpenv.ini
   - sudo apt-get update > /dev/null
-  - "mongo --eval 'db.runCommand({setParameter: 1, textSearchEnabled: true})' admin"
+  - sudo apt-get install libcurl4-openssl-dev libcurl4
+  - cd /usr/include
+  - sudo ln -s x86_64-linux-gnu/curl
+  - cd /home/travis/build/yawik/Solr
+  - echo '' | pecl install solr
+  - pecl install mongodb
   - pecl channel-update pecl.php.net
   - if [[ $COVERAGE != yes ]]; then phpenv config-rm xdebug.ini || echo "xdebug not available"; fi;
 
 install:
-  # install Mongo extension
-  - php --ri mongodb || pecl install -f mongodb
-  # install SOLR extension
-  # using solr master version in php 7.2
-  - 'if [[ ${TRAVIS_PHP_VERSION:0:3} == "7.2" || ${TRAVIS_PHP_VERSION:0:3} == "7.3" ]]; then
-      export HASH=de1d724299780d927cb9ed14268449ac8a28204b;
-      curl --location https://github.com/php/pecl-search_engine-solr/archive/${HASH}.tar.gz -o solr.tgz;
-      sh -c "tar xfz solr.tgz";
-      sh -c "cd pecl-search_engine-solr-${HASH} && phpize && ./configure && make && sudo make install";
-    else
-      sh -c "wget http://pecl.php.net/get/$PECLSOLR.tgz";
-      sh -c "tar xfz $PECLSOLR.tgz";
-      sh -c "cd $PECLSOLR && phpize && ./configure && make && sudo make install";
-    fi'
-  - phpenv config-add etc/travis/phpenv.ini
-
   # TODO: change to --prefer-dist when CoreTestUtils is installable
   - COMPOSER_MEMORY_LIMIT=-1 composer install --prefer-source
 
@@ -71,8 +55,8 @@ script:
 after_script:
   # process coverage
   - 'if [[ $COVERAGE = yes ]]; then
-        composer require php-coveralls/php-coveralls --no-scripts;
+        COMPOSER_MEMORY_LIMIT=-1 composer require php-coveralls/php-coveralls --no-scripts;
         travis_retry ./vendor/bin/php-coveralls -vvv;
         wget https://scrutinizer-ci.com/ocular.phar;
-        ocular.phar code-coverage:upload --format=php-clover build/logs/clover.serialized;
+        php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.serialized;
     fi'

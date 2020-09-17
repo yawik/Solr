@@ -23,7 +23,7 @@
     "keywords": [
         "yawik",
         "solr",
-        "zf"
+        "laminas"
     ],
     "prefer-stable": true,
     "minimum-stability": "dev",
