@@ -64,7 +64,6 @@ class ConsoleController extends AbstractActionController
         $limit = $this->params('batch', false);
         if ($limit) {
             $file = getcwd() . '/var/cache/solr-index.dat';
-            echo $file; exit;
             $skip = file_exists($file) ? file_get_contents($file) : 0;
             file_put_contents($file, ($skip + $limit));
         }
