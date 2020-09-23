@@ -13,6 +13,7 @@ use Core\ModuleManager\Feature\VersionProviderInterface;
 use Core\ModuleManager\Feature\VersionProviderTrait;
 use Core\ModuleManager\ModuleConfigLoader;
 use Laminas\Console\Adapter\AdapterInterface;
+use Laminas\ModuleManager\Feature\ConsoleBannerProviderInterface;
 use Laminas\ModuleManager\Feature\ConsoleUsageProviderInterface;
 
 /**
@@ -23,7 +24,10 @@ use Laminas\ModuleManager\Feature\ConsoleUsageProviderInterface;
  * @since   0.26
  * @package Solr
  */
-class Module implements ConsoleUsageProviderInterface, VersionProviderInterface
+class Module implements
+    ConsoleUsageProviderInterface,
+    ConsoleBannerProviderInterface,
+    VersionProviderInterface
 {
     use VersionProviderTrait;
 
@@ -45,6 +49,11 @@ class Module implements ConsoleUsageProviderInterface, VersionProviderInterface
             ['--drop', 'Prior to index jobs, delete all indexed jobs from the solr index.'],
             ['', 'Only works with --orgId'],
         ];
+    }
+
+    public function getConsoleBanner(AdapterInterface $console)
+    {
+        return sprintf("%s (%s) %s", __NAMESPACE__, $this->getName(), $this->getVersion());
     }
 
     /**
