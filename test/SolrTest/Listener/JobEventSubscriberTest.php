@@ -94,11 +94,11 @@ class JobEventSubscriberTest extends TestCase
             ->getMock();
         $options->method('getJobsPath')
             ->willReturn('/some/path');
-        
+
         $this->client = $this->getMockBuilder(\SolrClient::class)
             ->disableOriginalConstructor()
             ->getMock();
-        
+
         $this->manager = $this->getMockBuilder(Manager::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -106,7 +106,7 @@ class JobEventSubscriberTest extends TestCase
             ->willReturn($this->client);
         $this->manager->method('getOptions')
             ->willReturn($options);
-        
+
         $this->entityToDocumentFilter = $this->getMockBuilder(EntityToDocumentFilter::class)
             ->disableOriginalConstructor()
             ->getMock();
@@ -137,17 +137,17 @@ class JobEventSubscriberTest extends TestCase
             ->getMock();
         $job->expects($this->never())
             ->method('isActive');
-        
+
         $event = $this->getMockBuilder(PreUpdateEventArgs::class)
             ->disableOriginalConstructor()
             ->getMock();
         $event->expects($this->once())
             ->method('getDocument')
             ->willReturn($job);
-        
+
         $this->subscriber->prePersist($event);
     }
-    
+
     /**
      * @param string $status
      * @param bool $shouldBeAdded
@@ -187,7 +187,7 @@ class JobEventSubscriberTest extends TestCase
             ->method('getDocument');
         $event->expects($this->never())
             ->method('hasChangedField');
-        
+
         $this->subscriber->preUpdate($event);
     }
 
@@ -241,7 +241,7 @@ class JobEventSubscriberTest extends TestCase
 
         $subscriber = $this->subscriber;
         $subscriber->preUpdate($event);
-        
+
         if ($shouldBeAdded) {
             $this->assertContains($job, $subscriber->getAdd());
         } else {
@@ -254,7 +254,7 @@ class JobEventSubscriberTest extends TestCase
             $this->assertNotContains($job, $subscriber->getDelete());
         }
     }
-    
+
     /**
      * @covers ::postFlush()
      */
@@ -266,14 +266,14 @@ class JobEventSubscriberTest extends TestCase
             ->getMock();
         $subscriber->expects($this->never())
             ->method('getSolrClient');
-        
+
         $event = $this->getMockBuilder(PostFlushEventArgs::class)
             ->disableOriginalConstructor()
             ->getMock();
-        
+
         $subscriber->postFlush($event);
     }
-    
+
     /**
      * @param string $status
      * @param bool $shouldBeAdded
@@ -296,47 +296,45 @@ class JobEventSubscriberTest extends TestCase
             ->method('hasChangedField')
             ->with($this->equalTo('status'))
             ->willReturn(true);
-        
+
         $this->subscriber->preUpdate($event);
-        
+
         if ($shouldBeAdded) {
             $document = new SolrInputDocument();
             $this->entityToDocumentFilter->expects($this->once())
                 ->method('filter')
                 ->with($this->identicalTo($job))
                 ->willReturn($document);
-            
+
             $this->client->expects($this->once())
                 ->method('addDocument')
                 ->with($this->identicalTo($document));
         }
-        
+
         if ($shouldBeDeleted) {
             $ids = [1, 2, 3];
             $this->entityToDocumentFilter->expects($this->once())
                 ->method('getDocumentIds')
                 ->with($this->identicalTo($job))
                 ->willReturn($ids);
-            
+
             $this->client->expects($this->once())
                 ->method('deleteByIds')
                 ->with($this->identicalTo($ids));
         }
-        
+
         if ($shouldBeAdded || $shouldBeDeleted) {
             $this->client->expects($this->once())
                 ->method('commit');
-            $this->client->expects($this->once())
-                ->method('optimize');
         }
-        
+
         $event = $this->getMockBuilder(PostFlushEventArgs::class)
             ->disableOriginalConstructor()
             ->getMock();
-        
+
         $this->subscriber->postFlush($event);
     }
-    
+
     /**
      * @covers ::factory()
      */
@@ -350,10 +348,10 @@ class JobEventSubscriberTest extends TestCase
             ->withConsecutive([$this->equalTo('Solr/Options/Module')],
                               [$this->equalTo('Solr/Manager')])
             ->will($this->onConsecutiveCalls($options,$this->manager));
-        
+
         $this->assertInstanceOf(JobEventSubscriber::class, JobEventSubscriber::factory($container));
     }
-    
+
     /**
      * @return array
      */
