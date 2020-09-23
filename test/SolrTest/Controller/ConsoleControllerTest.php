@@ -19,6 +19,7 @@ use Solr\Options\ModuleOptions;
 use SolrClient;
 use Jobs\Entity\Job;
 use Jobs\Repository\Job as JobRepository;
+use Laminas\Console\Adapter\AdapterInterface;
 use Solr\Controller\ConsoleController;
 use stdClass;
 use Laminas\Mvc\Controller\PluginManager;
@@ -127,6 +128,12 @@ class ConsoleControllerTest extends TestCase
             ->method('__invoke')
             ->willReturn($this->progressBar);
 
+        $console = $this->getMockBuilder(AdapterInterface::class)
+            ->disableOriginalConstructor()
+            ->setMethods(['writeLine'])
+            ->getMockForAbstractClass();
+        $console->expects($this->any())->method('writeLine')->willReturn($console);
+
         $this->controller = new ConsoleController($this->client, $jobRepo, $this->progressBarFactory, $this->options);
 
         $this->params = $this->getMockBuilder(\Laminas\Mvc\Controller\Plugin\Params::class)
@@ -137,6 +144,7 @@ class ConsoleControllerTest extends TestCase
         $plugins->setService('params', $this->params);
 
         $this->controller->setPluginManager($plugins);
+        $this->controller->setConsole($console);
     }
 
     /**
@@ -147,7 +155,12 @@ class ConsoleControllerTest extends TestCase
     {
         $this->qb->expects($this->never())->method('limit');
         $this->qb->expects($this->never())->method('skip');
-        $this->params->expects($this->once())->method('__invoke')->willReturn(null);
+        $this->params->expects($this->any())->method('__invoke')
+            ->will($this->returnValueMap([
+                    ['batch', false, false],
+                    ['orgId', null, null]
+                ]
+            ));
         $this->cursor->expects($this->once())
             ->method('count')
             ->willReturn(0);

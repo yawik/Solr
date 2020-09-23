@@ -9,11 +9,10 @@
 
 namespace Solr\Controller;
 
-use Core\Console\ProgressBar;
 use Jobs\Entity\StatusInterface;
 use Jobs\Repository\Job as JobRepository;
+use Laminas\Mvc\Console\Controller\AbstractConsoleController;
 use SolrClient;
-use Laminas\Mvc\Controller\AbstractActionController;
 
 /**
  * @author Anthonius Munthi <me@itstoni.com>
@@ -21,7 +20,7 @@ use Laminas\Mvc\Controller\AbstractActionController;
  * @since 0.26
  * @package Solr\Controller
  */
-class ConsoleController extends AbstractActionController
+class ConsoleController extends AbstractConsoleController
 {
 
     /**
@@ -61,12 +60,15 @@ class ConsoleController extends AbstractActionController
     public function activeJobIndexAction()
     {
 
+        $console = $this->getConsole();
         $limit = $this->params('batch', false);
+        $skip = 0;
         if ($limit) {
             $file = getcwd() . '/var/cache/solr-index.dat';
             $skip = file_exists($file) ? file_get_contents($file) : 0;
             file_put_contents($file, ($skip + $limit));
         }
+
 
         $qb = $this->jobRepository->createQueryBuilder()
             ->hydrate(true)
@@ -74,14 +76,33 @@ class ConsoleController extends AbstractActionController
             ->field('isDraft')->equals(false)
             ->readOnly()
         ;
+
+        $orgId = $this->params('orgId');
+        if ($orgId) {
+            if (!preg_match('~^[a-f0-9]{24}$~', $orgId)) {
+                $console->writeLine("Invalid organization id value.");
+                exit(200);
+            }
+            if ($this->params('drop', false) && !$skip) {
+                $console->writeLine("Deleting all indexed jobs from organization: " . $orgId . PHP_EOL);
+
+                $this->solrClient->deleteByQuery('organizationId:"' . $orgId . '"');
+                $this->solrClient->commit(true, false);
+            }
+            $qb->field('organization')->equals($orgId);
+            if (!$skip) {
+                $console->writeLine("Filter: orgId: $orgId" . PHP_EOL);
+            }
+        }
+
         if ($limit) {
             $qb->limit($limit)->skip($skip);
         }
         $q  = $qb->getQuery();
         $jobs  = $q->execute();
 
-        $count = $jobs->count(true);
 
+        $count = $jobs->count(true);
         // check if there is any active job
         if (0 === $count) {
             if ($limit) {
@@ -90,15 +111,17 @@ class ConsoleController extends AbstractActionController
             return 'There is no active job' . PHP_EOL;
         }
 
-        if ($count > 2500 && !$limit) {
-            return 'There are to many active jobs, please use --batch';
-        }
-
         if ($limit) {
             $upper = ($skip + $limit);
             $total = $jobs->count();
             $upper = $upper > $total ? $total : $upper;
-            echo "Processing jobs $skip - $upper of $total", PHP_EOL;
+            $console->writeLine("Processing jobs $skip - $upper of $total", PHP_EOL);
+        } else {
+            $console->writeLine("Found $count jobs." . PHP_EOL);
+        }
+
+        if ($count > 2500 && !$limit) {
+            return 'There are to many active jobs, please use --batch';
         }
 
         $i = 1;
