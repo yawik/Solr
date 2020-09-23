@@ -31,7 +31,7 @@ class Module implements
 {
     use VersionProviderTrait;
 
-    const VERSION = '1.1.1';
+    const VERSION = '1.1.2';
 
     public function getConsoleUsage(AdapterInterface $console)
     {
