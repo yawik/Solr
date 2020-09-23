@@ -115,7 +115,7 @@ class ConsoleController extends AbstractConsoleController
             $upper = ($skip + $limit);
             $total = $jobs->count();
             $upper = $upper > $total ? $total : $upper;
-            $console->writeLine("Processing jobs $skip - $upper of $total", PHP_EOL);
+            $console->writeLine("Processing jobs $skip - $upper of $total" . PHP_EOL);
         } else {
             $console->writeLine("Found $count jobs." . PHP_EOL);
         }
