@@ -39,7 +39,7 @@ class Module implements ConsoleUsageProviderInterface, VersionProviderInterface
             ['', 'So you can do something like:'],
             ['', 'while true; do [yawik] solr index job --batch 2500 || break; done'],
             ['', ''],
-            ['--orgid=<MongoId>', 'Only index the jobs from the specified organization'],
+            ['--orgId=<MongoId>', 'Only index the jobs from the specified organization'],
             ['', 'by its id.'],
             ['', ''],
             ['--drop', 'Prior to index jobs, delete all indexed jobs from the solr index.'],
