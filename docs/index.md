@@ -207,7 +207,7 @@ you can initially index all active jobs by:
 
 
 
-## Configuration
+## Parameters
 
 Since 0.9 you can use the following parameters to search
 
