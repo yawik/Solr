@@ -26,6 +26,12 @@ composer require yawik/solr
 Documentation
 -------------
 
+Documentation is build via:
+
+```
+mkdocs gh-deploy --remote-branch gh-pages --config-file mkdocs/mkdocs.yml --site-dir=build
+```
+
 https://yawik.github.io/Solr/
 
 Example
