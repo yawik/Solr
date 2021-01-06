@@ -1,5 +1,13 @@
 # Solr
 
+YAWIK entities can be searched with the full text function of mongodb. This feature is great and usually sufficient, for
+example, to offer jobs on your own career site. If you want to use YAWIK as a job board, the requirements increase. A
+job exchange must be able to provide many jobs to many visitors. You need a search engine that scales. Currently Solr is
+supported.
+
+With the solr module, the search is outsourced to the Solr search engine. The module synchronizes the search index with
+the jobs from the MongoDB.
+
 ## Requirements
 
 current development is using:
@@ -131,14 +139,13 @@ To configure the solr connection copy the Solr options file into you autoload di
     at least one field needs JTS. So if you want to use the contributed schema, you have to install JTS
     via:
 
-    .. code-block:: sh
-
+    ```
         mkdir tmp
         cd tmp
         wget wget https://downloads.sourceforge.net/project/jts-topo-suite/jts/1.14/jts-1.14.zip
         unzip jts-1.14.zip
         cp lib/*.jar /opt/solr-6.6.0/server/solr-webapp/webapp/WEB-INF/lib/
-
+    ```
 
     Or take a look at the issue https://github.com/yawik/Solr/issues/4 . Maybe the fiels using JTS is not needed by
     YAWIK any more.
@@ -197,15 +204,7 @@ you can initially index all active jobs by:
 | *_MultiString*                   | Used by facets. E.g. region_MultiString, industry_MultiString, profession_MultiString|
 
 
-## Description
 
-YAWIK entities can be searched with the full text function of mongodb. This feature is great and usually sufficient, for
-example, to offer jobs on your own career site. If you want to use YAWIK as a job board, the requirements increase. A
-job exchange must be able to provide many jobs to many visitors. You need a search engine that scales. Currently Solr is
-supported.
-
-With the solr module, the search is outsourced to the Solr search engine. The module synchronizes the search index with
-the jobs from the MongoDB.
 
 
 ## Configuration
