@@ -5,7 +5,7 @@
 current development is using:
 
 * php5-solr (pecl >= 2.4.0)
-* apache solr (6.6.5) (solr >7 is currently not working)
+* apache solr
 
 !!! note 
     Debian 8 ships with php5-solr 1.0.2. You can build your solr extension by:
