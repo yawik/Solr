@@ -29,7 +29,7 @@ Documentation
 Documentation is build via:
 
 ```
-mkdocs gh-deploy --remote-branch gh-pages --config-file mkdocs/mkdocs.yml --site-dir=build
+mkdocs gh-deploy --remote-branch gh-pages
 ```
 
 https://yawik.github.io/Solr/

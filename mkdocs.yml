@@ -1,8 +1,11 @@
 site_name: Solr
+site_description: Documentation yawik solr module
 site_url: https://yawik.github.io/Solr/
 copyright: 'Copyright &copy; 2021 Carsten Bleek'
 repo_name: yawik/solr
 repo_url: https://github.com/yawik/Solr
+site_dir: build/site
+theme: material
 markdown_extensions:
   - codehilite:
       guess_lang: true
