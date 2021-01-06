@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="None">
         
-        
+        <link rel="canonical" href="https://yawik.github.io/Solr/">
         <link rel="shortcut icon" href="img/favicon.ico">
         <title>Solr</title>
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -24,6 +24,10 @@
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
                 <a class="navbar-brand" href=".">Solr</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
                 <!-- Expanded navigation -->
                 <div id="navbar-collapse" class="navbar-collapse collapse">
@@ -34,6 +38,9 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/yawik/Solr/edit/master/docs/index.md" class="nav-link">Edit on yawik/solr</a>
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -52,13 +59,32 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="2"><a href="#solr" class="nav-link">Solr</a>
+            <li class="nav-item" data-level="1"><a href="#solr" class="nav-link">Solr</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#requirements" class="nav-link">Requirements</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            
-            <li class="nav-item" data-level="1"><a href="#available-configuration-options" class="nav-link">Available configuration options</a>
+            <li class="nav-item" data-level="2"><a href="#installation" class="nav-link">Installation</a>
               <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#configuration" class="nav-link">Configuration</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#schema" class="nav-link">Schema</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#description" class="nav-link">Description</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#configuration_1" class="nav-link">Configuration</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -66,214 +92,315 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<p>.. index:: Solr
-.. _solr:</p>
-<h2 id="solr">Solr</h2>
-<p>.. sidebar:: Solr</p>
-<p>=======================  ==========================================
-   <code>Repository</code>            <code>yawik/solr</code>_
-   <code>coverage</code>              |coverage|
-   <code>buid</code>                  |build|
-   =======================  ==========================================</p>
-<p>.. |coverage| raw:: html</p>
-<pre><code>&lt;a href='https://coveralls.io/github/yawik/Solr?branch=develop'&gt;&lt;img src='https://coveralls.io/repos/github/yawik/Solr/badge.svg?branch=develop' alt='Coverage Status' /&gt;&lt;/a&gt;
-</code></pre>
-<p>.. |build| raw:: html</p>
-<pre><code>    &lt;a href="https://travis-ci.org/yawik/Solr"&gt;&lt;img src="https://travis-ci.org/yawik/Solr.svg?branch=master"&gt;&lt;/a&gt;
-</code></pre>
-<p>Requirements
-^^^^^^^^^^^^</p>
+<h1 id="solr">Solr<a class="headerlink" href="#solr" title="Permanent link">&para;</a></h1>
+<h2 id="requirements">Requirements<a class="headerlink" href="#requirements" title="Permanent link">&para;</a></h2>
 <p>current development is using:</p>
 <ul>
 <li>php5-solr (pecl &gt;= 2.4.0)</li>
 <li>apache solr (6.6.5) (solr &gt;7 is currently not working)</li>
 </ul>
-<p>.. note:: Debian 8 ships with php5-solr 1.0.2. You can build your solr extension by:</p>
-<pre><code>.. code-block:: sh
-
-    aptitude install php5-dev libcurl4-openssl-dev libxml2-dev
-    pecl install solr
-    echo "extension=solr.so" &gt; /etc/php5/mods-available/solr.ini
-    php5enmod solr
-    php -m| grep solr # should show the activated solr extension
-</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Debian 8 ships with php5-solr 1.0.2. You can build your solr extension by:</p>
+</div>
+<div class="highlight"><pre><span></span><code>aptitude install php5-dev libcurl4-openssl-dev libxml2-dev
+pecl install solr
+<span class="nb">echo</span> <span class="s2">&quot;extension=solr.so&quot;</span> &gt; /etc/php5/mods-available/solr.ini
+php5enmod solr
+php -m<span class="p">|</span> grep solr <span class="c1"># should show the activated solr extension</span>
+</code></pre></div>
 <p>Good resources on how to install solr:</p>
 <ul>
-<li>https://cwiki.apache.org/confluence/display/solr/Installing+Solr</li>
-<li>http://nl3.php.net/manual/en/solr.installation.php</li>
+<li><a href="https://cwiki.apache.org/confluence/display/solr/Installing+Solr">https://cwiki.apache.org/confluence/display/solr/Installing+Solr</a></li>
+<li><a href="http://nl3.php.net/manual/en/solr.installation.php">http://nl3.php.net/manual/en/solr.installation.php</a></li>
 </ul>
 <p>Here is the way we've installed it in our Demo. First, you need JAVA. On Debian 8 you can install it via:</p>
-<p>.. code-block:: sh</p>
-<pre><code>apt install -t jessie-backports  openjdk-8-jre-headless ca-certificates-java
-</code></pre>
+<div class="highlight"><pre><span></span><code>apt install -t jessie-backports  openjdk-8-jre-headless ca-certificates-java
+</code></pre></div>
 <p>then get a binary version of solr. The binary package contains an installation script. So unzip/untar it and execute the
 installation script. By default you'll find your solr server in :file:<code>/opt/solr/</code>. The solr data are stored in
 :file:<code>/var/solr/data/</code>. After the installation you can remove the downloaded and extracted files.</p>
-<p>.. code-block:: sh</p>
-<blockquote>
-<p>wget https://www-us.apache.org/dist/lucene/solr/6.6.5/solr-6.6.5.tgz
+<div class="highlight"><pre><span></span><code>wget https://www-us.apache.org/dist/lucene/solr/6.6.5/solr-6.6.5.tgz
 tar xzf solr-6.6.5.tgz
-solr-6.6.5/bin/install_solr_service.sh solr-6.6.5.tgz</p>
-</blockquote>
+solr-6.6.5/bin/install_solr_service.sh solr-6.6.5.tgz
+</code></pre></div>
 <p>After the installation, solr server ist running at localhost port 8983. This is enough for yawik to be able the access
 the solr Server.</p>
 <p>If you want to be able the access the solr frontend via https without touching the solr installation at all, an apache
 proxy may be a solution. If you want to use this solution, you have to enable the apache proxy module.</p>
-<p>.. code-block:: sh</p>
-<pre><code>&gt; a2enmod proxy proxy_http
-</code></pre>
+<div class="highlight"><pre><span></span><code>    &gt; a2enmod proxy proxy_http
+</code></pre></div>
 <p>For setting up an apache Proxy you can use a Virtual Host which looks like</p>
-<p>.. code-block:: sh</p>
-<pre><code>&lt;VirtualHost *:8443&gt;
+<div class="highlight"><pre><span></span><code>    &lt;VirtualHost *:8443&gt;
 
-     ProxyRequests Off
-     &lt;Proxy *&gt;
-        AuthType Basic
-        AuthName "Solr Search"
-        AuthBasicProvider file
-        AuthUserFile /etc/apache2/solr.passwd
-        Require valid-user
-        Order deny,allow
-        Allow from all
-     &lt;/Proxy&gt;
+         ProxyRequests Off
+         &lt;Proxy *&gt;
+            AuthType Basic
+            AuthName &quot;Solr Search&quot;
+            AuthBasicProvider file
+            AuthUserFile /etc/apache2/solr.passwd
+            Require valid-user
+            Order deny,allow
+            Allow from all
+         &lt;/Proxy&gt;
 
-     ProxyPass / http://localhost:8983/
-     ProxyPassReverse / http://localhost:8983/
+         ProxyPass / http://localhost:8983/
+         ProxyPassReverse / http://localhost:8983/
 
-&lt;/VirtualHost&gt;
-</code></pre>
+    &lt;/VirtualHost&gt;
+</code></pre></div>
 <p>Set the the user/pass in :file:<code>/etc/apache2/solr.passwd</code> via :command:<code>htpasswd /etc/apache2/solr.passwd username</code></p>
-<p>Installation
-^^^^^^^^^^^^</p>
-<p>to install the <code>yawik/solr</code>_ Modul into a running YAWIK, change into the <code>YAWIK/modules</code> directory and clone
+<h2 id="installation">Installation<a class="headerlink" href="#installation" title="Permanent link">&para;</a></h2>
+<p>to install the <a href="https://github.com/yawik/Solr">yawik/solr</a> Modul into a running YAWIK, change into the <code>YAWIK/modules</code> directory and clone
 the yawik/solr module .</p>
-<p>.. code-block:: sh</p>
-<p>git clone https://github.com/yawik/Solr</p>
+<div class="highlight"><pre><span></span><code> git clone https://github.com/yawik/Solr
+</code></pre></div>
 <p>To activate the module create a php file named <code>WhateverYouWant.module.php</code> in your config autoload directory containing:</p>
-<p>.. code-block:: php</p>
-<p>&lt;?php
- return ['Solr'];</p>
+<div class="highlight"><pre><span></span><code> &lt;?php
+ return [&#39;Solr&#39;];
+</code></pre></div>
 <p>To configure the solr connection copy the Solr options file into you autoload directory and adjust the values.</p>
-<h1 id="available-configuration-options">Available configuration options</h1>
-<p>.. table:: Options
-    :widths: auto</p>
-<pre><code>====================== ============== ===================================================================================
- Option                 Type           Description
-====================== ============== ===================================================================================
- secure                 bool           Use SSL (https) [true] or not [false]
- hostname               string         Hostname of the solr server
- port                   int            The TCP port. Default: 8983
- username               string         Username used for HTTP Authentication (if needed)
- password               string         Password of the HTTP Authentocation
- jobsPath               string         The path to the solr jobs index
- facetFields            array          List of facet fields. Each entry must be an array with at least the key "name".
-                                       An optional key "label" specifies a headline for the factes results.
- facetLimit             int            Maps to facet.limit. Sets the maximum number of constraint counts that should be
-                                       returned for the facet fields.
- facetMinCount          int            Sets the minimum counts for facet fields that should be included in the response
- parameterNames         array          Maps query parameter names to solr field names. (see `.dist file`_ for examples)
- sorts                  array          Specify the sort order used for an empty search.
-                                       Must be an associated array where the key is the field name and the value
-                                       is the sort order.
-                                       (Default: [ "datePublishStart" =&gt; \SolrQuery::ORDER_DESC ] )
- filterQueries          array          todo
- boostQueries           array          todo
-====================== ============== ===================================================================================
-</code></pre>
-<p>.. _.dist file: https://github.com/yawik/Solr/blob/master/config/solr.moduleoptions.local.php.dist</p>
+<h2 id="configuration">Configuration<a class="headerlink" href="#configuration" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>secure</td>
+<td>bool</td>
+<td>Use SSL (https) [true] or not [false]</td>
+</tr>
+<tr>
+<td>hostname</td>
+<td>string</td>
+<td>Hostname of the solr server</td>
+</tr>
+<tr>
+<td>port</td>
+<td>int</td>
+<td>The TCP port. Default: 8983</td>
+</tr>
+<tr>
+<td>username</td>
+<td>string</td>
+<td>Username used for HTTP Authentication (if needed)</td>
+</tr>
+<tr>
+<td>password</td>
+<td>string</td>
+<td>Password of the HTTP Authentication</td>
+</tr>
+<tr>
+<td>jobsPath</td>
+<td>string</td>
+<td>The path to the solr jobs index</td>
+</tr>
+<tr>
+<td>facetFields</td>
+<td>array</td>
+<td>List of facet fields. Each entry must be an array with at least the key "name".<br>An optional key "label" specifies a headline for the factes results.</td>
+</tr>
+<tr>
+<td>facetLimit</td>
+<td>int</td>
+<td>Maps to facet.limit. Sets the maximum number of constraint counts that should be returned for the facet fields.</td>
+</tr>
+<tr>
+<td>facetMinCount</td>
+<td>int</td>
+<td>Sets the minimum counts for facet fields that should be included in the response</td>
+</tr>
+<tr>
+<td>parameterNames</td>
+<td>array</td>
+<td>Maps query parameter names to solr field names. (see <a href="https://github.com/yawik/Solr/blob/master/config/solr.moduleoptions.local.php.dist">dist file</a> for examples)</td>
+</tr>
+<tr>
+<td>sorts</td>
+<td>array</td>
+<td>Specify the sort order used for an empty search.<br>Must be an associated array where the key is the field name and the value  is the sort order.<br>(Default: [ "datePublishStart" =&gt; \SolrQuery::ORDER_DESC ])</td>
+</tr>
+<tr>
+<td>filterQueries</td>
+<td>array</td>
+<td>todo</td>
+</tr>
+<tr>
+<td>boostQueries</td>
+<td>array</td>
+<td>todo</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code>  cp module/Solr/config/solr.moduleoptions.local.php.dist config/autoload/solr.moduleoptions.local.php
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Solr needs a schema. The schema is currently a work in progress. You can use the schema in <a href="https://github.com/yawik/Solr/tree/master/contrib">Solr/contrib</a>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>at least one field needs JTS. So if you want to use the contributed schema, you have to install JTS
+via:</p>
 <p>.. code-block:: sh</p>
-<p>cp module/Solr/config/solr.moduleoptions.local.php.dist config/autoload/solr.moduleoptions.local.php</p>
-<p>.. note::</p>
-<p>Solr needs a schema. The schema is currently a work in progress. You can use the schema in <code>Solr/contrib</code>_.</p>
-<p>.. _yawik/solr: https://github.com/yawik/Solr
-.. _Solr/contrib: https://github.com/yawik/Solr/tree/master/contrib</p>
-<p>.. note:: at least one field needs JTS. So if you want to use the contributed schema, you have to install JTS
-    via:</p>
-<pre><code>.. code-block:: sh
+<div class="codehilite"><pre><span></span><code><span class="n">mkdir</span> <span class="n">tmp</span>
+<span class="n">cd</span> <span class="n">tmp</span>
+<span class="n">wget</span> <span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">downloads</span><span class="o">.</span><span class="n">sourceforge</span><span class="o">.</span><span class="n">net</span><span class="o">/</span><span class="n">project</span><span class="o">/</span><span class="n">jts</span><span class="o">-</span><span class="n">topo</span><span class="o">-</span><span class="n">suite</span><span class="o">/</span><span class="n">jts</span><span class="o">/</span><span class="mf">1.14</span><span class="o">/</span><span class="n">jts</span><span class="o">-</span><span class="mf">1.14</span><span class="o">.</span><span class="n">zip</span>
+<span class="n">unzip</span> <span class="n">jts</span><span class="o">-</span><span class="mf">1.14</span><span class="o">.</span><span class="n">zip</span>
+<span class="n">cp</span> <span class="n">lib</span><span class="o">/*.</span><span class="n">jar</span> <span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">solr</span><span class="o">-</span><span class="mf">6.6</span><span class="o">.</span><span class="mi">0</span><span class="o">/</span><span class="n">server</span><span class="o">/</span><span class="n">solr</span><span class="o">-</span><span class="n">webapp</span><span class="o">/</span><span class="n">webapp</span><span class="o">/</span><span class="n">WEB</span><span class="o">-</span><span class="bp">INF</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span>
+</code></pre></div>
 
-    mkdir tmp
-    cd tmp
-    wget wget https://downloads.sourceforge.net/project/jts-topo-suite/jts/1.14/jts-1.14.zip
-    unzip jts-1.14.zip
-    cp lib/*.jar /opt/solr-6.6.0/server/solr-webapp/webapp/WEB-INF/lib/
-
-
-Or take a look at the issue https://github.com/yawik/Solr/issues/4 . Maybe the fiels using JTS is not needed by
-YAWIK any more.
-</code></pre>
-<p>If you want to set a user/password for solr you first have to enable an <code>Authorization Plugin</code>_.  Since Solr6 you can do
+<p>Or take a look at the issue <a href="https://github.com/yawik/Solr/issues/4">https://github.com/yawik/Solr/issues/4</a> . Maybe the fiels using JTS is not needed by
+YAWIK any more.</p>
+</div>
+<p>If you want to set a user/password for solr you first have to enable an <a href="https://lucene.apache.org/solr/guide/6_6/basic-authentication-plugin.html">Authorization
+Plugin</a>.  Since Solr6 you can do
 so by copying the following json to :file:<code>/var/solr/data/security.json</code></p>
-<p>.. ::</p>
-<pre><code>{
-"authentication":{
-   "blockUnknown": true,
-   "class":"solr.BasicAuthPlugin",
-   "credentials":{"solr":"IV0EHq1OnNrj6gvRCwvFwTrZ1+z1oBbnQdiVC3otuq0= Ndd7LKvVBAaZIF0QAVi1ekCfAJXr1GGfLtRUXhgrF8c="}
-},
-"authorization":{
-   "class":"solr.RuleBasedAuthorizationPlugin",
-   "permissions":[{"name":"security-edit",
-      "role":"admin"}],
-   "user-role":{"solr":"admin"}
-}}
-</code></pre>
+<div class="highlight"><pre><span></span><code>    {
+    &quot;authentication&quot;:{
+       &quot;blockUnknown&quot;: true,
+       &quot;class&quot;:&quot;solr.BasicAuthPlugin&quot;,
+       &quot;credentials&quot;:{&quot;solr&quot;:&quot;IV0EHq1OnNrj6gvRCwvFwTrZ1+z1oBbnQdiVC3otuq0= Ndd7LKvVBAaZIF0QAVi1ekCfAJXr1GGfLtRUXhgrF8c=&quot;}
+    },
+    &quot;authorization&quot;:{
+       &quot;class&quot;:&quot;solr.RuleBasedAuthorizationPlugin&quot;,
+       &quot;permissions&quot;:[{&quot;name&quot;:&quot;security-edit&quot;,
+          &quot;role&quot;:&quot;admin&quot;}],
+       &quot;user-role&quot;:{&quot;solr&quot;:&quot;admin&quot;}
+    }}
+</code></pre></div>
 <p>This will add a user "solr" with the password "SolrRocks". After that you can change the password with</p>
-<p>.. _Authorization Plugin: https://lucene.apache.org/solr/guide/6_6/basic-authentication-plugin.html</p>
-<p>.. code-block:: sh</p>
-<pre><code>curl --user solr:SolrRocks http://localhost:8983/solr/admin/authentication -H 'Content-type:application/json' \
-    -d '{"set-user": {"solr" : "myPassword"}}'
-</code></pre>
+<div class="highlight"><pre><span></span><code>    curl --user solr:SolrRocks http://localhost:8983/solr/admin/authentication -H &#39;Content-type:application/json&#39; \
+        -d &#39;{&quot;set-user&quot;: {&quot;solr&quot; : &quot;myPassword&quot;}}&#39;
+</code></pre></div>
 <p>you can initially index all active jobs by:</p>
-<p>.. code-block:: sh</p>
-<p>bin/console solr index job</p>
-<p>Schema
-^^^^^^</p>
-<p>==================================== ===================================================================================
- fields
-==================================== ===================================================================================
- id                                   Primary key
- applyId                              unique ID for the application
- title                                Job title
- city                                 city of the job opening
- dateCreated
- datePublishStart
- datePublishEnd
- dateModified
- lang                                 language of the job opening
- location                             location of the job posting (string)
- organizationName                     name of the hiring Organziation
- companyLogo                          logo of the hiring Organization
- entityName                           possible values "job" or "location"</p>
-<p><em>_MultiString</em>                       Used by facets. E.g. region_MultiString, industry_MultiString,
-                                      profession_MultiString
-==================================== ===================================================================================</p>
-<p>Description
-^^^^^^^^^^^</p>
+<div class="highlight"><pre><span></span><code> bin/console solr index job
+</code></pre></div>
+<h2 id="schema">Schema<a class="headerlink" href="#schema" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>fields</th>
+<th>description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>Primary key</td>
+</tr>
+<tr>
+<td>applyId</td>
+<td>unique ID for the application</td>
+</tr>
+<tr>
+<td>title</td>
+<td>Job title</td>
+</tr>
+<tr>
+<td>city</td>
+<td>city of the job opening</td>
+</tr>
+<tr>
+<td>dateCreated</td>
+<td></td>
+</tr>
+<tr>
+<td>datePublishStart</td>
+<td></td>
+</tr>
+<tr>
+<td>datePublishEnd</td>
+<td></td>
+</tr>
+<tr>
+<td>dateModified</td>
+<td></td>
+</tr>
+<tr>
+<td>lang</td>
+<td>language of the job opening</td>
+</tr>
+<tr>
+<td>location</td>
+<td>location of the job posting (string)</td>
+</tr>
+<tr>
+<td>organizationName</td>
+<td>name of the hiring Organziation</td>
+</tr>
+<tr>
+<td>companyLogo</td>
+<td>logo of the hiring Organization</td>
+</tr>
+<tr>
+<td>entityName</td>
+<td>possible values "job" or "location"</td>
+</tr>
+<tr>
+<td><em>_MultiString</em></td>
+<td>Used by facets. E.g. region_MultiString, industry_MultiString, profession_MultiString</td>
+</tr>
+</tbody>
+</table>
+<h2 id="description">Description<a class="headerlink" href="#description" title="Permanent link">&para;</a></h2>
 <p>YAWIK entities can be searched with the full text function of mongodb. This feature is great and usually sufficient, for
 example, to offer jobs on your own career site. If you want to use YAWIK as a job board, the requirements increase. A
 job exchange must be able to provide many jobs to many visitors. You need a search engine that scales. Currently Solr is
 supported.</p>
 <p>With the solr module, the search is outsourced to the Solr search engine. The module synchronizes the search index with
 the jobs from the MongoDB.</p>
-<p>Configuration
-^^^^^^^^^^^^^</p>
+<h2 id="configuration_1">Configuration<a class="headerlink" href="#configuration_1" title="Permanent link">&para;</a></h2>
 <p>Since 0.9 you can use the following parameters to search</p>
-<p>==================================== ===================================================================================
- parameter
-==================================== ===================================================================================
- l                                    location
- d                                    distance
- q                                    query
- organizationTag                      company
- profession_Mutistring                profession
- industry_Multistring                 industry
- employmentType_Multistring           employmentType
-==================================== ===================================================================================</p></div>
+<table>
+<thead>
+<tr>
+<th>parameter</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>l</td>
+<td>location</td>
+</tr>
+<tr>
+<td>d</td>
+<td>distance</td>
+</tr>
+<tr>
+<td>q</td>
+<td>query</td>
+</tr>
+<tr>
+<td>organizationTag</td>
+<td>company</td>
+</tr>
+<tr>
+<td>profession_Mutistring</td>
+<td>profession</td>
+</tr>
+<tr>
+<td>industry_Multistring</td>
+<td>industry</td>
+</tr>
+<tr>
+<td>employmentType_Multistring</td>
+<td>employmentType</td>
+</tr>
+</tbody>
+</table></div>
             </div>
         </div>
 
         <footer class="col-md-12">
             <hr>
+                <p>Copyright &copy; 2021 Carsten Bleek</p>
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>
@@ -352,5 +479,5 @@ the jobs from the MongoDB.</p>
 
 <!--
 MkDocs version : 1.1.2
-Build Date UTC : 2021-01-06 11:53:03.978946+00:00
+Build Date UTC : 2021-01-06 13:00:05.505794+00:00
 -->
