@@ -5,9 +5,16 @@
 build.properties
 .phpunit.result.cache
 
+mkdocs/build/
+
 #
 # Eclipse project files
 #
 /.settings/
 /.buildpath
 /.project
+
+# Joe's Backup files
+.*~
+*~
+

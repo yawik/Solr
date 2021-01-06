@@ -26,8 +26,7 @@ composer require yawik/solr
 Documentation
 -------------
 
-http://yawik.readthedocs.io/en/latest/modules/solr/index.html
-
+https://yawik.github.io/Solr/
 
 Example
 -------
